@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "image-server/**" # Runs only when files inside your image-server folder change
 
 jobs:
   deploy:

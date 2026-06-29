@@ -21,10 +21,16 @@ jobs:
         env:
           SSH_USER: ${{ secrets.VM2_USER }}
         run: |
-          # Use SSH via PowerShell to run deployment commands on the remote VM
-          ssh -i "$HOME\.ssh\id_ed25519" -o StrictHostKeyChecking=no "${env:SSH_USER}@192.168.0.202" @"
-            cd ~/react-photo-app
-            git pull origin main
-            docker compose up -d --remove-orphans
-            docker exec photo-nginx nginx -s reload
-          "@
+          # 1. Define the raw commands inside a clean PowerShell array
+          $commands = @(
+            "cd ~/react-photo-app",
+            "git pull origin main",
+            "docker-compose up -d",
+            "docker exec photo-nginx nginx -s reload"
+          )
+        
+          # 2. Join them with a pure Linux line feed (`n) to strip any Windows Carriage Returns (\r)
+          $linuxScript = $commands -join "`n"
+        
+          # 3. Stream the formatted script cleanly into your native Windows SSH client
+          $linuxScript | ssh -i "$env:KEY_PATH" -o StrictHostKeyChecking=no "${env:SSH_USER}@192.168.0.202" bash

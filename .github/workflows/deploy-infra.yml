@@ -22,7 +22,7 @@ jobs:
           SSH_USER: ${{ secrets.VM2_USER }}
         run: |
           # Use SSH via PowerShell to run deployment commands on the remote VM
-          ssh -i "$HOME\.ssh\id_proxmox_infra" -o StrictHostKeyChecking=no "${env:SSH_USER}@192.168.0.202" @"
+          ssh -i "$HOME\.ssh\id_ed25519" -o StrictHostKeyChecking=no "${env:SSH_USER}@192.168.0.202" @"
             cd /srv/image-server
             git pull origin main
             docker compose up -d --remove-orphans

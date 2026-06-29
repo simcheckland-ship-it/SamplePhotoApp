@@ -4,33 +4,25 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'image-server/**'
 
 jobs:
   deploy:
-    # Forces this pipeline to run locally on your Windows laptop agent
     runs-on: [self-hosted, windows]
 
     steps:
-      # 1. Downloads the latest configuration files from GitHub onto your laptop
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    - name: Checkout Code
+      uses: actions/checkout@v5
 
-      # 2. Uses PowerShell to SSH into your Proxmox VM and reload Nginx
-      - name: SSH to Proxmox and Apply Changes
-        shell: powershell
-        env:
-          SSH_USER: ${{ secrets.VM2_USER }}
-        run: |
-          # 1. Define the raw commands inside a clean PowerShell array
-          $commands = @(
-            "cd ~/react-photo-app",
-            "git pull origin main",
-            "docker-compose up -d",
-            "docker exec photo-nginx nginx -s reload"
-          )
+    - name: SSH to Proxmox and Apply Changes
+      shell: powershell
+      env:
+        SSH_USER: ${{ secrets.VM_USER }}
+        KEY_PATH: C:\Users\Developer\.ssh\id_ed25519
+      run: |
+        # Write clean Linux script text directly to a file using pure Unix line ending formatting (LF)
+        $linuxScript = "cd ~/react-photo-app && git pull origin main && docker-compose up -d && docker exec photo-nginx nginx -s reload"
         
-          # 2. Join them with a pure Linux line feed (`n) to strip any Windows Carriage Returns (\r)
-          $linuxScript = $commands -join "`n"
-        
-          # 3. Stream the formatted script cleanly into your native Windows SSH client
-          $linuxScript | ssh -i "$env:KEY_PATH" -o StrictHostKeyChecking=no "${env:SSH_USER}@192.168.0.202" bash
+        # Execute the connection cleanly as an explicit argument parameter string
+        ssh -i "$env:KEY_PATH" -o StrictHostKeyChecking=no "${env:SSH_USER}@192.168.0.202" "$linuxScript"

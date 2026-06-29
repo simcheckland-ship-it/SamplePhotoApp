@@ -1,4 +1,33 @@
+name: Deploy Image Server Changes
+
 on:
   push:
+    branches:
+      - main
     paths:
-      - "image-server/**"
+      - 'image-server/**' # Runs only when files inside your image-server folder change
+
+jobs:
+  deploy:
+    # Forces this pipeline to run locally on your Windows laptop agent
+    runs-on: [self-hosted, windows]
+
+    steps:
+    # 1. Downloads the latest configuration files from GitHub onto your laptop
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Uses PowerShell to SSH into your Proxmox VM and reload Nginx
+    - name: SSH to Proxmox and Apply Changes
+      shell: powershell
+      env:
+        SSH_PASS: ${{ secrets.VM_PASSWORD }}
+        SSH_USER: ${{ secrets.VM_USER }}
+      run: |
+        # Use SSH via PowerShell to run deployment commands on the remote VM
+        sshpass -p "$env:SSH_PASS" ssh -o StrictHostKeyChecking=no "${env:SSH_USER}@192.168.0.202" @"
+          cd /srv/image-server
+          git pull origin main
+          docker compose up -d --remove-orphans
+          docker exec photo-nginx nginx -s reload
+        "@

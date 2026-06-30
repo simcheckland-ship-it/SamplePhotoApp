@@ -18,7 +18,4 @@ jobs:
       env:
         SSH_USER: ${{ secrets.VM_USER }}
         KEY_PATH: C:\Users\Developer\.ssh\id_ed25519
-      run: |
-        # Standard, native Linux SSH execution. Simple, clear, and bulletproof.
-         ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${SSH_USER}@192.168.0.202" 
-           "cd ~/react-photo-app && git pull origin main && docker-compose up -d && docker exec photo-nginx nginx -s reload"
+      run: ssh -i ~/.ssh/id_proxmox_infra -o StrictHostKeyChecking=no "${SSH_USER}@192.168.0.202" "cd ~/react-photo-app && git pull origin main && docker-compose up -d && docker exec photo-nginx nginx -s reload"

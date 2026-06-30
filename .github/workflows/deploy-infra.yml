@@ -24,6 +24,5 @@ jobs:
           git reset --hard origin/main && 
           cd image-server && 
           docker compose down && 
-          docker rm -f photo-nginx || true && 
           docker compose up -d
         "

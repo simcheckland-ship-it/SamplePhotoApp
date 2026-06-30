@@ -20,9 +20,8 @@ jobs:
         env:
           SSH_USER: ${{ secrets.VM1_USER }}
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" '
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
           if [ ! -d "~/react-photo-app/.git" ]; then
-            echo "Repository missing or broken. Re-cloning..."
             rm -rf ~/react-photo-app
             git clone https://github.com ~/react-photo-app
           fi &&
@@ -32,5 +31,5 @@ jobs:
           git reset --hard origin/main && 
           cd api-server && 
           docker compose down && 
-          docker compose up -d --build
-        '
+          docker compose up -d --build "
+        

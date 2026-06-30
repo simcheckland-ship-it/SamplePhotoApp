@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted, windows]
+    runs-on: [self-hosted, linux] 
 
     steps:
     - name: Checkout Code
@@ -19,8 +19,6 @@ jobs:
         SSH_USER: ${{ secrets.VM_USER }}
         KEY_PATH: C:\Users\Developer\.ssh\id_ed25519
       run: |
-        # Write clean Linux script text directly to a file using pure Unix line ending formatting (LF)
-        $linuxScript = "cd ~/react-photo-app && git pull origin main && docker-compose up -d && docker exec photo-nginx nginx -s reload"
-        
-        # Execute the connection cleanly as an explicit argument parameter string
-        ssh -i "$env:KEY_PATH" -o StrictHostKeyChecking=no "${env:SSH_USER}@192.168.0.202" "$linuxScript"
+        # Standard, native Linux SSH execution. Simple, clear, and bulletproof.
+         ssh -i ~/.ssh/id_proxmox_infra -o StrictHostKeyChecking=no "${SSH_USER}@192.168.0.202" \
+           "cd ~/react-photo-app && git pull origin main && docker-compose up -d && docker exec photo-nginx nginx -s reload"

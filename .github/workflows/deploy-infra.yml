@@ -22,6 +22,8 @@ jobs:
           git clean -fd && 
           git fetch origin main && 
           git reset --hard origin/main && 
-          docker compose -f .github/workflows/docker-compose.yml down && 
-          docker compose -f .github/workflows/docker-compose.yml up -d
+          echo '=== SEARCHING FOR DOCKER-COMPOSE.YML ===' &&
+          find . -name '*docker-compose*' -o -name '*compose.yml*' &&
+          echo '=== CURRENT DIRECTORY STRUCTURE ===' &&
+          ls -R
         "

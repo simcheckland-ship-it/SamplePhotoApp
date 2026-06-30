@@ -21,9 +21,10 @@ jobs:
           SSH_USER: ${{ secrets.VM1_USER }}
         run: |
           ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
-          if [ ! -d "~/react-photo-app/.git" ]; then
-            rm -rf ~/react-photo-app
-            git clone https://github.com ~/react-photo-app
+          if [ ! -d \"~/react-photo-app/.git\" ]; then
+            echo 'Repository missing or broken. Re-cloning via SSH...' &&
+            rm -rf ~/react-photo-app &&
+            git clone git@github.com:simcheckland-ship-it/SamplePhotoApp.git ~/react-photo-app
           fi &&
           cd ~/react-photo-app && 
           git clean -fd && 
@@ -32,4 +33,5 @@ jobs:
           cd api-server && 
           docker compose down && 
           docker compose up -d --build "
+        
         

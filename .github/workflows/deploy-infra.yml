@@ -22,7 +22,7 @@ jobs:
           git clean -fd && 
           git fetch origin main && 
           git reset --hard origin/main && 
-          cd image-server && 
+          cd .github && 
           docker compose down && 
           docker compose up -d
         "

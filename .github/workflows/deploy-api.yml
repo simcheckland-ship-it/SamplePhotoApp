@@ -18,9 +18,9 @@ jobs:
 
       - name: SSH to Proxmox and Deploy API
         env:
-          SSH_USER: ${{ secrets.VM2_USER }}
+          SSH_USER: ${{ secrets.VM1_USER }}
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.202" "
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
             cd ~/react-photo-app && 
             git clean -fd && 
             git fetch origin main && 

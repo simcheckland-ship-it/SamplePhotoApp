@@ -5,3 +5,7 @@ obj/
 *.user
 *.suo
 .vscode/
+.vs/
+
+# Ignore Visual Studio local cache
+.vs/

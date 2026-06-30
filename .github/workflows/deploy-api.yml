@@ -20,7 +20,11 @@ jobs:
         env:
           SSH_USER: ${{ secrets.VM1_USER }}
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.VM1_USER }}@192.168.0.201" "
+            if [ ! -d \"~/react-photo-app\" ]; then
+            echo 'Folder missing. Cloning repository...' &&
+            git clone https://github.com ~/react-photo-app
+            fi &&
             cd ~/react-photo-app && 
             git clean -fd && 
             git fetch origin main && 

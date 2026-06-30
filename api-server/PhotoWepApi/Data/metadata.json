@@ -1,0 +1,690 @@
+[
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_0041.jpg",
+    "FileName": "IMG_0041.jpg",
+    "GPSLatitude": 52.5876777777778,
+    "GPSLongitude": -1.10537777777778,
+    "GPSAltitude": 94.92358778,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_0537.jpg",
+    "FileName": "IMG_0537.jpg",
+    "GPSLatitude": 52.0662222222222,
+    "GPSLongitude": -0.868952777777778,
+    "GPSAltitude": 75,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_0541.JPG",
+    "FileName": "IMG_0541.JPG",
+    "GPSLatitude": 53.266575,
+    "GPSLongitude": -1.63293611111111,
+    "GPSAltitude": 124.975265,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_0575.JPG",
+    "FileName": "IMG_0575.JPG",
+    "GPSLatitude": 50.312275,
+    "GPSLongitude": -5.20368888888889,
+    "GPSAltitude": 98.5025641,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_0673.JPG",
+    "FileName": "IMG_0673.JPG",
+    "GPSLatitude": 53.266725,
+    "GPSLongitude": -1.63304722222222,
+    "GPSAltitude": 124.7594502,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_0727.jpg",
+    "FileName": "IMG_0727.jpg",
+    "GPSLatitude": 52.0578694444444,
+    "GPSLongitude": -2.14094444444444,
+    "GPSAltitude": 36.63409039,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_0754.jpg",
+    "FileName": "IMG_0754.jpg",
+    "GPSLatitude": 53.9601638888889,
+    "GPSLongitude": -1.08506944444444,
+    "GPSAltitude": 18.5191256,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1215.jpg",
+    "FileName": "IMG_1215.jpg",
+    "GPSLatitude": 52.4703861111111,
+    "GPSLongitude": -0.934038888888889,
+    "GPSAltitude": 84.44739149,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1271.jpg",
+    "FileName": "IMG_1271.jpg",
+    "GPSLatitude": 53.1202888888889,
+    "GPSLongitude": -1.56331111111111,
+    "GPSAltitude": 89.22078332,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1325.jpg",
+    "FileName": "IMG_1325.jpg",
+    "GPSLatitude": 52.6211583333333,
+    "GPSLongitude": -0.920230555555556,
+    "GPSAltitude": 217.3196679,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1328.jpg",
+    "FileName": "IMG_1328.jpg",
+    "GPSLatitude": 52.5861333333333,
+    "GPSLongitude": -1.02775555555556,
+    "GPSAltitude": 113.5101471,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1344.jpg",
+    "FileName": "IMG_1344.jpg",
+    "GPSLatitude": 53.1201888888889,
+    "GPSLongitude": -1.56331111111111,
+    "GPSAltitude": 86.107956,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1350.jpg",
+    "FileName": "IMG_1350.jpg",
+    "GPSLatitude": 52.6211777777778,
+    "GPSLongitude": -0.920513888888889,
+    "GPSAltitude": 187.3644677,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1431.jpg",
+    "FileName": "IMG_1431.jpg",
+    "GPSLatitude": 53.1201166666667,
+    "GPSLongitude": -1.56335,
+    "GPSAltitude": 89.50452418,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1467.jpg",
+    "FileName": "IMG_1467.jpg",
+    "GPSLatitude": 52.1909305555556,
+    "GPSLongitude": -1.61840555555556,
+    "GPSAltitude": 45.894886,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1523.jpg",
+    "FileName": "IMG_1523.jpg",
+    "GPSLatitude": 51.1501972222222,
+    "GPSLongitude": -2.54493333333333,
+    "GPSAltitude": 68.53561786,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1603.jpg",
+    "FileName": "IMG_1603.jpg",
+    "GPSLatitude": 55.9909833333333,
+    "GPSLongitude": -2.51093055555556,
+    "GPSAltitude": 22.26162339,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1611.jpg",
+    "FileName": "IMG_1611.jpg",
+    "GPSLatitude": 52.5283694444444,
+    "GPSLongitude": -0.824891666666667,
+    "GPSAltitude": 67.14742658,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1725.jpg",
+    "FileName": "IMG_1725.jpg",
+    "GPSLatitude": 53.1485666666667,
+    "GPSLongitude": -1.99167777777778,
+    "GPSAltitude": 301.0509893,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1777.jpg",
+    "FileName": "IMG_1777.jpg",
+    "GPSLatitude": 51.995425,
+    "GPSLongitude": -2.12131111111111,
+    "GPSAltitude": 18.92172436,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1779.jpg",
+    "FileName": "IMG_1779.jpg",
+    "GPSLatitude": 53.3244777777778,
+    "GPSLongitude": -3.82966666666667,
+    "GPSAltitude": 15.61033249,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1814.jpg",
+    "FileName": "IMG_1814.jpg",
+    "GPSLatitude": 57.145225,
+    "GPSLongitude": -4.68095277777778,
+    "GPSAltitude": 21.50146104,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1881.JPG",
+    "FileName": "IMG_1881.JPG",
+    "GPSLatitude": 52.0360722222222,
+    "GPSLongitude": -1.86108055555556,
+    "GPSAltitude": 90.50976562,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1931.JPG",
+    "FileName": "IMG_1931.JPG",
+    "GPSLatitude": 52.7662694444444,
+    "GPSLongitude": -0.888091666666667,
+    "GPSAltitude": 80.16107383,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1964.jpg",
+    "FileName": "IMG_1964.jpg",
+    "GPSLatitude": 51.6945083333333,
+    "GPSLongitude": -3.02253055555556,
+    "GPSAltitude": 107.2313499,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1966.jpg",
+    "FileName": "IMG_1966.jpg",
+    "GPSLatitude": 51.8961305555556,
+    "GPSLongitude": -3.29038333333333,
+    "GPSAltitude": 121.5124434,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1969.jpg",
+    "FileName": "IMG_1969.jpg",
+    "GPSLatitude": 53.0927583333333,
+    "GPSLongitude": -3.80080277777778,
+    "GPSAltitude": 26.6215706,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_1998.jpg",
+    "FileName": "IMG_1998.jpg",
+    "GPSLatitude": 53.1202472222222,
+    "GPSLongitude": -1.56327222222222,
+    "GPSAltitude": 83.73817438,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_2004.jpg",
+    "FileName": "IMG_2004.jpg",
+    "GPSLatitude": 53.1190222222222,
+    "GPSLongitude": -4.12577777777778,
+    "GPSAltitude": 106.4165421,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_2008.JPG",
+    "FileName": "IMG_2008.JPG",
+    "GPSLatitude": 52.5391666666667,
+    "GPSLongitude": -1.250475,
+    "GPSAltitude": 92,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_2011.jpg",
+    "FileName": "IMG_2011.jpg",
+    "GPSLatitude": 51.7627416666667,
+    "GPSLongitude": -4.06983055555556,
+    "GPSAltitude": 72.30324555,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_2068.jpg",
+    "FileName": "IMG_2068.jpg",
+    "GPSLatitude": 52.916175,
+    "GPSLongitude": -1.86855277777778,
+    "GPSAltitude": 87.84683986,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_2283.jpg",
+    "FileName": "IMG_2283.jpg",
+    "GPSLatitude": 51.9814222222222,
+    "GPSLongitude": -1.70764444444444,
+    "GPSAltitude": 141.9137429,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_2429.jpg",
+    "FileName": "IMG_2429.jpg",
+    "GPSLatitude": 52.189075,
+    "GPSLongitude": -2.29346666666667,
+    "GPSAltitude": 35.76736451,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Breakfast/IMG_2525.jpg",
+    "FileName": "IMG_2525.jpg",
+    "GPSLatitude": 53.1202194444444,
+    "GPSLongitude": -1.56328611111111,
+    "GPSAltitude": 85.30505303,
+    "Type": "breakfast"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0008.JPG",
+    "FileName": "IMG_0008.JPG",
+    "GPSLatitude": 54.4175638888889,
+    "GPSLongitude": -1.99401388888889,
+    "GPSAltitude": 262.6339623,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0032.JPG",
+    "FileName": "IMG_0032.JPG",
+    "GPSLatitude": 54.405625,
+    "GPSLongitude": -1.94998055555556,
+    "GPSAltitude": 370.9783394,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0059.MOV",
+    "FileName": "IMG_0059.MOV",
+    "GPSLatitude": 51.884,
+    "GPSLongitude": -3.4369,
+    "GPSAltitude": 881.467,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0069.jpg",
+    "FileName": "IMG_0069.jpg",
+    "GPSLatitude": 51.8829416666667,
+    "GPSLongitude": -3.43858333333333,
+    "GPSAltitude": 867.6293622,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0088.jpg",
+    "FileName": "IMG_0088.jpg",
+    "GPSLatitude": 51.78675,
+    "GPSLongitude": -2.93478888888889,
+    "GPSAltitude": 55.97409055,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0122.jpg",
+    "FileName": "IMG_0122.jpg",
+    "GPSLatitude": 53.3931722222222,
+    "GPSLongitude": -1.73033888888889,
+    "GPSAltitude": 263.5977221,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0124.jpg",
+    "FileName": "IMG_0124.jpg",
+    "GPSLatitude": 53.3999166666667,
+    "GPSLongitude": -1.74124444444444,
+    "GPSAltitude": 213.1820027,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0156.JPG",
+    "FileName": "IMG_0156.JPG",
+    "GPSLatitude": 53.3632388888889,
+    "GPSLongitude": -1.65864166666667,
+    "GPSAltitude": 412.6365639,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0187.jpg",
+    "FileName": "IMG_0187.jpg",
+    "GPSLatitude": 50.3055888888889,
+    "GPSLongitude": -5.23191944444444,
+    "GPSAltitude": 90.26198715,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0189.MOV",
+    "FileName": "IMG_0189.MOV",
+    "GPSLatitude": 50.3052,
+    "GPSLongitude": -5.2321,
+    "GPSAltitude": 103.079,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0194.JPG",
+    "FileName": "IMG_0194.JPG",
+    "GPSLatitude": 53.3338,
+    "GPSLongitude": -1.61521666666667,
+    "GPSAltitude": 445.7052023,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0239.jpg",
+    "FileName": "IMG_0239.jpg",
+    "GPSLatitude": 54.4778888888889,
+    "GPSLongitude": -3.06044166666667,
+    "GPSAltitude": 208.7831282,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0296.JPG",
+    "FileName": "IMG_0296.JPG",
+    "GPSLatitude": 54.4502444444444,
+    "GPSLongitude": -3.04276944444444,
+    "GPSAltitude": 391.3884892,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0458.JPG",
+    "FileName": "IMG_0458.JPG",
+    "GPSLatitude": 54.4625277777778,
+    "GPSLongitude": -3.03026111111111,
+    "GPSAltitude": 90.82934132,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0484.JPG",
+    "FileName": "IMG_0484.JPG",
+    "GPSLatitude": 54.4827388888889,
+    "GPSLongitude": -3.08755277777778,
+    "GPSAltitude": 485.013245,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0546.JPG",
+    "FileName": "IMG_0546.JPG",
+    "GPSLatitude": 53.2944972222222,
+    "GPSLongitude": -1.58375555555556,
+    "GPSAltitude": 342.9467456,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0608.JPG",
+    "FileName": "IMG_0608.JPG",
+    "GPSLatitude": 49.9731666666667,
+    "GPSLongitude": -5.22492222222222,
+    "GPSAltitude": 57.43111831,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0615.JPG",
+    "FileName": "IMG_0615.JPG",
+    "GPSLatitude": 49.9695333333333,
+    "GPSLongitude": -5.21764444444444,
+    "GPSAltitude": 10.79244604,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0624.JPG",
+    "FileName": "IMG_0624.JPG",
+    "GPSLatitude": 49.9680833333333,
+    "GPSLongitude": -5.216275,
+    "GPSAltitude": 17.25694444,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0652.JPG",
+    "FileName": "IMG_0652.JPG",
+    "GPSLatitude": 49.975125,
+    "GPSLongitude": -5.23128888888889,
+    "GPSAltitude": 8.223929748,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0903.JPG",
+    "FileName": "IMG_0903.JPG",
+    "GPSLatitude": 54.4803666666667,
+    "GPSLongitude": -3.12218888888889,
+    "GPSAltitude": 97.46143251,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0905.JPG",
+    "FileName": "IMG_0905.JPG",
+    "GPSLatitude": 54.5858888888889,
+    "GPSLongitude": -3.16459444444444,
+    "GPSAltitude": 97.46143251,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0910.JPG",
+    "FileName": "IMG_0910.JPG",
+    "GPSLatitude": 54.4775722222222,
+    "GPSLongitude": -2.81382222222222,
+    "GPSAltitude": 577.6164384,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0936.JPG",
+    "FileName": "IMG_0936.JPG",
+    "GPSLatitude": 54.4078027777778,
+    "GPSLongitude": -0.493402777777778,
+    "GPSAltitude": 6.269191402,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0937.JPG",
+    "FileName": "IMG_0937.JPG",
+    "GPSLatitude": 54.4263916666667,
+    "GPSLongitude": -0.558875,
+    "GPSAltitude": 10.98189919,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_0992.JPG",
+    "FileName": "IMG_0992.JPG",
+    "GPSLatitude": 54.1127777777778,
+    "GPSLongitude": -2.38789444444444,
+    "GPSAltitude": 734.4623656,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1052.JPG",
+    "FileName": "IMG_1052.JPG",
+    "GPSLatitude": 54.6507138888889,
+    "GPSLongitude": -2.18584166666667,
+    "GPSAltitude": 314.9054726,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1108.JPG",
+    "FileName": "IMG_1108.JPG",
+    "GPSLatitude": 53.2979,
+    "GPSLongitude": -3.829725,
+    "GPSAltitude": 105.1098901,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1213.JPG",
+    "FileName": "IMG_1213.JPG",
+    "GPSLatitude": 53.3550527777778,
+    "GPSLongitude": -1.64033333333333,
+    "GPSAltitude": 453.6018519,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1247.JPG",
+    "FileName": "IMG_1247.JPG",
+    "GPSLatitude": 54.4297,
+    "GPSLongitude": -3.06943055555556,
+    "GPSAltitude": 410.0027778,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1293.JPG",
+    "FileName": "IMG_1293.JPG",
+    "GPSLatitude": 53.1205305555556,
+    "GPSLongitude": -2.03677222222222,
+    "GPSAltitude": 298,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1312.JPG",
+    "FileName": "IMG_1312.JPG",
+    "GPSLatitude": 53.1681138888889,
+    "GPSLongitude": -2.00008888888889,
+    "GPSAltitude": 492.2259615,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1318.JPG",
+    "FileName": "IMG_1318.JPG",
+    "GPSLatitude": 53.1722027777778,
+    "GPSLongitude": -1.99974444444444,
+    "GPSAltitude": 516.1955556,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1329.JPG",
+    "FileName": "IMG_1329.JPG",
+    "GPSLatitude": 50.5899361111111,
+    "GPSLongitude": -4.86841666666667,
+    "GPSAltitude": 36.78271605,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1352.JPG",
+    "FileName": "IMG_1352.JPG",
+    "GPSLatitude": 50.3172444444444,
+    "GPSLongitude": -4.67295555555556,
+    "GPSAltitude": 79.23611111,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1422.JPG",
+    "FileName": "IMG_1422.JPG",
+    "GPSLatitude": 53.4250611111111,
+    "GPSLongitude": -1.73495277777778,
+    "GPSAltitude": 296.2761194,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1432.JPG",
+    "FileName": "IMG_1432.JPG",
+    "GPSLatitude": 54.4078222222222,
+    "GPSLongitude": -0.492113888888889,
+    "GPSAltitude": 8.640628611,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1576.JPG",
+    "FileName": "IMG_1576.JPG",
+    "GPSLatitude": 54.4934777777778,
+    "GPSLongitude": -2.82316666666667,
+    "GPSAltitude": 404.967033,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1580.JPG",
+    "FileName": "IMG_1580.JPG",
+    "GPSLatitude": 54.493775,
+    "GPSLongitude": -2.84755833333333,
+    "GPSAltitude": 610.5140187,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1605.JPG",
+    "FileName": "IMG_1605.JPG",
+    "GPSLatitude": 53.5296555555556,
+    "GPSLongitude": -1.85617777777778,
+    "GPSAltitude": 504.8924051,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1615.JPG",
+    "FileName": "IMG_1615.JPG",
+    "GPSLatitude": 54.5203888888889,
+    "GPSLongitude": -3.25624166666667,
+    "GPSAltitude": 195.019656,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1620.JPG",
+    "FileName": "IMG_1620.JPG",
+    "GPSLatitude": 54.5099916666667,
+    "GPSLongitude": -3.255025,
+    "GPSAltitude": 432.307393,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1680.JPG",
+    "FileName": "IMG_1680.JPG",
+    "GPSLatitude": 53.1194333333333,
+    "GPSLongitude": -4.03776388888889,
+    "GPSAltitude": 682.8496241,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1768.JPG",
+    "FileName": "IMG_1768.JPG",
+    "GPSLatitude": 53.3707277777778,
+    "GPSLongitude": -1.72485833333333,
+    "GPSAltitude": 225.2977099,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1783.JPG",
+    "FileName": "IMG_1783.JPG",
+    "GPSLatitude": 50.3148944444444,
+    "GPSLongitude": -5.23404722222222,
+    "GPSAltitude": 99.51653944,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_1785.JPG",
+    "FileName": "IMG_1785.JPG",
+    "GPSLatitude": 50.3068416666667,
+    "GPSLongitude": -5.23284166666667,
+    "GPSAltitude": 83.87134503,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_2003.JPG",
+    "FileName": "IMG_2003.JPG",
+    "GPSLatitude": 58.5625888888889,
+    "GPSLongitude": -3.95868333333333,
+    "GPSAltitude": 95.24249423,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_2141.JPG",
+    "FileName": "IMG_2141.JPG",
+    "GPSLatitude": 54.5173944444444,
+    "GPSLongitude": -2.799925,
+    "GPSAltitude": 267.7666068,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_E0177.JPG",
+    "FileName": "IMG_E0177.JPG",
+    "GPSLatitude": 53.3836638888889,
+    "GPSLongitude": -1.83895833333333,
+    "GPSAltitude": 574.8935447,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_E0178.JPG",
+    "FileName": "IMG_E0178.JPG",
+    "GPSLatitude": 53.38535,
+    "GPSLongitude": -1.82985833333333,
+    "GPSAltitude": 598.3916054,
+    "Type": "view"
+  },
+  {
+    "SourceFile": "C:/Users/Developer/OneDrive/Pictures/TestImages/Views/IMG_E0296.JPG",
+    "FileName": "IMG_E0296.JPG",
+    "GPSLatitude": 54.4502444444444,
+    "GPSLongitude": -3.04276944444444,
+    "GPSAltitude": 391.3884892,
+    "Type": "view"
+  }
+]

@@ -1,0 +1,148 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|c:\\scprojects\\photowebapi\\photowepapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|c:\\scprojects\\photowebapi\\photowepapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\SCProjects\\Linux VM Setip.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|c:\\scprojects\\photowebapi\\photowepapi\\controllers\\photoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|solutionrelative:controllers\\photoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|c:\\scprojects\\photowebapi\\photowepapi\\models\\photoitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|solutionrelative:models\\photoitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|c:\\scprojects\\photowebapi\\photowepapi\\data\\metadata.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|solutionrelative:data\\metadata.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|c:\\scprojects\\photowebapi\\photowepapi\\photowepapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{EABD8C17-5B9B-4A63-95C4-87DEB53A251C}|PhotoWepApi.csproj|solutionrelative:photowepapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{34c7837f-3b3a-449c-bdf0-bdad86cbaf4a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-23T08:55:59.334Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Linux VM Setip.md",
+              "DocumentMoniker": "C:\\SCProjects\\Linux VM Setip.md",
+              "RelativeDocumentMoniker": "..\\..\\Linux VM Setip.md",
+              "ToolTip": "C:\\SCProjects\\Linux VM Setip.md",
+              "RelativeToolTip": "..\\..\\Linux VM Setip.md",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABkAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-06-22T06:55:44.712Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "metadata.json",
+              "DocumentMoniker": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\Data\\metadata.json",
+              "RelativeDocumentMoniker": "Data\\metadata.json",
+              "ToolTip": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\Data\\metadata.json",
+              "RelativeToolTip": "Data\\metadata.json",
+              "ViewState": "AgIAAP4AAAAAAAAAAAAnwBcBAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-22T06:52:02.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PhotoItem.cs",
+              "DocumentMoniker": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\Models\\PhotoItem.cs",
+              "RelativeDocumentMoniker": "Models\\PhotoItem.cs",
+              "ToolTip": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\Models\\PhotoItem.cs",
+              "RelativeToolTip": "Models\\PhotoItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T13:09:48.117Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PhotosController.cs",
+              "DocumentMoniker": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\Controllers\\PhotosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PhotosController.cs",
+              "ToolTip": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\Controllers\\PhotosController.cs",
+              "RelativeToolTip": "Controllers\\PhotosController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAADgvzYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T12:30:57.427Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T12:28:14.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PhotoWepApi.csproj",
+              "DocumentMoniker": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\PhotoWepApi.csproj",
+              "RelativeDocumentMoniker": "PhotoWepApi.csproj",
+              "ToolTip": "C:\\SCProjects\\PhotoWebApi\\PhotoWepApi\\PhotoWepApi.csproj",
+              "RelativeToolTip": "PhotoWepApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-19T12:27:02.854Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+name: Deploy API Server Changes
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "api-server/**"
+      - ".github/workflows/deploy-api.yml"
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+
+      - name: SSH to Proxmox and Deploy API
+        env:
+          SSH_USER: ${{ secrets.VM2_USER }}
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.202" "
+            cd ~/react-photo-app && 
+            git clean -fd && 
+            git fetch origin main && 
+            git reset --hard origin/main && 
+            cd api-server && 
+            docker compose down && 
+            docker compose up -d --build
+          "

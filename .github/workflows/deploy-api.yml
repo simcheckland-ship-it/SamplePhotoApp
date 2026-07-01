@@ -27,7 +27,7 @@ jobs:
           git reset --hard origin/main && 
           cd api-server && 
           docker compose down &&
-          ocker compose up -d --build
+          docker compose up -d --build
           "
         
         

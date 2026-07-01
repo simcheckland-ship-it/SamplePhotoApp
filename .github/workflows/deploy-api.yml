@@ -20,7 +20,7 @@ jobs:
         env:
           SSH_USER: ${{ secrets.VM1_USER }}
         run: |
-          ssh -i -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
+          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
           if [ ! -d \"~/react-photo-app/.git\" ]; then
             echo 'Repository missing or broken. Re-cloning via SSH...' &&
             rm -rf ~/react-photo-app &&

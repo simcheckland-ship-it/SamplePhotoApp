@@ -20,7 +20,7 @@ jobs:
       env:
         SSH_USER: ${{ secrets.VM2_USER }}
       run: |
-        ssh -i /root/.ssh/runner-to-vm2 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.202" "
+        ssh -i /home/github-runner/.ssh/runner-to-vm2 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.202" "
           cd ~/react-photo-app && 
           git clean -fd && 
           git fetch origin main && 

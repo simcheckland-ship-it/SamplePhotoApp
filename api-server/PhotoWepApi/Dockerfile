@@ -2,8 +2,8 @@
 # Language: Dockerfile
 
 # Step 0: Define build-time argument for base image with valid default
-ARG IMAGE_BASE_RUNTIME=mcr.microsoft.com/dotnet/aspnet:9.0
-ARG IMAGE_BASE_SDK=mcr.microsoft.com/dotnet/sdk:9.0
+ARG IMAGE_BASE_RUNTIME=mcr.microsoft.com/dotnet/aspnet:8.0
+ARG IMAGE_BASE_SDK=mcr.microsoft.com/dotnet/sdk:8.0
 
 # Step 1: Runtime image for lightweight execution
 FROM ${IMAGE_BASE_RUNTIME} AS base

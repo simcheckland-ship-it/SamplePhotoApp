@@ -1,0 +1,28 @@
+name: Deploy Nginx Reverse Proxy to vm0
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'nginx.conf'
+      - 'docker-compose.yml'
+
+jobs:
+  deploy:
+    # Tells GitHub to execute this job on your local Linux runner
+    runs-on: [self-hosted, linux]
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Copy Nginx Config Files to vm0
+        run: |
+          # Uses the self-hosted runner's native SSH keys to copy files
+          scp docker-compose.yml nginx.conf ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:/opt/nginx-proxy
+
+      - name: Start Nginx Proxy Container on vm0
+        run: |
+          # Remotely triggers the container restart on vm0
+          ssh ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }} "cd /opt/nginx-proxy && docker compose down && docker compose up -d --force-recreate"

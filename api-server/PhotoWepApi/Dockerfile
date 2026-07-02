@@ -1,12 +1,12 @@
 # Step 1: Get the lightweight runtime environment
-ARG IMAGE_BASE=mcr.microsoft.com/dotnet/runtime:9.0
+ARG IMAGE_BASE=mcr.microsoft.com/dotnet/runtime:8.0
 # Use the variable in the FROM instruction
 FROM ${IMAGE_BASE}
 WORKDIR /app
 EXPOSE 8080
 
 # Step 2: Get the SDK environment to compile your C# code
-ARG IMAGE_BASE=mcr.microsoft.com/dotnet/runtime:9.0
+ARG IMAGE_BASE=mcr.microsoft.com/dotnet/runtime:8.0
 FROM ${IMAGE_BASE}
 WORKDIR /src
 COPY ["PhotoWepApi.csproj", "."]

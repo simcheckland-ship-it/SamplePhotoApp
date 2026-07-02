@@ -1,10 +1,12 @@
 # Step 1: Get the lightweight runtime environment
-FROM ://microsoft.com AS base
+ARG IMAGE_BASE=://microsoft.com
+FROM ${IMAGE_BASE}
 WORKDIR /app
 EXPOSE 8080
 
 # Step 2: Get the SDK environment to compile your C# code
-FROM ://microsoft.com AS build
+ARG IMAGE_BASE=://microsoft.com
+FROM ${IMAGE_BASE}
 WORKDIR /src
 COPY ["PhotoWepApi.csproj", "."]
 RUN dotnet restore "./PhotoWepApi.csproj"

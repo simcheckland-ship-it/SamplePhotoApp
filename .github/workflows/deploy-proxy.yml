@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'nginx.conf'
-      - 'docker-compose.yml'
+     - "proxy/**"
+     - ".github/workflows/deploy-proxy.yml"
 
 jobs:
   deploy:

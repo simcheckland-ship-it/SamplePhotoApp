@@ -1,25 +1,33 @@
-# Step 1: Get the lightweight runtime environment
-ARG IMAGE_BASE=mcr.microsoft.com/dotnet/runtime:8.0
-# Use the variable in the FROM instruction
-FROM ${IMAGE_BASE}
+# Dockerfile
+# Language: Dockerfile
+
+# Step 0: Define build-time argument for base image with valid default
+ARG IMAGE_BASE_RUNTIME=mcr.microsoft.com/dotnet/aspnet:9.0
+ARG IMAGE_BASE_SDK=mcr.microsoft.com/dotnet/sdk:9.0
+
+# Step 1: Runtime image for lightweight execution
+FROM ${IMAGE_BASE_RUNTIME} AS base
 WORKDIR /app
 EXPOSE 8080
 
-# Step 2: Get the SDK environment to compile your C# code
-ARG IMAGE_BASE=mcr.microsoft.com/dotnet/runtime:8.0
-FROM ${IMAGE_BASE}
+# Step 2: SDK image to build the application
+FROM ${IMAGE_BASE_SDK} AS build
 WORKDIR /src
-COPY ["PhotoWepApi.csproj", "."]
-RUN dotnet restore "./PhotoWepApi.csproj"
-COPY . .
+
+# Copy project file and restore dependencies before copying all source files
+COPY ["PhotoWepApi.csproj", "./"]
+RUN dotnet restore "PhotoWepApi.csproj"
+
+# Copy the remaining source files and build
+COPY . ./
 RUN dotnet build "PhotoWepApi.csproj" -c Release -o /app/build
 
-# Step 3: Publish the optimized code binaries
+# Step 3: Publish optimized binaries
 FROM build AS publish
 RUN dotnet publish "PhotoWepApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# Step 4: Copy binaries to runtime and set the start command
+# Step 4: Assemble final runtime image
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=publish /app/publish ./
 ENTRYPOINT ["dotnet", "PhotoWepApi.dll"]

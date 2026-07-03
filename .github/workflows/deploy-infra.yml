@@ -25,7 +25,7 @@ jobs:
       run: |
         # Remotely trigger Docker inside the target folder without checking out Git on the server
         ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.202" "
-          cd ~/react-photo-app/api-server && 
+          cd ~/react-photo-app/image-server && 
           docker compose down &&
           docker compose up -d --force-recreate
         "

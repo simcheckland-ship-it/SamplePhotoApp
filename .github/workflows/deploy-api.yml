@@ -27,5 +27,5 @@ jobs:
           ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
             cd ~/react-photo-app/api-server && 
             docker compose down &&
-            docker compose up -d
+            docker compose up -d --build
           "

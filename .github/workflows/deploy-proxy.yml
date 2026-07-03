@@ -25,8 +25,8 @@ jobs:
 
       - name: Start Nginx Proxy Container on vm0 -
         run: |
-          # Ensure the key path ends with 'vm1' exactly like your scp step did
-          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "
+          # Ensure the key path ends with 'vm0' exactly like your scp step did
+          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "
             cd /opt/nginx-proxy && 
             docker compose down && 
             docker compose up -d --force-recreate

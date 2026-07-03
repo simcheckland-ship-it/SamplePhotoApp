@@ -14,17 +14,24 @@ EXPOSE 8080
 FROM ${IMAGE_BASE_SDK} AS build
 WORKDIR /src
 
-# Copy project file and restore dependencies before copying all source files
-COPY ["PhotoWepApi/PhotoWepApi.csproj", "./"]
+# Step 1: Set up workspace
+WORKDIR /src
+
+# Step 2: Copy the project file into a matching subfolder layout and restore
+COPY ["PhotoWepApi/PhotoWepApi.csproj", "PhotoWepApi/"]
 RUN dotnet restore "PhotoWepApi/PhotoWepApi.csproj"
 
-# Copy the remaining source files and build
-COPY . ./
-RUN dotnet build "PhotoWepApi/PhotoWepApi.csproj" -c Release -o /app/build
+# Step 3: Copy all other source files down
+COPY . .
 
-# Step 3: Publish optimized binaries
+# Step 4: Step into the subfolder to run your build and publish commands
+WORKDIR "/src/PhotoWepApi"
+RUN dotnet build "PhotoWepApi.csproj" -c Release -o /app/build
+
+# Step 5: Publish optimized binaries
 FROM build AS publish
-RUN dotnet publish "PhotoWepApi/PhotoWepApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "PhotoWepApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
 
 # Step 4: Assemble final runtime image
 FROM base AS final

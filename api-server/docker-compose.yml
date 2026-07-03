@@ -2,7 +2,7 @@ services:
   webapi:
     container_name: photo-webapi
     build:
-      context: ./PhotoWepApi
+      context: .
       dockerfile: Dockerfile
     ports:
       - "5000:8080" # Maps Proxmox port 5000 to internal .NET 8 container port 8080

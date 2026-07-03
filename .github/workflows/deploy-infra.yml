@@ -19,7 +19,7 @@ jobs:
     - name: Copy Image-Server Server Files to Proxmox
       run: |
         # Use your local SSH key to securely push the codebase onto the target server over your LAN
-        scp -i /home/github-runner/.ssh/runner-to-vm2 -o StrictHostKeyChecking=no -r image-server/ ${{ secrets.VM2_USER }}@192.168.0.202:~/react-photo-app/image-server/
+        scp -i /home/github-runner/.ssh/runner-to-vm2 -o StrictHostKeyChecking=no -r image-server/ ${{ secrets.VM2_USER }}@192.168.0.202:~/react-photo-app/
   
     - name: Remote Restart via SSH
       run: |

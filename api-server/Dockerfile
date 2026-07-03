@@ -15,7 +15,7 @@ FROM ${IMAGE_BASE_SDK} AS build
 WORKDIR /src
 
 # Copy project file and restore dependencies before copying all source files
-COPY ["PhotoWepApi.csproj", "./"]
+COPY ["PhotoWepApi/PhotoWepApi.csproj", "./"]
 RUN dotnet restore "PhotoWepApi.csproj"
 
 # Copy the remaining source files and build

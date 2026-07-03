@@ -22,7 +22,7 @@ jobs:
           ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/api-server"
 
           # 2. Copy the entire PhotoWepApi folder over safely (Note: NO trailing slash or asterisk on the source)
-          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api/PhotoWepApi ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server
+          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/PhotoWepApi ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server
 
       - name: Remote Restart via SSH
         run: |

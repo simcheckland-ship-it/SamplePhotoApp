@@ -26,4 +26,4 @@ jobs:
       - name: Start Nginx Proxy Container on vm0 -
         run: |
           # Remotely triggers the container restart on vm0
-          ssh ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }} "cd /opt/nginx-proxy && docker compose down && docker compose up -d --force-recreate"
+          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no proxy/* ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }} "cd /opt/nginx-proxy && docker compose down && docker compose up -d --force-recreate"

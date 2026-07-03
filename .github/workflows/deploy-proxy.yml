@@ -20,10 +20,10 @@ jobs:
       - name: Copy Proxy Config Files to vm0
         run: |
           # 1. Create /opt/nginx-proxy/ (Standard Linux convention)
-          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "mkdir -p /opt/nginx-proxy/"
+          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "mkdir -p /opt/nginx-proxy/"
 
           # 2. Copy files into /opt/nginx-proxy/
-          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no proxy/* ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:/opt/nginx-proxy/
+          scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no proxy/* ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:/opt/nginx-proxy/
 
 
       - name: Start Nginx Proxy Container on vm0 -

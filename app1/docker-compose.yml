@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  react-app:
+    build:
+      context: .                     # Looks directly inside the app folder
+      dockerfile: Dockerfile
+    container_name: react_frontend
+    ports:
+      - "3000:80"                    # Maps host port 3000 to internal container port 80
+    restart: unless-stopped

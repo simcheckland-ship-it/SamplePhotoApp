@@ -16,13 +16,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v5 # Automatically cleans and checks out the exact commit
 
-      - name: Copy API Server Files to Proxmox
+      - name: Copy API Deployment and Code to Proxmox
         run: |
-          # 1. Clear the old target folder on Proxmox
           ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/api-server"
-
-          # 2. Copy the entire PhotoWepApi folder over safely (Note: NO trailing slash or asterisk on the source)
-          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/PhotoWepApi ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server
+          
+          # This copies the parent folder, the docker files, and the code all at once
+          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/ ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server
 
       - name: Remote Restart via SSH
         run: |

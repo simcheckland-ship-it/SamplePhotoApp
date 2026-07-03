@@ -16,15 +16,15 @@ WORKDIR /src
 
 # Copy project file and restore dependencies before copying all source files
 COPY ["PhotoWepApi/PhotoWepApi.csproj", "./"]
-RUN dotnet restore "PhotoWepApi.csproj"
+RUN dotnet restore "PhotoWepApi/PhotoWepApi.csproj"
 
 # Copy the remaining source files and build
 COPY . ./
-RUN dotnet build "PhotoWepApi.csproj" -c Release -o /app/build
+RUN dotnet build "PhotoWepApi/PhotoWepApi.csproj" -c Release -o /app/build
 
 # Step 3: Publish optimized binaries
 FROM build AS publish
-RUN dotnet publish "PhotoWepApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "PhotoWepApi/PhotoWepApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Step 4: Assemble final runtime image
 FROM base AS final

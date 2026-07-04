@@ -19,16 +19,16 @@ jobs:
       - name: Copy App Deployment and Code to vm0
         run: |
           # 1. Clear out the old directory using sudo privileges
-          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "sudo rm -rf /opt/react-app"
+          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "sudo rm -rf /opt/react-app"
 
           # 2. Re-create the folder using sudo and hand ownership to your deployment user
-          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "
+          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "
             sudo mkdir -p /opt/react-app && 
             sudo chown -R ${{ secrets.VM0_USER }}:${{ secrets.VM0_USER }} /opt/react-app
           "
 
           # 3. Now scp will copy successfully because your user owns the folder
-          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r app1/PhotoGlobe ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:/opt/react-app/
+          scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no -r app1/PhotoGlobe ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:/opt/react-app/
 
 
       - name: Build and Run React Container on vm0

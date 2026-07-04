@@ -3,11 +3,11 @@ FROM node:20-alpine AS build
 WORKDIR /workspace
 
 # Copy package configurations and install dependencies
-COPY app/package*.json ./
+COPY app1/package*.json ./
 RUN npm ci
 
 # Copy the entire frontend source code and compile it
-COPY app/ ./
+COPY app1/ ./
 RUN npm run build
 
 # Stage 2: Serve the compiled static assets with Nginx

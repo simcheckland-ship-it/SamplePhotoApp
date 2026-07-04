@@ -28,7 +28,7 @@ jobs:
           "
 
           # 3. Now scp will copy successfully because your user owns the folder
-          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r app/* ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:/opt/react-app/
+          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r app1/PhotoGlobe ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:/opt/react-app/
 
 
       - name: Build and Run React Container on vm0

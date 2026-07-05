@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
-        with:
-          path: '.'
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -32,8 +30,8 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
-          context: ./app1
-          file: ./app1/Dockerfile
+          context: ${{ github.workspace }}/app1
+          file: ${{ github.workspace }}/app1/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/react-app:latest
 

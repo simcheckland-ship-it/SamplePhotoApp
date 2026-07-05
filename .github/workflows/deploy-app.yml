@@ -30,9 +30,15 @@ jobs:
        # 3. Build and push using native, reliable host shell execution
       - name: Build and Push Docker Image
         run: |
-          cd app1
-          docker build -t ghcr.io/${{ github.repository_owner }}/react-app:latest .
+          # 1. Force Docker to target the exact file path and use app1 as context
+          docker build \
+            -f /home/github-runner/actions-runner/_work/SamplePhotoApp/SamplePhotoApp/app1/DockerFile \
+            -t ghcr.io/${{ github.repository_owner }}/react-app:latest \
+            /home/github-runner/actions-runner/_work/SamplePhotoApp/SamplePhotoApp/app1
+
+          # 2. Push the successfully generated local image up to GHCR
           docker push ghcr.io/${{ github.repository_owner }}/react-app:latest
+
 
 
 

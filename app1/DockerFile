@@ -3,11 +3,11 @@ FROM node:20-alpine AS build
 WORKDIR /workspace
 
 # Copy package configurations and install dependencies
-COPY app1/package*.json ./
+COPY ./PhotoGlobe/package*.json ./
 RUN npm ci
 
 # Copy the entire frontend source code and compile it
-COPY app1/ ./
+COPY ./PhotoGlobe/ ./
 RUN npm run build
 
 # Stage 2: Serve the compiled static assets with Nginx

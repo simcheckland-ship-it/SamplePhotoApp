@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MapPage from "./pages/MapPage.jsx";
 import ImagePage from "./pages/ImagePage.jsx";
-import "./Index.css";
+import "./index.css";
 import Toolbar from "./components/ToolBar.jsx";
 import { Routes, Route, Link } from "react-router-dom";
 import { AppStateProvider } from "./contextProviders/AppStateContext.jsx";

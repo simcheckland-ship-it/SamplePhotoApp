@@ -5,7 +5,7 @@ services:
     image: nginx:latest
     container_name: photo-nginx
     ports:
-      - "80:80"
+      - "3500:3500"
     restart: always
     # ==========================================
     # ADD THIS MISSING VOLUMES BLOCK

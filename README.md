@@ -19,10 +19,10 @@ Evolved the setup from manual Proxmox VMs (Phase 1) to Docker containerisation w
 
 ```mermaid
 timeline
-    title Project DevOps Evolution
+    title Project Evolution
     Phase 1 : Manual Setup : Proxmox VE : 4 Isolated VMs : Nginx Reverse Proxy
     Phase 2 : Containerisation : Docker Containers : GitHub Actions Workflows : Local Self-Hosted Runner
-    Phase 3 : Optimization : Decoupled Build Phase : Artifact Generation : Lightweight Production Deployments
+    Phase 3 (Cuurrent Stage) : Optimization : Decoupled Build Phase : Artifact Generation : Lightweight Production Deployments
     Phase 4 (Roadmap) : Infrastructure as Code : Cloud-init Provisioning : Ansible Configuration Management
 ```
 

@@ -4,7 +4,8 @@ Sample Photo App - For Training
 ## Project Overview & Evolution
 The Mission: Built, containerised, and automated a multi-tier web application infrastructure.
 
-# The Growth: Evolved the setup from manual Proxmox VMs (Phase 1) to Docker containerisation with GitHub Actions (Phase 2), and finally optimizing it into a decoupled, artifact-based CI/CD pipeline (Phase 3).
+## The Growth: 
+Evolved the setup from manual Proxmox VMs (Phase 1) to Docker containerisation with GitHub Actions (Phase 2), and finally optimizing it into a decoupled, artifact-based CI/CD pipeline (Phase 3).
 
 # Future Plans
     aunsible → Ansible (Configuration Management / Automation tool)cload-init 

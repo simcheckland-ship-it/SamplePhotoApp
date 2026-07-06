@@ -8,7 +8,7 @@ The Mission: To build a containerised, and automated multi-tier web application 
 Evolved the setup from manual Proxmox VMs (Phase 1) to Docker containerisation with GitHub Actions (Phase 2), and finally optimizing it into a decoupled, artifact-based CI/CD pipeline (Phase 3).
 
 ## Future Plans
-    aunsible → Ansible (Configuration Management / Automation tool)cload-init 
+    Ansible (Configuration Management / Automation tool)cload-init 
     Cloud-init (Industry-standard multi-distribution drive initialization)easly recreatable sample
     Highly reproducible, immutable infrastructure or automated provisioning template
 

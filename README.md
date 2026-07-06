@@ -18,16 +18,11 @@ Evolved the setup from manual Proxmox VMs (Phase 1) to Docker containerisation w
     Optimisation: Why Phase 3 is better than Phase 2 (e.g., smaller image sizes, faster build times, decoupled build/production environments).
 
 ```mermaid
-graph TD
-    %% Define the direction: TD = Top to Bottom (or LR = Left to Right)
-    
-    Proxmox[Proxmox VE Hypervisor] --> VM0[VM 0: Nginx Reverse Proxy]
-    
-    VM0 -->|Routes Web Traffic| VM1[VM 1: React Frontend Container]
-    VM0 -->|Routes API Calls| VM2[VM 2: Web API Container]
-    VM0 -->|Routes Media Requests| VM3[VM 3: Nginx Image Container]
-    
-    %% Style the nodes to look professional
-    style Proxmox fill:#f9f,stroke:#333,stroke-width:2px
-    style VM0 fill:#bbf,stroke:#333,stroke-width:2px
+timeline
+    title Project DevOps Evolution
+    Phase 1 : Manual Setup : Proxmox VE : 4 Isolated VMs : Nginx Reverse Proxy
+    Phase 2 : Containerisation : Docker Containers : GitHub Actions Workflows : Local Self-Hosted Runner
+    Phase 3 : Optimization : Decoupled Build Phase : Artifact Generation : Lightweight Production Deployments
+    Phase 4 (Roadmap) : Infrastructure as Code : Cloud-init Provisioning : Ansible Configuration Management
 ```
+

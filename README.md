@@ -21,3 +21,6 @@ timeline
     Phase 4 (Roadmap) : Infrastructure as Code : Cloud-init Provisioning : Ansible Configuration Management
 ```
 
+## Points Of Interest
+### Wanted to only allow access to the image server from react app
+Setup nginx proxy to inject an X-API-Key into header before passing request onto image server and change the image serer nginx server to only except requests with the correct X-API-Key.

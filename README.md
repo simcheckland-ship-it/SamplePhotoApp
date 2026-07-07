@@ -21,4 +21,5 @@ timeline
     Phase 4 (Roadmap) : Infrastructure as Code : Cloud-init Provisioning : Ansible Configuration Management
 ```
 
-## [See Progress Log]([https://github.com](https://github.com/simcheckland-ship-it/SamplePhotoApp/wiki/My-Progress-Log-and-Notes))
+## See Progress Log]
+[https://github.com(https://github.com/simcheckland-ship-it/SamplePhotoApp/wiki/My-Progress-Log-and-Notes)

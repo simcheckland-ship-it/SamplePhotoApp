@@ -22,5 +22,5 @@ timeline
 ```
 
 ## See Progress Log
-[Proggress Log](https://github.com](https://github.com/simcheckland-ship-it/SamplePhotoApp/wiki/My-Progress-Log-and-Notes))
+[Proggress Log]((https://github.com](https://github.com/simcheckland-ship-it/SamplePhotoApp/wiki/My-Progress-Log-and-Notes))
 

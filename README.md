@@ -1,6 +1,9 @@
 # SamplePhotoApp
 Sample Photo App - For Training
 
+## This application was put together to explore the proccess involved. See the proggress logs for more details.
+[Proggress Log](https://github.com/simcheckland-ship-it/SamplePhotoApp/wiki/My-Progress-Log-and-Notes)
+
 ## Project Overview & Evolution
 The Mission: To build a containerised, and automated multi-tier web application infrastructure.
 

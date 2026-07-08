@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 export default function IconImage({ fileName, label }) {
-    const iconPath = `/images/${fileName}`;
+  const iconPath = `${import.meta.env.VITE_IMAGE_BASE_URL}/thumbs/${fileName.toLowerCase()}`;
 
   return (
     <img
@@ -11,6 +11,5 @@ export default function IconImage({ fileName, label }) {
       // object-cover crops it cleanly so it doesn't look stretched or distorted
       className="w-full h-full object-cover block"
     />
-    
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Image({ fileName, label }) {
-  const imagePath = `http://192.168.0.202/uploads/${fileName.toLowerCase()}`;
+  const imagePath = `${import.meta.env.VITE_IMAGE_BASE_URL}/${fileName.toLowerCase()}`;
 
   return (
     // <img

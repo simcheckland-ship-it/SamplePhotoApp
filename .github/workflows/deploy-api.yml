@@ -38,8 +38,4 @@ jobs:
             docker compose down &&
             docker compose up -d --build
           "
-          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
-            cd ~/react-photo-app/nginx-proxy && 
-            docker compose down &&
-            docker compose up -d --build
-          "
+         

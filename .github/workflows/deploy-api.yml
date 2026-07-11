@@ -25,10 +25,10 @@ jobs:
 
       - name: Copy Nginx to Proxmox
         run: |
-          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf /etc/nginx"
+          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/nginx.conf"
           
           # This copies the parent folder, the docker files, and the code all at once
-          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/nginx.conf ${{ secrets.VM2_USER }}@192.168.0.201:/etc/nginx
+          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/nginx.conf ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/nginx.conf
 
       - name: Remote Restart via SSH
         run: |

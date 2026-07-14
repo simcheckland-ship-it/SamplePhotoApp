@@ -5,7 +5,7 @@ import Image from "../components/Image.jsx";
 import Map3D from "../components/Map3D.jsx";
 import MapLeaf from "../components/MapLeaf.jsx";
 import { usePhotos } from "../hooks/usePhotos.js";
-import { useAppState } from "../contextProviders/AppStateContext.jsx";
+import { useAppState } from "../hooks/useAppState.js";
 
 export default function MapPage() {
   const { data: photos, isLoading, isError, error } = usePhotos();
@@ -16,6 +16,7 @@ export default function MapPage() {
 
   const [mapBounds, setMapBounds] = useState([]);
   const [mapCenter, setMapCenter] = useState(null);
+  const { loading } = useAppState();
 
   const updateMapCenter = (latLng, source) => {
     setMapCenter({
@@ -26,6 +27,8 @@ export default function MapPage() {
   };
 
   useEffect(() => {
+    if (loading) return;
+
     // if no activeItem
     if (photos && photos.length > 0 && !activeItem) {
       setActiveItem(photos[0]); // Pick the first user automatically
@@ -43,7 +46,7 @@ export default function MapPage() {
       });
       console.log("PAGE - ACTIVE ITEM changed:");
     }
-  }, [photos, activeItem]);
+  }, [photos, activeItem, loading]);
 
   return (
     <>

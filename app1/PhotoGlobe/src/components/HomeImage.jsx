@@ -1,7 +1,14 @@
 import React from "react";
+import { useAppState } from "../hooks/useAppState.js";
 
 export default function Image({ fileName, label }) {
-  const imagePath = `${import.meta.env.VITE_IMAGE_BASE_URL}/${fileName.toLowerCase()}`;
+  const { imgBaseUrl, loading } = useAppState();
+
+  const imagePath = `${imgBaseUrl}/${fileName.toLowerCase()}`;
+
+  if (loading) {
+    return <div>Loading assets...</div>;
+  }
 
   return (
     // <img
@@ -14,7 +21,7 @@ export default function Image({ fileName, label }) {
 
     <img
       src={imagePath}
-      alt="{label}"
+      alt={imagePath}
       className="absolute inset-0 min-h-full min-w-full h-full w-full object-cover object-center"
     />
   );

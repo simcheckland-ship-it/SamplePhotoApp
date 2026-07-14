@@ -1,7 +1,14 @@
 import React from "react";
+import { useAppState } from "../hooks/useAppState.js";
 
 export default function IconImage({ fileName, label }) {
-  const iconPath = `${import.meta.env.VITE_IMAGE_BASE_URL}/thumbs/${fileName.toLowerCase()}`;
+  const { imgBaseUrl, loading } = useAppState();
+
+  const iconPath = `${imgBaseUrl}/thumbs/${fileName.toLowerCase()}`;
+
+  if (loading) {
+    return <div>Loading assets...</div>;
+  }
 
   return (
     <img

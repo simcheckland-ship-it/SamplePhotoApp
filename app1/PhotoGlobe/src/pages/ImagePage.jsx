@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 import ImageList from "../components/ImageList.jsx";
 import Image from "../components/Image.jsx";
 import { usePhotos } from "../hooks/usePhotos.js";
-import { useAppState } from "../contextProviders/AppStateContext.jsx";
+import { useAppState } from "../hooks/useAppState.js";
 
 export default function ImagePage() {
   const { data: photos, isLoading, isError, error, isFetching } = usePhotos();
   const { activeItem, setActiveItem } = useAppState();
+  const { loading } = useAppState();
 
   //const [ activeItem, setActiveItem ] = useState(() => getDefaultItem());
 
@@ -25,17 +26,12 @@ export default function ImagePage() {
   // };
 
   useEffect(() => {
+    if (loading) return;
+
     if (photos && photos.length > 0 && !activeItem) {
       setActiveItem(photos[0]); // Pick the first user automatically
     }
-  }, [photos, activeItem]); // Triggers immediately when 'users' loads into memory
-
-  // Debugging console outputs:
-  console.log("--- TanStack Diagnostics ---");
-  console.log("Is Initial Loading:", isLoading);
-  console.log("Is Fetching in Background:", isFetching);
-  console.log("API Payload Output:", photos);
-  if (isError) console.error("Error Trace Object:", error);
+  }, [photos, activeItem, loading]); // Triggers immediately when 'users' loads into memory
 
   return (
     <>
@@ -46,6 +42,7 @@ export default function ImagePage() {
             appData={photos}
             activeItem={activeItem}
             setActiveItem={setActiveItem}
+            loading={loading}
           />
         </aside>
 

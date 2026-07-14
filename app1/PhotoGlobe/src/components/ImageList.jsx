@@ -2,7 +2,16 @@ import React from "react";
 
 import IconImage from "./IconImage.jsx";
 
-export default function ImageList({ appData, activeItem, setActiveItem }) {
+export default function ImageList({
+  appData,
+  activeItem,
+  setActiveItem,
+  loading,
+}) {
+  if (loading) {
+    return <div>Loading assets...</div>;
+  }
+
   return (
     <>
       {/* Static Sidebar Title Header */}

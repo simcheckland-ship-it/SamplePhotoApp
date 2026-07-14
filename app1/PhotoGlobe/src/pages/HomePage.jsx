@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { usePhotos } from "../hooks/usePhotos.js";
 import HomeImage from "../components/HomeImage.jsx";
-import { useAppState } from "../contextProviders/AppStateContext.jsx";
+import { useAppState } from "../hooks/useAppState.js";
 
 export default function HomePage() {
   const { data: photos, isLoading, isError, error, isFetching } = usePhotos();

@@ -6,7 +6,7 @@ import { useAppState } from "../hooks/useAppState.js";
 
 export default function HomePage() {
   const { data: photos, isLoading, isError, error, isFetching } = usePhotos();
-  const [chunks, setChunks] = useState([]);
+  const [randomItems, setRandomItems] = useState([]);
 
   // Function to pick 20 unique random items
   const getRandomItems = (arr) => {
@@ -17,24 +17,7 @@ export default function HomePage() {
     shuffled.sort(() => 0.5 - Math.random());
 
     // 3. Take the first 20 items
-    return shuffled;
-  };
-
-  const chunkIntoSix = (arr) => {
-    // Calculate base size and remainder
-    const size = Math.floor(arr.length / 6);
-    const remainder = arr.length % 6;
-
-    // Initialize tracking variables
-    let offset = 0;
-
-    return Array.from({ length: 6 }, (_, index) => {
-      // Add 1 extra element to early chunks if there is a remainder
-      const currentChunkSize = size + (index < remainder ? 1 : 0);
-      const chunk = arr.slice(offset, offset + currentChunkSize);
-      offset += currentChunkSize;
-      return chunk;
-    });
+    return shuffled.slice(0, 6);
   };
 
   const photosOfType = photos?.filter((x) => x.Type === "view") || [];
@@ -42,23 +25,22 @@ export default function HomePage() {
   useEffect(() => {
     if (photos) {
       if (photosOfType) {
-        const shuffled = getRandomItems(photosOfType);
-        const c = chunkIntoSix(shuffled);
-        setChunks(c);
+        const selected = getRandomItems(photosOfType);
+        setRandomItems(selected);
       }
     }
   }, [photos]);
 
   return (
     <>
-      {chunks ? (
+      {randomItems ? (
         <div className="grid h-screen w-screen grid-cols-3 grid-rows-2 overflow-hidden">
-          {chunks.map((item, index) => (
+          {randomItems.map((item, index) => (
             /* The wrapper must explicitly dictate the cell boundaries */
             <div key={index} className="w-full h-full overflow-hidden relative">
               <HomeImage
-                chunk={item}
-                imageNumber={index}
+                fileName={item.FileName}
+                label={item.FileName}
                 className="absolute inset-0 min-h-full min-w-full h-full w-full object-cover object-center"
               />
             </div>

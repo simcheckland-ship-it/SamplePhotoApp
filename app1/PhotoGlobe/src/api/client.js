@@ -3,7 +3,7 @@ import axios from "axios";
 // Create a configured instance of Axios
 const apiClient = axios.create({
   // eslint-disable-next-line no-undef
-  // baseURL: import.meta.env.VITE_API_BASE_URL_LOCAL,
+  baseURL: import.meta.env.VITE_API_BASE_URL_LOCAL || "/local-network",
   timeout: 3000, // 10 seconds timeout
   headers: {
     "Content-Type": "application/json",

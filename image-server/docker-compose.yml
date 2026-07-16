@@ -15,4 +15,6 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       
       # 2. Links your physical photo storage directory into the container path
-      - /mnt/vm-photos:/var/www/photo-app/uploads
+      - /mnt/proxmox-shared/images:/var/www/photo-app/uploads
+
+      

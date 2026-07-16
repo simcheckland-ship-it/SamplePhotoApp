@@ -1,72 +1,89 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { usePhotos } from "../hooks/usePhotos.js";
 import HomeImage from "../components/HomeImage.jsx";
-import { useAppState } from "../hooks/useAppState.js";
+
+// Helper functions placed outside the component to prevent re-creation
+const getRandomItems = (arr) => {
+  const shuffled = [...arr];
+  shuffled.sort(() => 0.5 - Math.random());
+  return shuffled;
+};
+
+const chunkIntoSix = (arr) => {
+  const size = Math.floor(arr.length / 6);
+  const remainder = arr.length % 6;
+  let offset = 0;
+
+  return Array.from({ length: 6 }, (_, index) => {
+    const currentChunkSize = size + (index < remainder ? 1 : 0);
+    const chunk = arr.slice(offset, offset + currentChunkSize);
+    offset += currentChunkSize;
+    return chunk;
+  });
+};
 
 export default function HomePage() {
   const { data: photos, isLoading, isError, error, isFetching } = usePhotos();
   const [chunks, setChunks] = useState([]);
+  const [activeImage, setActiveImage] = useState(0);
+  const [isPageActive, setIsPageActive] = useState(true);
 
-  // Function to pick 20 unique random items
-  const getRandomItems = (arr) => {
-    // 1. Create a shallow copy to avoid mutating the original data
-    const shuffled = [...arr];
-
-    // 2. Shuffle using a basic sort (or a Fisher-Yates shuffle for better randomness)
-    shuffled.sort(() => 0.5 - Math.random());
-
-    // 3. Take the first 20 items
-    return shuffled;
-  };
-
-  const chunkIntoSix = (arr) => {
-    // Calculate base size and remainder
-    const size = Math.floor(arr.length / 6);
-    const remainder = arr.length % 6;
-
-    // Initialize tracking variables
-    let offset = 0;
-
-    return Array.from({ length: 6 }, (_, index) => {
-      // Add 1 extra element to early chunks if there is a remainder
-      const currentChunkSize = size + (index < remainder ? 1 : 0);
-      const chunk = arr.slice(offset, offset + currentChunkSize);
-      offset += currentChunkSize;
-      return chunk;
-    });
-  };
-
-  const photosOfType = photos?.filter((x) => x.Type === "view") || [];
-
-  useEffect(() => {
-    if (photos) {
-      if (photosOfType) {
-        const shuffled = getRandomItems(photosOfType);
-        const c = chunkIntoSix(shuffled);
-        setChunks(c);
-      }
-    }
+  // 1. Memoize filtered photos so it doesn't recalculate on every render
+  const photosOfType = useMemo(() => {
+    return photos?.filter((x) => x.Type === "view") || [];
   }, [photos]);
 
+  // 2. Separate Effect: Only handle photo shuffling when the API data actually changes
+  useEffect(() => {
+    if (photosOfType.length > 0) {
+      const shuffled = getRandomItems(photosOfType);
+      const c = chunkIntoSix(shuffled);
+      setChunks(c);
+    }
+  }, [photosOfType]);
+
+  // 3. Separate Effect: Monitor page visibility focus/blur
+  useEffect(() => {
+    const handleBlur = () => setIsPageActive(false);
+    const handleFocus = () => setIsPageActive(true);
+
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, []);
+
+  // 4. Separate Effect: Only manages the interval timer
+  useEffect(() => {
+    if (!isPageActive || chunks.length === 0) return;
+
+    const intervalId = setInterval(() => {
+      setActiveImage((prevIndex) => (prevIndex + 1) % 6);
+    }, 1500);
+
+    return () => clearInterval(intervalId);
+  }, [isPageActive, chunks.length]);
+
+  if (isLoading) return <div>Loading...</div>; // Optional: Handle loading state gracefully
+  if (isError) return <div>Error loading photos.</div>;
+
   return (
-    <>
-      {chunks ? (
-        <div className="grid h-screen w-screen grid-cols-3 grid-rows-2 overflow-hidden">
-          {chunks.map((item, index) => (
-            /* The wrapper must explicitly dictate the cell boundaries */
-            <div key={index} className="w-full h-full overflow-hidden relative">
-              <HomeImage
-                chunk={item}
-                imageNumber={index}
-                className="absolute inset-0 min-h-full min-w-full h-full w-full object-cover object-center"
-              />
-            </div>
-          ))}
+    <div className="grid h-screen w-screen grid-cols-3 grid-rows-2 gap-3 p-3 overflow-hidden">
+      {chunks.map((item, index) => (
+        <div
+          key={index}
+          className="w-full h-full overflow-hidden relative p-1 border rounded-xl border-emerald-500/50"
+        >
+          <HomeImage
+            chunk={item}
+            imageNumber={index}
+            activeImage={activeImage}
+          />
         </div>
-      ) : (
-        ""
-      )}
-    </>
+      ))}
+    </div>
   );
 }

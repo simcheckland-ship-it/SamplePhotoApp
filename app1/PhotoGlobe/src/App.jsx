@@ -2,6 +2,7 @@ import { useState } from "react";
 import MapPage from "./pages/MapPage.jsx";
 import ImagePage from "./pages/ImagePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
 import "./index.css";
 import Toolbar from "./components/ToolBar.jsx";
 import { Routes, Route, Link } from "react-router-dom";
@@ -24,7 +25,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/image" element={<ImagePage />} />
           <Route path="/map" element={<MapPage />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppStateProvider>

@@ -18,7 +18,7 @@ public class PhotosController : ControllerBase
     public PhotosController(IWebHostEnvironment env)
     {
         // Dynamically finds the correct folder path no matter where the app is running
-        _jsonFilePath = Path.Combine(env.ContentRootPath, "Data", "metadata.json");
+        _jsonFilePath = Path.Combine(env.ContentRootPath, "Data", "metadata2.json");
     }
 
     [Route("")]

@@ -15,12 +15,12 @@ export default function ImageList({
   return (
     <>
       {/* Static Sidebar Title Header */}
-      <div className="p-4 border-b border-slate-800">
+      {/*    <div className="p-4 border-b border-slate-800">
         <h2 className="font-medium text-slate-200">Data Layers</h2>
         <p className="text-xs text-slate-500 mt-0.5">
           Select a layer to re-center the workspace view.
         </p>
-      </div>
+      </div> */}
 
       {appData && appData.length > 0 ? (
         <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
@@ -51,8 +51,10 @@ export default function ImageList({
                     </span>
 
                     <div className="text-xs text-slate-500 mt-2 flex items-center space-x-1 font-mono">
-                      <span>Size:</span>
-                      <span className="text-slate-400">{item.ImageSize}</span>
+                      <span>Type:</span>
+                      <span className="text-slate-400">
+                        {item.GPSImgDirection}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -70,9 +72,9 @@ export default function ImageList({
       )}
 
       {/* Static Sidebar Footer */}
-      <div className="p-4 border-t border-slate-800 bg-slate-950/40 text-xs text-slate-500">
+      {/* <div className="p-4 border-t border-slate-800 bg-slate-950/40 text-xs text-slate-500">
         System Status: Nominal
-      </div>
+      </div> */}
     </>
   );
 }

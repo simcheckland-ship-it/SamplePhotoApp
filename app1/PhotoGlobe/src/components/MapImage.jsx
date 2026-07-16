@@ -1,16 +1,20 @@
-import React from 'react';
+import React from "react";
+import { useAppState } from "../hooks/useAppState.js";
 
-export default function MapImage({ fileName, label }) {
-    const iconPath = `/images/${fileName}`;
+export default function Image({ fileName, label }) {
+  const { imgBaseUrl, loading } = useAppState();
+
+  const imagePath = `${imgBaseUrl}/${fileName.toLowerCase()}`;
+
+  if (loading) {
+    return <div>Loading assets...</div>;
+  }
 
   return (
     <img
-      src={iconPath}
-      alt={label}
-      // CRUCIAL: w-full and h-full tell the image to stretch to the 10x10 amber box
-      // object-cover crops it cleanly so it doesn't look stretched or distorted
-       className="w-full h-40 object-cover rounded-lg shadow-sm"
+      src={imagePath}
+      alt="Grid constrained layout"
+      className="w-full h-full  object-cover "
     />
-    
   );
 }

@@ -17,7 +17,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/local-network": {
-        target: "https://192.168.0.200", // Your local IP backend base
+        target: "https://localhost:7154", // Your local IP backend base
         changeOrigin: true,
         secure: false, // Bypasses the self-signed HTTPS certificate block
         rewrite: (path) => path.replace(/^\/local-network/, ""),

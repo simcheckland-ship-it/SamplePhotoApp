@@ -1,57 +1,70 @@
 import React, { useState, useEffect } from "react";
 import { useAppState } from "../hooks/useAppState.js";
+import { useNavigate } from "react-router-dom";
 
-export default function Image({ chunk, imageNumber }) {
-  const { imgBaseUrl, loading } = useAppState();
+export default function Image({ chunk, imageNumber, activeImage }) {
+  const { imgBaseUrl, loading, setActiveItem } = useAppState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Track the previous image to hold it in the background during the crossfade
   const [prevImageSrc, setPrevImageSrc] = useState(null);
-
+  const navigate = useNavigate();
+  // Reset states immediately when chunk changes
   useEffect(() => {
     setIsLoaded(false);
     setCurrentIndex(0);
-    setPrevImageSrc(null); // Clear background on chunk change
+    setPrevImageSrc(null);
+  }, [chunk]);
 
-    let intervalId;
+  /*   useEffect(() => {
+    if (!chunk || !chunk.length) return;
 
-    const timeoutId = setTimeout(() => {
-      intervalId = setInterval(() => {
-        setCurrentIndex((prevIndex) => {
-          const nextIndex = (prevIndex + 1) % chunk.length;
+    // Stop the timer loop entirely if the page is not active
+    if (!isPageActive) return;
 
-          // Before changing the index, save the current image path as the background
-          const currentFileName =
-            chunk[prevIndex]?.FileName?.toLowerCase() || "";
-          if (currentFileName) {
-            setPrevImageSrc(`${imgBaseUrl}/${currentFileName}`);
-          }
+    if (imageNumber === activeImage) {
+      const currentFileName =
+        chunk[currentIndex]?.FileName?.toLowerCase() || "";
+      if (currentFileName) {
+        setPrevImageSrc(`${imgBaseUrl}/${currentFileName}`);
+      }
 
-          // Trigger the opacity reset for the incoming image
-          setIsLoaded(false);
-          return nextIndex;
-        });
-      }, 10000);
-    }, 1666 * imageNumber);
+      setIsLoaded(false);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % chunk.length);
+    }
 
-    return () => {
-      clearTimeout(timeoutId);
-      clearInterval(intervalId);
-    };
-  }, [chunk, imgBaseUrl]);
+    console.log(">>>", activeImage, imageNumber);
+  }, [chunk, currentIndex, imgBaseUrl, imageNumber, activeImage, isPageActive]); */
+
+  useEffect(() => {
+    if (!chunk || !chunk.length) return;
+
+    if (imageNumber === activeImage) {
+      const currentFileName =
+        chunk[currentIndex]?.FileName?.toLowerCase() || "";
+      if (currentFileName) {
+        setPrevImageSrc(`${imgBaseUrl}/${currentFileName}`);
+      }
+
+      setIsLoaded(false);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % chunk.length);
+    }
+  }, [activeImage]);
 
   if (!chunk || !chunk.length) return <div>No image provided</div>;
   if (loading) return <div>Loading assets...</div>;
 
-  console.log(">>>", chunk[0]);
-
   const fileName = chunk[currentIndex]?.FileName?.toLowerCase() || "";
   const highResPath = `${imgBaseUrl}/${fileName}`;
 
+  const handleClick = () => {
+    // Run any logic here
+
+    setActiveItem(chunk[currentIndex]);
+    navigate("/map");
+  };
+
   return (
     <div className="absolute inset-0 min-h-full min-w-full h-full w-full overflow-hidden bg-black">
-      {/* 1. Background Image: Holds the old image static while the new one merges over it */}
       {prevImageSrc && (
         <img
           src={prevImageSrc}
@@ -60,12 +73,13 @@ export default function Image({ chunk, imageNumber }) {
         />
       )}
 
-      {/* 2. Foreground Image: Fades in seamlessly from opacity-0 to opacity-100 */}
       <img
-        key={highResPath} // Re-mounts the element to properly re-trigger onLoad every swap
+        key={highResPath}
         src={highResPath}
-        alt={highResPath}
+        alt=""
+        onClick={handleClick}
         onLoad={() => setIsLoaded(true)}
+        style={{ cursor: "pointer" }}
         className={`absolute inset-0 min-h-full min-w-full h-full w-full object-cover object-center transition-opacity duration-1500 ease-out ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}

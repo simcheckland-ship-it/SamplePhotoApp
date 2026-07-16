@@ -14,7 +14,7 @@ export default function Image({ fileName, label }) {
     <img
       src={imagePath}
       alt="Grid constrained layout"
-      className="max-w-full max-h-full w-auto h-auto object-contain rounded"
+      className="max-w-full max-h-full w-auto h-auto object-fill "
     />
   );
 }

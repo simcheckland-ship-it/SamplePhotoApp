@@ -3,10 +3,12 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import {
   MapContainer,
   TileLayer,
+  CircleMarker,
   Marker,
   Popup,
   useMapEvents,
   Rectangle,
+  Polyline,
 } from "react-leaflet";
 import MapImage from "./MapImage.jsx";
 import "leaflet/dist/leaflet.css";
@@ -40,6 +42,34 @@ function MapBoundsTracker({ onBoundsChange }) {
   return null; // This component does not render any visual UI
 }
 
+// Utility to calculate destination point given start point, angle, and distance
+const getDestinationPoint = (lat, lng, bearingDegrees, distanceKm) => {
+  // Return null if inputs are invalid
+  if (lat == null || lng == null) return null;
+
+  const R = 6371; // Earth's radius in km
+  const bearing = (bearingDegrees * Math.PI) / 180; // Convert angle to radians
+
+  const lat1 = (lat * Math.PI) / 180;
+  const lng1 = (lng * Math.PI) / 180;
+
+  // Haversine formula for destination
+  const lat2 = Math.asin(
+    Math.sin(lat1) * Math.cos(distanceKm / R) +
+      Math.cos(lat1) * Math.sin(distanceKm / R) * Math.cos(bearing),
+  );
+
+  const lng2 =
+    lng1 +
+    Math.atan2(
+      Math.sin(bearing) * Math.sin(distanceKm / R) * Math.cos(lat1),
+      Math.cos(distanceKm / R) - Math.sin(lat1) * Math.sin(lat2),
+    );
+
+  // Convert back to degrees
+  return [(lat2 * 180) / Math.PI, (lng2 * 180) / Math.PI];
+};
+
 export default function LeafletMap({
   activeItem,
   isOverview,
@@ -57,42 +87,32 @@ export default function LeafletMap({
   const [isLoading, setIsLoading] = useState(true);
   const [zoomLevel, setZoomLevel] = useState(startZoom);
   const doCenterMap = useRef(true);
+  const [viewDirection, setViewDirection] = useState(null);
 
-  //NOTE react-leaflet, the <MapContainer> component handles the lifecycle of creating, rendering, and destroying the underlying Leaflet map instance automatically.
-
-  // useEffect(() => {
-  //   // if (!activeItem) {
-  //   //     console.log("MapLeaf.ACTIVATED status: NULL");
-  //   // }
-  //   // else {
-  //   //     console.log("MapLeaf.ACTIVATED status:", activeItem.FileName);
-  //   // }
-
-  //   flyTo();
-  // }, []);
+  const angle = 45; // Angle in degrees clockwise from North (0 = North, 90 = East...)
+  const lengthKm = () => {
+    console.log(">>>", isOverview, zoomLevel);
+    if (zoomLevel === 18) return 0.05;
+    if (zoomLevel === 17) return 0.07;
+    if (zoomLevel === 16) return 0.1;
+    if (zoomLevel === 15) return 0.3;
+    if (zoomLevel === 14) return 0.5;
+    if (zoomLevel === 13) return 0.75;
+    if (zoomLevel === 12) return 1;
+    if (zoomLevel === 11) return 3;
+    if (zoomLevel === 10) return 6;
+    if (zoomLevel === 9) return 9;
+    if (zoomLevel === 8) return 12;
+    return 0;
+  };
+  const showViewDirection = () => {
+    if (!activeItem.GPSImgDirection || activeItem.Type !== "view") return false;
+    return true;
+  };
 
   useEffect(() => {
-    // if (!activeItem) {
-    //   console.log("MapLeaf.activeItem status: NULL");
-    // } else {
-    //   console.log("MapLeaf.activeItem status:", activeItem.FileName);
-    // }
-
     flyTo();
   }, [activeItem, mapInstance]);
-
-  // useEffect(() => {
-  //   if (mapCenter) {
-  //     console.log("Map Center:", {
-  //       bottomLeft: [mapCenter.lat, mapCenter.lng],
-  //     });
-  //   }
-  //   // if (mapBounds) {
-  //   //   console.log("Map Bounds:", {
-  //   //     bottomLeft: [],
-  //   //   });
-  //   // }
-  // }, [mapCenter]);
 
   // React calls this function when the element mounts or unmounts
   const mapRefCallback = useCallback((map) => {
@@ -109,6 +129,11 @@ export default function LeafletMap({
 
     const coordinates = [activeItem.GPSLatitude, activeItem.GPSLongitude];
     setMarkerPosition(coordinates);
+    if (activeItem.GPSImgDirection) {
+      setViewDirection(activeItem.GPSImgDirection);
+    } else {
+      setViewDirection(null);
+    }
     setIsLoading(false);
 
     if (!mapInstance) return;
@@ -196,6 +221,29 @@ export default function LeafletMap({
     );
   }
 
+  if (
+    !markerPosition ||
+    !Array.isArray(markerPosition) ||
+    markerPosition.length < 2
+  ) {
+    return (
+      <div style={{ color: "gray", padding: "10px" }}>
+        Waiting for location data...
+      </div>
+    );
+  }
+
+  // Calculate the end point of our line
+  const destinationPosition = getDestinationPoint(
+    markerPosition[0],
+    markerPosition[1],
+    viewDirection,
+    lengthKm(),
+  );
+
+  // Array of points defining the line
+  const linePositions = [markerPosition, destinationPosition];
+
   const crossIcon = new L.DivIcon({
     html: `
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="3" stroke-linecap="round">
@@ -260,10 +308,24 @@ export default function LeafletMap({
       )}
       {/* A clickable map pin marker */}
       {markerPosition && (
-        <Marker
-          position={markerPosition}
-          icon={isOverview ? crossIcon : L.Marker.prototype.options.icon}
+        <CircleMarker
+          center={markerPosition}
+          radius={14}
+          pathOptions={{
+            color: "red",
+            fillOpacity: 0,
+            weight: 2,
+          }}
         >
+          {showViewDirection() ? (
+            <Polyline
+              positions={linePositions}
+              pathOptions={{ color: "red", weight: 2 }}
+            />
+          ) : (
+            <Marker position={markerPosition} icon={crossIcon} />
+          )}
+
           <Popup minWidth={240} maxWidth={320} className="custom-image-popup">
             {/* 2. Style your popup container */}
             <div className="flex flex-col gap-2 p-1 font-sans">
@@ -290,7 +352,7 @@ export default function LeafletMap({
               </div>
             </div>
           </Popup>
-        </Marker>
+        </CircleMarker>
       )}
     </MapContainer>
   );

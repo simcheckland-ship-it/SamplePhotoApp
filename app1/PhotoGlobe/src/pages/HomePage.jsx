@@ -62,7 +62,7 @@ export default function HomePage() {
 
     const intervalId = setInterval(() => {
       setActiveImage((prevIndex) => (prevIndex + 1) % 6);
-    }, 1500);
+    }, 5000);
 
     return () => clearInterval(intervalId);
   }, [isPageActive, chunks.length]);

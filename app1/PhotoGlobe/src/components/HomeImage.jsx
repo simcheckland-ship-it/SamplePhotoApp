@@ -80,7 +80,7 @@ export default function Image({ chunk, imageNumber, activeImage }) {
         onClick={handleClick}
         onLoad={() => setIsLoaded(true)}
         style={{ cursor: "pointer" }}
-        className={`absolute inset-0 min-h-full min-w-full h-full w-full object-cover object-center transition-opacity duration-1500 ease-out ${
+        className={`absolute inset-0 min-h-full min-w-full h-full w-full object-cover object-center transition-opacity duration-2500 ease-out ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
       />

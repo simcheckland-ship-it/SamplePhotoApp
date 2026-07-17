@@ -54,7 +54,7 @@ export default function Image({ chunk, imageNumber, activeImage }) {
   if (loading) return <div>Loading assets...</div>;
 
   const fileName = chunk[currentIndex]?.FileName?.toLowerCase() || "";
-  const highResPath = `${imgBaseUrl}/${fileName}`;
+  const highResPath = `${imgBaseUrl}/small/${fileName}`;
 
   const handleClick = () => {
     // Run any logic here

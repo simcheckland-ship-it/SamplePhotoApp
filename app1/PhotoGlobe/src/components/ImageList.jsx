@@ -52,9 +52,7 @@ export default function ImageList({
 
                     <div className="text-xs text-slate-500 mt-2 flex items-center space-x-1 font-mono">
                       <span>Type:</span>
-                      <span className="text-slate-400">
-                        {item.GPSImgDirection}
-                      </span>
+                      <span className="text-slate-400">{item.Type}</span>
                     </div>
                   </div>
                 </div>

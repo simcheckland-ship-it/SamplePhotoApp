@@ -9,11 +9,10 @@ export default function Image({ chunk, imageNumber, activeImage }) {
   const [prevImageSrc, setPrevImageSrc] = useState(null);
   const navigate = useNavigate();
 
-  // Track previous activation state to detect the exact moment it *becomes* active
   const wasActiveRef = useRef(false);
   const isActive = imageNumber === activeImage;
 
-  // 1. Reset everything ONLY if the underlying data chunk changes
+  // 1. Reset states when the chunk changes
   useEffect(() => {
     setIsLoaded(false);
     setCurrentIndex(0);
@@ -21,34 +20,37 @@ export default function Image({ chunk, imageNumber, activeImage }) {
     wasActiveRef.current = false;
   }, [chunk]);
 
-  // 2. Advance exactly ONE step when this specific component becomes active
+  // 2. Step forward exactly once when activated
   useEffect(() => {
     if (!chunk || !chunk.length) return;
 
     if (isActive && !wasActiveRef.current) {
-      // Capture the current image as the background before we step forward
       const currentFileName =
         chunk[currentIndex]?.FileName?.toLowerCase() || "";
       if (currentFileName) {
         setPrevImageSrc(`${imgBaseUrl}/small/${currentFileName}`);
       }
 
-      // Trigger the fade-out of the foreground
       setIsLoaded(false);
-
-      // Increment index safely
       setCurrentIndex((prevIndex) => (prevIndex + 1) % chunk.length);
     }
 
-    // Persist the active state to the ref
     wasActiveRef.current = isActive;
   }, [isActive, chunk, currentIndex, imgBaseUrl]);
 
   if (!chunk || !chunk.length) return <div>No image provided</div>;
   if (loading) return <div>Loading assets...</div>;
 
+  // Paths for current image
   const fileName = chunk[currentIndex]?.FileName?.toLowerCase() || "";
   const highResPath = `${imgBaseUrl}/small/${fileName}`;
+
+  // Calculate and point to the NEXT image for preloading
+  const nextIndex = (currentIndex + 1) % chunk.length;
+  const nextFileName = chunk[nextIndex]?.FileName?.toLowerCase() || "";
+  const nextImagePreloadPath = nextFileName
+    ? `${imgBaseUrl}/small/${nextFileName}`
+    : "";
 
   const handleClick = () => {
     setActiveItem(chunk[currentIndex]);
@@ -57,7 +59,17 @@ export default function Image({ chunk, imageNumber, activeImage }) {
 
   return (
     <div className="absolute inset-0 min-h-full min-w-full h-full w-full overflow-hidden bg-black">
-      {/* Background Layer: Holds the previous image firmly during crossfade */}
+      {/* 1. Preload Layer: Hidden from view but forces browser caching */}
+      {nextImagePreloadPath && (
+        <link
+          rel="preload"
+          as="image"
+          href={nextImagePreloadPath}
+          key={`preload-${nextImagePreloadPath}`}
+        />
+      )}
+
+      {/* 2. Background Layer: Holds the previous image during crossfade */}
       {prevImageSrc && (
         <img
           src={prevImageSrc}
@@ -65,7 +77,8 @@ export default function Image({ chunk, imageNumber, activeImage }) {
           className="absolute inset-0 min-h-full min-w-full h-full w-full object-cover object-center"
         />
       )}
-      {/* Foreground Layer: Fades in smoothly once the new asset finishes loading */}
+
+      {/* 3. Foreground Layer: Smooth transition */}
       <img
         key={highResPath}
         src={highResPath}

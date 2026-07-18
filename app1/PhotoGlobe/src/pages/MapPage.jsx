@@ -6,6 +6,7 @@ import Map3D from "../components/Map3D.jsx";
 import MapLeaf from "../components/MapLeaf.jsx";
 import { usePhotos } from "../hooks/usePhotos.js";
 import { useAppState } from "../hooks/useAppState.js";
+import { Panel, Group, Separator } from "react-resizable-panels";
 
 export default function MapPage() {
   const { data: photos, isLoading, isError, error } = usePhotos();
@@ -60,10 +61,12 @@ export default function MapPage() {
           />
         </aside>
 
+        {/* Left Sidebar Panel */}
+
         {/* 'flex-1' allows it to stretch to the right browser wall dynamically */}
-        <main className="flex-1 h-full w-full overflow-hidden bg-slate-950 relative grid grid-cols-[1fr_minmax(0px,600px)] p-2 gap-2">
+        <main className="flex-1 h-full w-full overflow-hidden bg-slate-950 relative grid grid-cols-[1fr_minmax(0px,400px)] p-2 gap-2">
           {/* Left Column (Takes up 100% height of the left side) */}
-          <div className="bg-slate-900 rounded-lg  flex flex-col items-center justify-center ">
+          <div className=" rounded-lg  flex flex-col items-center justify-center ">
             {activeMap === "3D" ? (
               <Map3D mapTarget={activeItem} />
             ) : (
@@ -79,7 +82,7 @@ export default function MapPage() {
           {/* Right Column (Split into 2 equal rows) */}
           <div className="grid grid-rows-[auto_1fr] gap-2 h-full min-h-0 ">
             {/* Right Column - Top Row */}
-            <div className="border border-emerald-500/50 rounded-xl flex flex-col items-center justify-center max-h-100 h-full overflow-hidden">
+            <div className="border border-emerald-500/50 rounded-xl flex flex-col items-center justify-center min-h-50 max-h-100 h-full overflow-hidden">
               {activeItem ? (
                 <MapImage
                   fileName={activeItem.FileName}

@@ -62,7 +62,7 @@ export default function HomePage() {
 
     const intervalId = setInterval(() => {
       setActiveImage((prevIndex) => (prevIndex + 1) % 6);
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(intervalId);
   }, [isPageActive, chunks.length]);
@@ -71,11 +71,11 @@ export default function HomePage() {
   if (isError) return <div>Error loading photos.</div>;
 
   return (
-    <div className="grid h-screen w-screen grid-cols-3 grid-rows-2 gap-3 p-3 overflow-hidden">
+    <div className="grid h-screen w-screen grid-cols-3 grid-rows-2 gap-2 p-2 overflow-hidden">
       {chunks.map((item, index) => (
         <div
           key={index}
-          className="w-full h-full overflow-hidden relative p-1 border rounded-xl border-emerald-500/50"
+          className="w-full h-full overflow-hidden relative  border rounded-xl border-emerald-500/50"
         >
           <HomeImage
             chunk={item}

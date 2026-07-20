@@ -1,51 +1,41 @@
-terraform {
-  required_providers {
-    proxmox = {
-      source  = "bpg/proxmox"
-      version = "0.66.0"
-    }
-  }
-}
-
 variable "proxmox_endpoint" { type = string }
 variable "proxmox_token"    { type = string }
+variable "server_inventory" { type = map(any) }
 
-# 1. Connect to your Proxmox Server API
+# 1. Declare the incoming SSH Key variable
+variable "ssh_public_key"   { type = string }
+
 provider "proxmox" {
   endpoint  = var.proxmox_endpoint
   api_token = var.proxmox_token
   insecure  = true
 }
 
-# 2. Clone the Golden Image Template (ID 9000) from your SSD pool
-resource "proxmox_virtual_environment_vm" "docker_host_vm" {
-  name        = "automated-docker-host"
-  description = "Provisioned via GitHub Actions and Terraform"
-  node_name   = "pve"
-  vm_id       = 101 # The target ID for your brand-new virtual machine
+resource "proxmox_virtual_environment_vm" "docker_hosts" {
+  for_each = var.server_inventory
 
-  # Point to your locked-down template VM
+  name        = each.key
+  node_name   = "pve"
+  vm_id       = each.value.vm_id
+
   clone {
     vm_id = 9000
   }
 
-  cpu {
-    cores = 2
-  }
+  cpu { cores = each.value.cores }
+  memory { dedicated = each.value.ram }
+  network_device { bridge = "vmbr0" }
 
-  memory {
-    dedicated = 2048
-  }
-
-  network_device {
-    bridge = "vmbr0"
-  }
-
-  # Dynamically trigger DHCP via Cloud-Init on first boot
   initialization {
+    # 2. Inject your secure public key into the VM user account
+    user_account {
+      keys = [var.ssh_public_key]
+    }
+
     ip_config {
       ipv4 {
-        address = "dhcp"
+        address = each.value.ip_address
+        gateway = each.value.gateway
       }
     }
   }

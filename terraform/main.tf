@@ -15,7 +15,7 @@ variable "server_passwords" {
   type    = map(string)
   default = {}
 }
-variable "ssh_public_key"   { type = string }
+
 
 provider "proxmox" {
   endpoint  = var.proxmox_endpoint

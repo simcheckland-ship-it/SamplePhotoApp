@@ -39,9 +39,11 @@ resource "proxmox_virtual_environment_vm" "docker_hosts" {
   network_device { bridge = "vmbr0" }
 
   initialization {
-    # 2. Inject your secure public key into the VM user account
+    # Inject your secure public key into the VM user account
     user_account {
-       keys = [var.ssh_public_key]
+      username = each.value.username
+      keys     = [each.value.ssh_key]
+      password = var.server_passwords[each.key] # Pulls from your deploy.yml JSON map
     }
 
     ip_config {

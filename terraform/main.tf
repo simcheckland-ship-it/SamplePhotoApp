@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "0.66.0"
+    }
+  }
+}
+
 variable "proxmox_endpoint" { type = string }
 variable "proxmox_token"    { type = string }
 variable "server_inventory" { type = map(any) }

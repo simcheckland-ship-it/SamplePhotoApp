@@ -5,11 +5,11 @@ terraform {
       source  = "bpg/proxmox"
       version = "0.66.0"
     }
+  }
 
-    # anchor state memory safely outside GitHub's workspace
-    backend "local" {
-      path = "/var/lib/terraform/proxmox-infra.tfstate"
-    }
+  # anchor state memory safely outside GitHub's workspace
+  backend "local" {
+    path = "/var/lib/terraform/proxmox-infra.tfstate"
   }
 }
 

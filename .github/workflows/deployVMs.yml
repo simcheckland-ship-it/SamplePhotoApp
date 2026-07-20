@@ -26,9 +26,21 @@ jobs:
         # TF_VAR_ tells Terraform to automatically match these to your main.tf variables
         TF_VAR_proxmox_endpoint: ${{ secrets.PROXMOX_ENDPOINT }}
         TF_VAR_proxmox_token: ${{ secrets.PROXMOX_TOKEN }}
-
+        TF_VAR_server_passwords: |
+          {
+            "app-proxy-server" = "${{ secrets.VM0_PASS }}",
+            "api-server" = "${{ secrets.VM1_PASS }}",
+            "image-server" = "${{ secrets.VM2_PASS }}",
+          }
+          
     - name: Terraform Apply
       run: terraform apply -auto-approve
       env:
         TF_VAR_proxmox_endpoint: ${{ secrets.PROXMOX_ENDPOINT }}
         TF_VAR_proxmox_token: ${{ secrets.PROXMOX_TOKEN }}
+        TF_VAR_server_passwords: |
+          {
+            "app-proxy-server" = "${{ secrets.VM0_PASS }}",
+            "api-server" = "${{ secrets.VM1_PASS }}",
+            "image-server" = "${{ secrets.VM2_PASS }}",
+          }

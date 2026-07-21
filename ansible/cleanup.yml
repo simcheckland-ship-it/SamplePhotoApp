@@ -1,0 +1,7 @@
+- name: Decommission Docker Host
+  hosts: docker_hosts
+  gather_facts: no
+  tasks:
+    - name: Gracefully stop all Docker containers
+      shell: "docker stop $(docker ps -a -q)"
+      failed_when: false

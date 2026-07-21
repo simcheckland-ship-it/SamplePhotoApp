@@ -5,7 +5,10 @@ server_inventory = {
     ram        = 2048
     ip_address = "192.168.0.220/24"
     gateway    = "192.168.0.1"
-    ssh_key    = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGIKOXhR4eQgQgUqcRkY1g6xyjQbnM7++K/5PgOluZPj developer@DESKTOP-IUTPP9P"
+    ssh_key    = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGIKOXhR4eQgQgUqcRkY1g6xyjQbnM7++K/5PgOluZPj developer@DESKTOP-IUTPP9P", // My key
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBL8soF08x0Xr4vCgQ/heYO8HHbVYz33ndBACW0vVO69 sim.checkland@outlook.com" // runner to vm
+    ]
     username   = "svc"
   }
 }

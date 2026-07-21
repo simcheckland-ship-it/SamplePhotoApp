@@ -47,7 +47,7 @@ resource "proxmox_virtual_environment_vm" "docker_hosts" {
     # Inject your secure public key into the VM user account
     user_account {
       username = each.value.username
-      keys     = [each.value.ssh_key]
+      keys     =  each.value.ssh_keys
       password = var.server_passwords[each.key] # Pulls from your deploy.yml JSON map
     }
 

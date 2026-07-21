@@ -44,7 +44,10 @@ jobs:
             "api-server" = "${{ secrets.VM1_PASS }}",
             "image-server" = "${{ secrets.VM2_PASS }}",
           }
-
+          
+    - name: Wait for VMs to Boot
+      run: sleep 45
+    
     - name: Run Ansible Configuration Playbook
       run: |
         export ANSIBLE_HOST_KEY_CHECKING=False

@@ -45,6 +45,7 @@ jobs:
           else
             ansible-playbook -i inventory.ini cleanup.yml || echo "Skipping Ansible: Hosts already down."
           fi
+        working-directory: ./ansible
         continue-on-error: true
 
       - name: Terraform Destroy (Targeted or Full)

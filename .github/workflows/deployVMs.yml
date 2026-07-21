@@ -45,7 +45,7 @@ jobs:
             "image-server" = "${{ secrets.VM2_PASS }}",
           }
 
-     - name: Run Ansible Configuration Playbook
+    - name: Run Ansible Configuration Playbook
       run: |
         export ANSIBLE_HOST_KEY_CHECKING=False
         ansible-playbook -i inventory.ini playbook.yml

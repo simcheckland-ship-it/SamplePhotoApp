@@ -59,3 +59,19 @@ resource "proxmox_virtual_environment_vm" "docker_hosts" {
     }
   }
 }
+
+resource "local_file" "ansible_inventory" {
+  # Targets the directory where your GitHub runner calls ansible-playbook
+  filename = "${path.module}/../ansible/inventory.ini"
+  
+  content = <<EOT
+%{ for server_key, server_data in var.server_inventory ~}
+[${server_key}]
+${split("/", server_data.ip_address)[0]} ansible_user=${server_data.username}
+
+%{ endfor ~}
+EOT
+
+  # Ensures the inventory file is rewritten anytime a VM resource changes
+  depends_on = [proxmox_virtual_environment_vm.docker_hosts]
+}

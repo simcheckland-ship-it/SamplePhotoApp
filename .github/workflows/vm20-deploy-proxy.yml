@@ -1,0 +1,27 @@
+name: Deploy Nginx Reverse Proxy to vm20
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    # Tells GitHub to execute this job on your local Linux runner
+    runs-on: [self-hosted, linux]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Copy Proxy Config Files to vm20
+        run: |
+          # 1. Copy files into /opt/nginx-proxy/
+          scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no proxy/* ${{ secrets.VM20_USER }}@${{ secrets.VM20_HOST }}:/opt/nginx-proxy/
+
+      - name: Start Nginx Proxy Container on vm0 -
+        run: |
+
+          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM20_USER }}@${{ secrets.VM20_HOST }}" "
+            cd /opt/nginx-proxy && 
+            docker compose down && 
+            docker compose up -d --force-recreate
+          "

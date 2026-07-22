@@ -12,6 +12,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Clear old SSH host key
+        run: |
+          # Remove the old key for your target IP or Domain
+          ssh-keygen -f "/root/.ssh/known_hosts" -R "${{ secrets.VM20_HOST }}" || true
+
+          # Force add the new key so SSH trusts the server again
+          ssh-keyscan -H "${{ secrets.VM20_HOST }}" >> /root/.ssh/known_hosts
+
       - name: Copy Proxy Config Files to vm20
         run: |
           # 1. Copy files into /opt/nginx-proxy/

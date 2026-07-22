@@ -53,8 +53,7 @@ jobs:
           ansible-playbook -i inventory.ini playbook.yml
         working-directory: ./ansible
 
-  call-child-workflows:
+  call-child:
     # Calls another YAML file in the same repository
     uses: ./.github/workflows/vm20-deploy-proxy.yml
-    with:
-      environment: "production" # Passing an input variable
+    secrets: inherit

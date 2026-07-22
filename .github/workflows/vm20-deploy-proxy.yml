@@ -1,7 +1,7 @@
 name: Deploy Nginx Reverse Proxy to vm20
 
 on:
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   deploy:

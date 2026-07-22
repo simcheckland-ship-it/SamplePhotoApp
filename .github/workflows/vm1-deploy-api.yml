@@ -1,0 +1,41 @@
+name: Deploy API Server Changes
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "api-server/**"
+      - ".github/workflows/deploy-api.yml"
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5 # Automatically cleans and checks out the exact commit
+
+      - name: Copy API Deployment and Code to Proxmox
+        run: |
+          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/api-server"
+          
+          # This copies the parent folder, the docker files, and the code all at once
+          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/ ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server
+
+      - name: Copy Nginx to Proxmox
+        run: |
+          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/nginx.conf"
+          
+          # This copies the parent folder, the docker files, and the code all at once
+          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/nginx.conf ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/nginx.conf
+
+      - name: Remote Restart via SSH
+        run: |
+          # Remotely trigger Docker inside the target folder without checking out Git on the server
+          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
+            cd ~/react-photo-app/api-server && 
+            docker compose down &&
+            docker compose up -d --build
+          "
+         

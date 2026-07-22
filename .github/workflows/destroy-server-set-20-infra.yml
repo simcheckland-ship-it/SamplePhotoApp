@@ -1,4 +1,4 @@
-name: "🔴 Destroy Proxmox Infrastructure"
+name: "🔴 Destroy Server Set 20 Infrastructure"
 
 on:
   workflow_dispatch:
@@ -8,10 +8,10 @@ on:
         required: true
         type: string
       target_server:
-        description: 'Target specific server? (Leave blank to delete ALL)'
+        description: "Target specific server? (Leave blank to delete ALL)"
         required: false
         type: string
-        default: ''
+        default: ""
 
 jobs:
   destroy-infrastructure:

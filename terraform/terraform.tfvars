@@ -1,6 +1,6 @@
 server_inventory = {
   "app-proxy-server" = {
-    vm_id      = 120
+    vm_id      = 220
     cores      = 2
     ram        = 2048
     ip_address = "192.168.0.220/24"

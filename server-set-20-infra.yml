@@ -1,5 +1,5 @@
 server_inventory:
-  app-proxy-server:
+  app_proxy_server:
     vm_id: 220
     cores: 2
     ram: 2048
@@ -10,7 +10,7 @@ server_inventory:
       - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBL8soF08x0Xr4vCgQ/heYO8HHbVYz33ndBACW0vVO69 sim.checkland@outlook.com runner to vm"
     username: "svc"
 
-  api-server:
+  api_server:
     vm_id: 221
     cores: 2
     ram: 2048

@@ -3,13 +3,13 @@
   become: true
 
   tasks:
-      - name: Create the target configuration directory
-        ansible.builtin.file:
-          path: /opt/nginx-proxy
-          state: directory
-          owner: svc            # The username you defined in infrastructure.yml
-          group: svc            # Match this to your administrative group
-          mode: '0755'          # Read/write permissions for user, read for others
+    - name: Create the target configuration directory
+      ansible.builtin.file:
+        path: /opt/nginx-proxy
+        state: directory
+        owner: svc # The username you defined in infrastructure.yml
+        group: svc # Match this to your administrative group
+        mode: "0755" # Read/write permissions for user, read for others
 
     - name: Install proxy dependencies
       ansible.builtin.package:

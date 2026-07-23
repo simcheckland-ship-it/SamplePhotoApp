@@ -1,11 +1,11 @@
 ---
 # 1. Run common base setups across every single machine first
-  include_playbook: common_setup.yml
+- include_playbook: common_setup.yml
 
 # 2. Run proxy configuration ONLY on the proxy group
-  include_playbook: proxy_setup.yml
+- include_playbook: proxy_setup.yml
   when: "'app_proxy_server' in groups"
 
 # 3. Run API configuration ONLY on the API group
-  include_playbook: api_setup.yml
+- include_playbook: api_setup.yml
   when: "'api_server' in groups"

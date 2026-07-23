@@ -6,9 +6,9 @@
 # 2. Run proxy configuration ONLY on the proxy group
 - name: Trigger Proxy Server Playbook
   import_playbook: proxy_setup.yml
-  when: "'app-proxy-server' in groups"
+  when: "'app_proxy_server' in groups"
 
 # 3. Run API configuration ONLY on the API group
 - name: Trigger API Server Playbook
   import_playbook: api_setup.yml
-  when: "'api-server' in groups"
+  when: "'api_server' in groups"

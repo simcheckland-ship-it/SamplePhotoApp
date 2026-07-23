@@ -53,7 +53,7 @@ resource "proxmox_virtual_environment_vm" "docker_hosts" {
       username = each.value.username
       # flatten safely handles single string entries or list arrays seamlessly
       keys     = flatten([each.value.ssh_keys])
-      password = var.server_passwords[each.key] 
+      password = lookup(var.server_passwords, each.key, null)
     }
 
     ip_config {

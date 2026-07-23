@@ -72,7 +72,7 @@ resource "local_file" "ansible_inventory" {
   
   content = <<EOT
 %{ for server_key, server_data in local.infra_data.server_inventory ~}
-[${server_key}]
+[${replace(server_key, "-", "_")}]
 ${split("/", server_data.ip_address)[0]} ansible_user=${server_data.username} ansible_ssh_private_key_file=~/.ssh/runner-vm
 
 %{ endfor ~}
@@ -81,4 +81,5 @@ EOT
   # Forces file output tracking to wait until the Proxmox nodes finish creation
   depends_on = [proxmox_virtual_environment_vm.docker_hosts]
 }
+
 

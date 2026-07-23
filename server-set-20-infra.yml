@@ -20,4 +20,3 @@ server_inventory:
       - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGIKOXhR4eQgQgUqcRkY1g6xyjQbnM7++K/5PgOluZPj developer@DESKTOP-IUTPP9P My key"
       - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBL8soF08x0Xr4vCgQ/heYO8HHbVYz33ndBACW0vVO69 sim.checkland@outlook.com runner to vm"     
     username   = "svc"
-}

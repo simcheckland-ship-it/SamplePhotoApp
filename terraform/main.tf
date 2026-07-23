@@ -21,6 +21,10 @@ variable "server_passwords" {
   default = {}
 }
 
+# Load the shared YAML configuration file natively
+locals {
+  infra_data = yamldecode(file("${path.module}/../server-set-20-infra.yml"))
+}
 
 provider "proxmox" {
   endpoint  = var.proxmox_endpoint
@@ -28,8 +32,9 @@ provider "proxmox" {
   insecure  = true
 }
 
+#  Deploy your server group using the parsed YAML data map
 resource "proxmox_virtual_environment_vm" "docker_hosts" {
-  for_each = var.server_inventory
+  for_each = local.infra_data.server_inventory
 
   name        = each.key
   node_name   = "pve"
@@ -44,11 +49,11 @@ resource "proxmox_virtual_environment_vm" "docker_hosts" {
   network_device { bridge = "vmbr0" }
 
   initialization {
-    # Inject your secure public key into the VM user account
     user_account {
       username = each.value.username
-      keys     =  flatten([each.value.ssh_keys])
-      password = var.server_passwords[each.key] # Pulls from your deploy.yml JSON map
+      # flatten safely handles single string entries or list arrays seamlessly
+      keys     = flatten([each.value.ssh_keys])
+      password = var.server_passwords[each.key] 
     }
 
     ip_config {
@@ -60,18 +65,19 @@ resource "proxmox_virtual_environment_vm" "docker_hosts" {
   }
 }
 
+
+# Automatically generate/overwrite your Ansible inventory file
 resource "local_file" "ansible_inventory" {
-  # Targets the directory where your GitHub runner calls ansible-playbook
   filename = "${path.module}/../ansible/inventory.ini"
   
   content = <<EOT
-%{ for server_key, server_data in var.server_inventory ~}
+%{ for server_key, server_data in local_data.server_inventory ~}
 [${server_key}]
 ${split("/", server_data.ip_address)[0]} ansible_user=${server_data.username}
 
 %{ endfor ~}
 EOT
 
-  # Ensures the inventory file is rewritten anytime a VM resource changes
+  # Forces file output tracking to wait until the Proxmox nodes finish creation
   depends_on = [proxmox_virtual_environment_vm.docker_hosts]
 }

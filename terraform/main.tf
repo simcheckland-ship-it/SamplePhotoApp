@@ -73,7 +73,7 @@ resource "local_file" "ansible_inventory" {
   content = <<EOT
 %{ for server_key, server_data in local.infra_data.server_inventory ~}
 [${server_key}]
-${split("/", server_data.ip_address)[0]} ansible_user=${server_data.username}
+${split("/", server_data.ip_address)[0]} ansible_user=${server_data.username} ansible_ssh_private_key_file=~/.ssh/runner-vm
 
 %{ endfor ~}
 EOT

@@ -28,7 +28,7 @@ jobs:
           TF_VAR_server_passwords: |
             {
               "app-proxy-server" = "${{ secrets.VM20_PASS }}",
-              "api-server" = "${{ secrets.VM12_PASS }}",
+              "api-server" = "${{ secrets.VM21_PASS }}",
               "image-server" = "${{ secrets.VM22_PASS }}",
             }
 

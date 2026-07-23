@@ -71,7 +71,7 @@ resource "local_file" "ansible_inventory" {
   filename = "${path.module}/../ansible/inventory.ini"
   
   content = <<EOT
-%{ for server_key, server_data in local_data.infra_data.server_inventory ~}
+%{ for server_key, server_data in local.infra_data.server_inventory ~}
 [${server_key}]
 ${split("/", server_data.ip_address)[0]} ansible_user=${server_data.username}
 
@@ -81,3 +81,4 @@ EOT
   # Forces file output tracking to wait until the Proxmox nodes finish creation
   depends_on = [proxmox_virtual_environment_vm.docker_hosts]
 }
+

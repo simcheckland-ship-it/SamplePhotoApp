@@ -35,7 +35,8 @@ provider "proxmox" {
 resource "proxmox_virtual_environment_vm" "docker_hosts" {
   for_each = local.infra_data.server_inventory
 
-  name        = each.key
+  name        = replace(each.key, "_", "-")
+
   node_name   = "pve"
   vm_id       = each.value.vm_id
 

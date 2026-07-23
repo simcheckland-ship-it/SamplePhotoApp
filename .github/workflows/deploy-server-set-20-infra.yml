@@ -60,7 +60,7 @@ jobs:
 
           # 3. Run the playbook with Host Key Checking disabled
           export ANSIBLE_HOST_KEY_CHECKING=False
-          ansible-playbook -i inventory.ini playbook.yml
+          ansible-playbook -i inventory.ini site.yml
         working-directory: ./ansible
 
   call-child:

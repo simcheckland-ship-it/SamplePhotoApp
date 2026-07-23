@@ -1,0 +1,3 @@
+- name: "🔒 API Server Configuration"
+  hosts: api-server
+  become: true

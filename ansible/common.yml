@@ -1,0 +1,25 @@
+---
+- name: "🔒 General Configuration (All VMs)"
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt package cache (Debian/Ubuntu)
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      when: ansible_os_family == "Ubuntu"
+
+    - name: Install baseline system utilities
+      ansible.builtin.package:
+        name:
+          - curl
+          - git
+          - htop
+          - ufw
+          - rsync
+        state: present
+
+    - name: Ensure timezone is set to UTC
+      community.general.timezone:
+        name: UTC

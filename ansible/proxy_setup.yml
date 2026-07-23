@@ -1,0 +1,10 @@
+- name: "🔒 Proxy Server Configuration"
+  hosts: app-proxy-server
+  become: true
+
+  tasks:
+    - name: Install proxy dependencies
+      ansible.builtin.package:
+        name:
+          - nginx
+        state: present

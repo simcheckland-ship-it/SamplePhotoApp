@@ -1,0 +1,14 @@
+---
+# 1. Run common base setups across every single machine first
+- name: Run Global Base Configuration
+  import_playbook: common_setup.yml
+
+# 2. Run proxy configuration ONLY on the proxy group
+- name: Trigger Proxy Server Playbook
+  import_playbook: proxy_setup.yml
+  when: "'app-proxy-server' in groups"
+
+# 3. Run API configuration ONLY on the API group
+- name: Trigger API Server Playbook
+  import_playbook: api_setup.yml
+  when: "'api-server' in groups"

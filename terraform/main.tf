@@ -15,7 +15,6 @@ terraform {
 
 variable "proxmox_endpoint" { type = string }
 variable "proxmox_token"    { type = string }
-variable "server_inventory" { type = map(any) }
 variable "server_passwords" { 
   type    = map(string)
   default = {}

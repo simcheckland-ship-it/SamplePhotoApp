@@ -1,5 +1,5 @@
 - name: "🔒 Proxy Server Configuration"
-  hosts: app-proxy-server
+  hosts: app_proxy_server
   become: true
 
   tasks:

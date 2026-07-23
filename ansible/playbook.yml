@@ -1,25 +1,11 @@
 ---
-- name: Configure Fresh Docker Hosts
-  hosts: docker_hosts
-  become: yes # Runs commands with sudo privileges
+- name: Apply base system configurations to all VMs
+  hosts: all
+  become: true
+  vars_files:
+    - "../server-set-20-infra.yml" # Imports the exact same config list
 
   tasks:
-    - name: Ensure system repositories are updated
-      apt:
-        update_cache: yes
-        upgrade: dist
-
-    - name: Ensure Docker service is enabled and running
-      service:
-        name: docker
-        state: started
-        enabled: yes
-
-    - name: Test Docker functionality by pulling hello-world
-      command: docker run --rm hello-world
-      register: docker_test
-      changed_when: false
-
-    - name: Show Docker test results
-      debug:
-        msg: "{{ docker_test.stdout_lines }}"
+    - name: Print a message showing target properties
+      ansible.builtin.debug:
+        msg: "Configuring {{ inventory_hostname }} with RAM allotment from global config"

@@ -56,7 +56,7 @@ jobs:
           # 4. Run the playbook with Host Key Checking disabled
           export ANSIBLE_HOST_KEY_CHECKING=False
           export ANSIBLE_FORCE_COLOR=True
-          ansible-playbook -i inventory.ini site.yml -vv
+          ansible-playbook -i inventory.ini site.yml --private-key=~/.ssh/runner-vm
         working-directory: ./ansible
 
 

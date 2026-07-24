@@ -4,8 +4,13 @@
   become: true
 
   tasks:
-    - name: Create custom Nginx configuration directories
-      file:
-        path: /etc/nginx/ssl
+    - name: Create Nginx infrastructure directories
+      ansible.builtin.file:
+        path: "{{ item.path }}"
         state: directory
-        mode: "0700"
+        owner: root
+        group: root
+        mode: "{{ item.mode }}"
+      loop:
+        - { path: "/etc/nginx/ssl", mode: "0700" }
+        - { path: "/opt/nginx-proxy/", mode: "0755" }

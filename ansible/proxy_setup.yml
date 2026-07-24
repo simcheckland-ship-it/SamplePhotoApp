@@ -14,3 +14,16 @@
       loop:
         - { path: "/etc/nginx/ssl", mode: "0700" }
         - { path: "/opt/nginx-proxy/", mode: "0755" }
+
+    - name: Copy Docker Compose and Nginx config files
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../proxy/{{ item }}"
+        dest: "/opt/nginx-proxy/{{ item.dest }}"
+        owner: root
+        group: root
+        mode: "0644"
+      loop:
+        - { src: "docker-compose.yml", dest: "docker-compose.yml" }
+        - { src: "nginx.conf", dest: "nginx.conf" }
+      become: true # 👈 This forces the target VM to use sudo for the write action
+

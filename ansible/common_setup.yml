@@ -25,13 +25,13 @@
 
     - name: Fetch official Docker GPG key
       get_url:
-        url: https://download.com # Use canonical Docker source
+        url: https://download.docker.com/linux/ubuntu/gpg # Use canonical Docker source
         dest: /etc/apt/keyrings/docker.asc
         mode: "0644"
 
     - name: Register upstream Docker apt repository
       apt_repository:
-        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://docker.com {{ ansible_distribution_release }} stable"
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
         state: present
         filename: docker
 

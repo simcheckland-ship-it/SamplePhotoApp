@@ -1,18 +1,11 @@
-- name: "🔒 Proxy Server Configuration"
-  hosts: app_proxy_server
+---
+- name: "🔒 Proxy Server Specific Configuration"
+  hosts: app_proxy_server # 🎯 ONLY targets your proxy VM node
   become: true
 
   tasks:
-    - name: Create the target configuration directory
-      ansible.builtin.file:
-        path: /opt/nginx-proxy
+    - name: Create custom Nginx configuration directories
+      file:
+        path: /etc/nginx/ssl
         state: directory
-        owner: svc # The username you defined in infrastructure.yml
-        group: svc # Match this to your administrative group
-        mode: "0755" # Read/write permissions for user, read for others
-
-    - name: Install proxy dependencies
-      ansible.builtin.package:
-        name:
-          - nginx
-        state: present
+        mode: "0700"

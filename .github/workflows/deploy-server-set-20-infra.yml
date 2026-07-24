@@ -19,34 +19,24 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      - name: Generate Secure TFVars
+        run: |
+          cat << 'EOF' > secret.auto.tfvars
+          proxmox_endpoint = "${{ secrets.PROXMOX_ENDPOINT }}"
+          proxmox_token    = "${{ secrets.PROXMOX_TOKEN }}"
+          server_passwords = {
+            "app-proxy-server" = "${{ secrets.VM20_PASS }}",
+            "api-server"       = "${{ secrets.VM21_PASS }}",
+            "image-server"     = "${{ secrets.VM22_PASS }}"
+          }
+          EOF
+
       - name: Terraform Plan
-        run: terraform plan
-        env:
-          # TF_VAR_ tells Terraform to automatically match these to your main.tf variables
-          TF_VAR_proxmox_endpoint: ${{ secrets.PROXMOX_ENDPOINT }}
-          TF_VAR_proxmox_token: ${{ secrets.PROXMOX_TOKEN }}
-          TF_VAR_server_passwords: |
-            {
-              "app-proxy-server" = "${{ secrets.VM20_PASS }}",
-              "api-server" = "${{ secrets.VM21_PASS }}",
-              "image-server" = "${{ secrets.VM22_PASS }}",
-            }
+        run: terraform plan -out=tfplan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
-        env:
-          TF_VAR_proxmox_endpoint: ${{ secrets.PROXMOX_ENDPOINT }}
-          TF_VAR_proxmox_token: ${{ secrets.PROXMOX_TOKEN }}
-          TF_VAR_server_passwords: |
-            {
-              "app-proxy-server" = "${{ secrets.VM20_PASS }}",
-              "api-server" = "${{ secrets.VM21_PASS }}",
-              "image-server" = "${{ secrets.VM22_PASS }}",
-            }
-
-      - name: Wait for VMs to Boot
-        run: sleep 45
-
+        run: terraform apply -auto-approve tfplan
+        
       - name: Run Ansible Configuration Playbook
         run: |
           # 1. Clear out the specific old host keys from the runner's known_hosts
@@ -63,8 +53,8 @@ jobs:
           ansible-playbook -i inventory.ini site.yml
         working-directory: ./ansible
 
-  call-child:
+#  call-child:
     # Calls another YAML file in the same repository
-    needs: terraform
-    uses: ./.github/workflows/vm20-deploy-proxy.yml
-    secrets: inherit
+#    needs: terraform
+#    uses: ./.github/workflows/vm20-deploy-proxy.yml
+#    secrets: inherit

@@ -1,25 +1,55 @@
 ---
-- name: "🔒 General Configuration (All VMs)"
-  hosts: all
+- name: "🌐 Baseline OS Hardening & Docker Installation"
+  hosts: all # 🟢 Targets every machine inside inventory.ini
   become: true
 
   tasks:
-    - name: Update apt package cache (Debian/Ubuntu)
-      ansible.builtin.apt:
-        update_cache: yes
-        cache_valid_time: 3600
-      when: ansible_os_family == "Ubuntu"
-
-    - name: Install baseline system utilities
-      ansible.builtin.package:
+    - name: Install baseline system prerequisites
+      apt:
         name:
-          - curl
-          - git
-          - htop
-          - ufw
-          - rsync
+          [
+            apt-transport-https,
+            ca-certificates,
+            curl,
+            gnupg,
+            software-properties-common,
+          ]
         state: present
+        update_cache: yes
 
-    - name: Ensure timezone is set to UTC
-      community.general.timezone:
-        name: UTC
+    - name: Create directory for system keyrings
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: "0755"
+
+    - name: Fetch official Docker GPG key
+      get_url:
+        url: https://download.com # Use canonical Docker source
+        dest: /etc/apt/keyrings/docker.asc
+        mode: "0644"
+
+    - name: Register upstream Docker apt repository
+      apt_repository:
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://docker.com {{ ansible_distribution_release }} stable"
+        state: present
+        filename: docker
+
+    - name: Install official Docker Engine and Compose plugin
+      apt:
+        name:
+          [
+            docker-ce,
+            docker-ce-cli,
+            containerd.io,
+            docker-buildx-plugin,
+            docker-compose-plugin,
+          ]
+        state: present
+        update_cache: yes
+
+    - name: Assign deployment user to the docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes

@@ -40,20 +40,24 @@ jobs:
       - name: Run Ansible Configuration Playbook
         run: |
           mkdir -p ~/.ssh
+          touch ~/.ssh/known_hosts
           
-          # 1. Clear out the specific old host keys from the runner's known_hosts
-          ssh-keygen -R "192.168.0.220" || true
-          ssh-keygen -R "192.168.0.221" || true
+          # 1. Clear out old keys while completely silencing stdout/stderr and forcing a true exit status
+          ssh-keygen -R "192.168.0.220" >/dev/null 2>&1 || true
+          ssh-keygen -R "192.168.0.221" >/dev/null 2>&1 || true
 
-          # 2. Force scan and trust the new VM identities 
-          mkdir -p ~/.ssh
-          ssh-keyscan -H "192.168.0.220" >> ~/.ssh/known_hosts
-          ssh-keyscan -H "192.168.0.221" >> ~/.ssh/known_hosts
+          # 2. Clear out any potential duplicate or empty lines from previous runs
+          sed -i '/^$/d' ~/.ssh/known_hosts
 
-          # 3. Run the playbook with Host Key Checking disabled
+          # 3. Force scan and trust the new VM identities
+          ssh-keyscan -H "192.168.0.220" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh-keyscan -H "192.168.0.221" >> ~/.ssh/known_hosts 2>/dev/null
+
+          # 4. Run the playbook with Host Key Checking disabled
           export ANSIBLE_HOST_KEY_CHECKING=False
           ansible-playbook -i inventory.ini site.yml
         working-directory: ./ansible
+
 
 #  call-child:
     # Calls another YAML file in the same repository

@@ -16,6 +16,11 @@
           ]
         state: present
         update_cache: yes
+      become: true
+      register: apt_result
+      until: apt_result is success
+      retries: 15
+      delay: 10
 
     - name: Assign deployment user to the docker group
       user:

@@ -4,6 +4,15 @@
   become: true
 
   tasks:
+    - name: Clean up legacy Docker repository configurations to prevent conflicts
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/apt/sources.list.d/docker.list
+        - /etc/apt/keyrings/docker.gpg
+        - /etc/apt/keyrings/docker.asc
+
     - name: Install baseline system prerequisites
       apt:
         name:

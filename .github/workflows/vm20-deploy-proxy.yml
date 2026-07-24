@@ -21,10 +21,10 @@ jobs:
           ssh-keygen -R "${{ secrets.VM20_HOST }}" || true
           ssh-keyscan -H "${{ secrets.VM20_HOST }}" >> ~/.ssh/known_hosts
 
-      - name: Copy Proxy Config Files to vm20
-        run: |
-          # 1. Copy files into /opt/nginx-proxy/
-          scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no proxy/* ${{ secrets.VM20_USER }}@${{ secrets.VM20_HOST }}:/opt/nginx-proxy/
+      #- name: Copy Proxy Config Files to vm20
+      #  run: |
+      #    # 1. Copy files into /opt/nginx-proxy/
+      #    scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no proxy/* ${{ secrets.VM20_USER }}@${{ secrets.VM20_HOST }}:/opt/nginx-proxy/
 
       - name: Start Nginx Proxy Container on vm20 -
         run: |

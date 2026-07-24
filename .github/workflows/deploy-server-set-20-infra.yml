@@ -39,6 +39,8 @@ jobs:
         
       - name: Run Ansible Configuration Playbook
         run: |
+          mkdir -p ~/.ssh
+          
           # 1. Clear out the specific old host keys from the runner's known_hosts
           ssh-keygen -R "192.168.0.220" || true
           ssh-keygen -R "192.168.0.221" || true

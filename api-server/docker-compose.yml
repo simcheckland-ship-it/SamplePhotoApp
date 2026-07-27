@@ -21,6 +21,7 @@ services:
       volumes:
         - ../nginx.conf:/etc/nginx/conf.d/default.conf:ro
         - /mnt/certs:/etc/nginx/certs:ro
+        - /mnt/proxmox-shared/images:/var/www/photo-app/uploads
       depends_on:
         - webapi
       restart: always

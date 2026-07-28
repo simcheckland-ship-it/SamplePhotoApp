@@ -1,4 +1,4 @@
-name: Deploy React App
+name: Deploy React iPhone App
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
         # 3. Build and push using native, reliable host shell execution
       - name: Build and Push Docker Image
         run: |
-          # 1. Force Docker to target the exact file path and use app1 as context
+          # 1. Force Docker to target the exact file path and use app-iphone as context
           docker build \
             -f /home/github-runner/actions-runner/_work/SamplePhotoApp/SamplePhotoApp/app-iphone/DockerFile \
             -t ghcr.io/${{ github.repository_owner }}/react-app:latest \

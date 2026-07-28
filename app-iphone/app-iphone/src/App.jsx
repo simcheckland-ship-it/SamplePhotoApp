@@ -34,7 +34,7 @@ function App() {
 
     try {
       // 3. Send POST request to your Web API
-      const response = await fetch("https://192.168.0.200/api/Photos/upload", {
+      const response = await fetch("https://82.8.217.2/api/Photos/upload", {
         method: "POST",
         body: formData,
         // Note: Do NOT manually set Content-Type header.

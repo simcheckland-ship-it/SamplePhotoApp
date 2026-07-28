@@ -34,15 +34,12 @@ function App() {
 
     try {
       // 3. Send POST request to your Web API
-      const response = await fetch(
-        "http://192.168.0.157:5043/api/photos/upload",
-        {
-          method: "POST",
-          body: formData,
-          // Note: Do NOT manually set Content-Type header.
-          // The browser automatically sets it to multipart/form-data with the correct boundary.
-        },
-      );
+      const response = await fetch("https://192.168.0.200/api/Photos/upload", {
+        method: "POST",
+        body: formData,
+        // Note: Do NOT manually set Content-Type header.
+        // The browser automatically sets it to multipart/form-data with the correct boundary.
+      });
 
       if (response.ok) {
         const result = await response.json();

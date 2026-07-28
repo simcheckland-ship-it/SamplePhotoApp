@@ -15,7 +15,14 @@ function App() {
       setSelectedImage(file);
       // Create a local temporary URL to display the image preview
       setPreviewUrl(URL.createObjectURL(file));
+      setUploadStatus("");
     }
+  };
+
+  const reset = async () => {
+    setSelectedImage(null);
+    setPreviewUrl(null);
+    setUploadStatus("");
   };
 
   const uploadImage = async () => {
@@ -48,6 +55,8 @@ function App() {
       } else {
         setUploadStatus(`Upload failed: ${response.statusText}`);
       }
+
+      //setUploadStatus("Upload successful!");
     } catch (error) {
       setUploadStatus("Network error occurred.");
       console.error("Error:", error);
@@ -63,6 +72,7 @@ function App() {
       fontFamily:
         '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     },
+
     uploadButton: {
       marginTop: "15px",
       backgroundColor: "#34C759",
@@ -71,14 +81,25 @@ function App() {
       padding: "10px 20px",
       borderRadius: "8px",
       fontWeight: "bold",
+      width: "200px",
     },
 
     previewContainer: {
       marginTop: "20px",
+      marginBottom: "5px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
     },
+
+    statusContainer: {
+      marginTop: "20px",
+      marginBottom: "20px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    },
+
     previewImage: {
       maxWidth: "100%",
       maxHeight: "300px",
@@ -89,7 +110,7 @@ function App() {
 
   return (
     <div style={styles.container}>
-      <h2>iPhone Photo Access</h2>
+      <h2>Photo Upload</h2>
 
       {/* Hidden native input optimized for iOS */}
       <input
@@ -107,16 +128,24 @@ function App() {
 
       {/* Image Preview */}
       {selectedImage && (
-        <div style={styles.previewContainer}>
-          <p>Preview:</p>
-          <img src={previewUrl} alt="Selected" style={styles.previewImage} />
-          <button onClick={uploadImage} style={styles.uploadButton}>
-            Upload to Server
-          </button>
-        </div>
+        <>
+          <div style={styles.previewContainer}>
+            <img src={previewUrl} alt="Selected" style={styles.previewImage} />
+          </div>
+          {!uploadStatus ? (
+            <label onClick={uploadImage} style={styles.uploadButton}>
+              Upload to Server
+            </label>
+          ) : (
+            <div style={styles.statusContainer}>
+              {uploadStatus && <p style={styles.status}>{uploadStatus}</p>}
+              <label onClick={reset} style={styles.uploadButton}>
+                Reset - Select Another
+              </label>
+            </div>
+          )}
+        </>
       )}
-
-      {uploadStatus && <p style={styles.status}>{uploadStatus}</p>}
     </div>
   );
 }

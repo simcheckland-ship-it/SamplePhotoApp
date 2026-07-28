@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Mvc;
 using PhotoWepApi.Helpers;
 using PhotoWepApi.Models;
-using System.Globalization;
-using System.Text.Json;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+using SkiaSharp;
+using System.Globalization;
+using System.Text.Json;
 
 
 namespace PhotoWepApi.Controllers;
@@ -130,28 +131,21 @@ public class PhotosController : ControllerBase
          
             // 2. Open a fresh read stream from the uploaded file for resizing
             using var inputStream = image.OpenReadStream();
-            using var originalImage = await Image.LoadAsync(inputStream);
+            using var managedStream = new SKManagedStream(inputStream);
+            using var originalBitmap = SKBitmap.Decode(managedStream);
 
             //  Clone, resize, and save the preview version
-            fullPath = Path.Combine(uploadFolder, "small", uniqueFileName);
-            using (var previewImage = originalImage.Clone(x => x.Resize(new ResizeOptions
-            {
-                Mode = ResizeMode.Max,
-                Size = new Size(640, 640)
-            })))
-            {
-                await previewImage.SaveAsync(fullPath);
-            }
 
-            fullPath = Path.Combine(uploadFolder, "thumbs", uniqueFileName);
-            using (var thumbImage = originalImage.Clone(x => x.Resize(new ResizeOptions
-            {
-                Mode = ResizeMode.Max,
-                Size = new Size(160, 160)
-            })))
-            {
-                await thumbImage.SaveAsync(fullPath);
-            }
+            if (originalBitmap == null) return BadRequest("Invalid image format.");
+
+
+            // 3. Create and save preview image (800x600 boundaries)
+            fullPath = Path.Combine(uploadFolder, "small", uniqueFileName);
+            ImageResizer.SaveResizedSkiaImage(originalBitmap, fullPath, 800, 800);
+
+            // 4. Create and save thumbnail image (150x150 boundaries)
+            fullPath = Path.Combine(uploadFolder,"thumbs", uniqueFileName);
+            ImageResizer.SaveResizedSkiaImage(originalBitmap, fullPath, 160, 160);
 
         }
         catch (Exception ex)

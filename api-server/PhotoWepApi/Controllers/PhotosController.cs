@@ -93,6 +93,7 @@ public class PhotosController : ControllerBase
     }
 
     [HttpPost("upload")]
+    [RequestSizeLimit(52_428_800)] 
     public async Task<IActionResult> UploadImage(IFormFile image)
     {
         if (image == null || image.Length == 0)

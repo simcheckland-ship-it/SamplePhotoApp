@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Mvc;
 using PhotoWepApi.Helpers;
 using PhotoWepApi.Models;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
 using SkiaSharp;
 using System.Globalization;
 using System.Text.Json;

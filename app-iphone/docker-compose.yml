@@ -4,7 +4,7 @@ services:
   react-app:
     # Docker pulls the pre-built image directly from GitHub's servers
     image: ghcr.io/simcheckland-ship-it/react-app-iphone:latest
-    container_name: react_frontend
+    container_name: react_app_iphone
     ports:
       - "3001:3001"  
     restart: unless-stopped

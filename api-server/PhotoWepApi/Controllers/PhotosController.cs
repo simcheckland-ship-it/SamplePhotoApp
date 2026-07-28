@@ -7,6 +7,8 @@ using PhotoWepApi.Helpers;
 using PhotoWepApi.Models;
 using System.Globalization;
 using System.Text.Json;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 
 namespace PhotoWepApi.Controllers;
@@ -116,7 +118,7 @@ public class PhotosController : ControllerBase
             }
 
             // 3. Generate a secure, unique filename to avoid naming collisions
-            uniqueFileName = $"{Guid.NewGuid()}_{Path.GetFileName(image.FileName)}";
+            uniqueFileName = $"{Guid.NewGuid()}_{Path.GetFileName(image.FileName)}".ToLower();
             fullPath = Path.Combine(uploadFolder, uniqueFileName);
 
             // 4. Save the stream to the Linux folder
@@ -125,20 +127,32 @@ public class PhotosController : ControllerBase
                 await image.CopyToAsync(fileStream);
             }
 
-            // 5. OPTIONAL: Process EXIF metadata after saving
-            // Reopen a read-only stream to parse the saved file
-            //var photoDetails = new PhotoMetadataResult { SavedPath = fullPath };
-            //using (var readStream = System.IO.File.OpenRead(fullPath))
-            //{
-            //    var directories = ImageMetadataReader.ReadMetadata(readStream);
-            //    var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
-            //    if (subIfdDirectory != null)
-            //    {
-            //        photoDetails.CameraModel = subIfdDirectory.GetDescription(ExifDirectoryBase.TagModel);
-            //    }
-            //}
+         
+            // 2. Open a fresh read stream from the uploaded file for resizing
+            using var inputStream = image.OpenReadStream();
+            using var originalImage = await Image.LoadAsync(inputStream);
 
-            //return Ok(photoDetails);
+            //  Clone, resize, and save the preview version
+            fullPath = Path.Combine(uploadFolder, "small", uniqueFileName);
+            using (var previewImage = originalImage.Clone(x => x.Resize(new ResizeOptions
+            {
+                Mode = ResizeMode.Max,
+                Size = new Size(640, 640)
+            })))
+            {
+                await previewImage.SaveAsync(fullPath);
+            }
+
+            fullPath = Path.Combine(uploadFolder, "thumbs", uniqueFileName);
+            using (var thumbImage = originalImage.Clone(x => x.Resize(new ResizeOptions
+            {
+                Mode = ResizeMode.Max,
+                Size = new Size(160, 160)
+            })))
+            {
+                await thumbImage.SaveAsync(fullPath);
+            }
+
         }
         catch (Exception ex)
         {

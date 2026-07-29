@@ -25,7 +25,7 @@ function App() {
     setUploadStatus("");
   };
 
-  const uploadImage = async () => {
+  const uploadImage = async (type) => {
     if (!selectedImage) {
       setUploadStatus("Please select a photo first.");
       return;
@@ -34,10 +34,13 @@ function App() {
     // 1. Create FormData instance
     const formData = new FormData();
 
+    // Add type
+    formData.append("type", type);
+
     // 2. Append the file payload ('image' must match your API key name)
     formData.append("image", selectedImage, selectedImage.name);
 
-    setUploadStatus("Uploading...");
+    setUploadStatus("Uploading...${type}");
 
     try {
       // 3. Send POST request to your Web API
@@ -133,9 +136,20 @@ function App() {
             <img src={previewUrl} alt="Selected" style={styles.previewImage} />
           </div>
           {!uploadStatus ? (
-            <label onClick={uploadImage} style={styles.uploadButton}>
-              Upload to Server
-            </label>
+            <>
+              <label
+                onClick={() => uploadImage("view")}
+                style={styles.uploadButton}
+              >
+                Upload View
+              </label>
+              <label
+                onClick={() => uploadImage("breakfast")}
+                style={styles.uploadButton}
+              >
+                Upload Breakfast
+              </label>
+            </>
           ) : (
             <div style={styles.statusContainer}>
               {uploadStatus && <p style={styles.status}>{uploadStatus}</p>}

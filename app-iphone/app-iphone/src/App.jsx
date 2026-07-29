@@ -40,7 +40,7 @@ function App() {
     // 2. Append the file payload ('image' must match your API key name)
     formData.append("image", selectedImage, selectedImage.name);
 
-    setUploadStatus("Uploading...${type}");
+    setUploadStatus("Uploading...");
 
     try {
       // 3. Send POST request to your Web API

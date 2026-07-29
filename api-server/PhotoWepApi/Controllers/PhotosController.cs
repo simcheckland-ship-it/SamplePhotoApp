@@ -95,7 +95,7 @@ public class PhotosController : ControllerBase
 
     [HttpPost("upload")]
     [RequestSizeLimit(52_428_800)] 
-    public async Task<IActionResult> UploadImage(IFormFile image)
+    public async Task<IActionResult> UploadImage([FromForm] IFormFile image, [FromForm] string  type)
     {
         if (image == null || image.Length == 0)
             return BadRequest("No image file uploaded.");
@@ -119,6 +119,8 @@ public class PhotosController : ControllerBase
             // 3. Generate a secure, unique filename to avoid naming collisions
             uniqueFileName = $"{Guid.NewGuid()}_{Path.GetFileName(image.FileName)}".ToLower();
             fullPath = Path.Combine(uploadFolder, uniqueFileName);
+
+            //var type = image.
 
             // 4. Save the stream to the Linux folder
             using (var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write))
@@ -164,7 +166,7 @@ public class PhotosController : ControllerBase
 
             photoDetails.FileName = uniqueFileName;
             photoDetails.SourceFile = fullPath;
-            photoDetails.Type = "upload";
+            photoDetails.Type = type;
 
             // 3. Extract SubIFD directory (Contains Date, Exposure, Camera info)
             var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "OS Road Map",
+    "url": "https://api.os.uk/maps/raster/v1/zxy/Road_3857/{z}/{x}/{y}.png?key=wJfnf1Gc2VWnlBPWrtbk4a3wvWVrEk1s",
+    "attribution": "&copy; <a href='https://www.ordnancesurvey.co.uk'>Ordnance Survey</a>'",
+    "maxZoom": 16,
+    "minZoom": 12
+  },
+  {
+    "id": 2,
+    "name": "OS Outdoor Map",
+    "url": "https://api.os.uk/maps/raster/v1/zxy/Outdoor_3857/{z}/{x}/{y}.png?key=wJfnf1Gc2VWnlBPWrtbk4a3wvWVrEk1s",
+    "attribution": "&copy; <a href='https://www.ordnancesurvey.co.uk'>Ordnance Survey</a>'",
+    "maxZoom": 16,
+    "minZoom": 12
+  },
+  {
+    "id": 3,
+    "name": "Open Street Map",
+    "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    "attribution": "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+    "maxZoom": 19,
+    "minZoom": 1
+  },
+  {
+    "id": 4,
+    "name": "Esri World Imagery",
+    "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    "attribution": "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
+    "maxZoom": 18,
+    "minZoom": 12
+  }
+]

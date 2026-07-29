@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { setupAxiosInterceptors } from "../api/client";
+import maps from "../mapsData.json";
 
 export const AppStateContext = createContext(null);
 
@@ -8,6 +9,40 @@ export function AppStateProvider({ children }) {
   const [imgBaseUrl, setImgBaseUrl] = useState(null);
   const [apiBaseUrl, setApiBaseUrl] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [overviewMap, setOverviewMap] = useState(() =>
+    maps.find((map) => map.id === 1),
+  );
+  const [mainMap, setMainMap] = useState(() =>
+    maps.find((map) => map.id === 2),
+  );
+
+  const setNextMainMap = () => {
+    setMainMap((current) => {
+      if (!current) return maps[0]; // Fallback if current state is empty
+
+      // Find where the current map is in the JSON array
+      const currentIndex = maps.findIndex((m) => m.id === current.id);
+
+      // Calculate the next index. The % operator handles wrapping back to 0 at the end.
+      const nextIndex = (currentIndex + 1) % maps.length;
+
+      return maps[nextIndex];
+    });
+  };
+
+  const setNextOverviewMap = () => {
+    setOverviewMap((current) => {
+      if (!current) return maps[0]; // Fallback if current state is empty
+
+      // Find where the current map is in the JSON array
+      const currentIndex = maps.findIndex((m) => m.id === current.id);
+
+      // Calculate the next index. The % operator handles wrapping back to 0 at the end.
+      const nextIndex = (currentIndex + 1) % maps.length;
+
+      return maps[nextIndex];
+    });
+  };
 
   useEffect(() => {
     const testConnection = async () => {
@@ -68,7 +103,17 @@ export function AppStateProvider({ children }) {
 
   return (
     <AppStateContext.Provider
-      value={{ activeItem, setActiveItem, imgBaseUrl, apiBaseUrl, loading }}
+      value={{
+        activeItem,
+        setActiveItem,
+        imgBaseUrl,
+        apiBaseUrl,
+        loading,
+        mainMap,
+        overviewMap,
+        setNextMainMap,
+        setNextOverviewMap,
+      }}
     >
       {children}
     </AppStateContext.Provider>

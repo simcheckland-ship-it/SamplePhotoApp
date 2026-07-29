@@ -11,7 +11,15 @@ import { Panel, Group, Separator } from "react-resizable-panels";
 export default function MapPage() {
   const { data: photos, isLoading, isError, error } = usePhotos();
 
-  const { activeItem, setActiveItem } = useAppState();
+  const {
+    activeItem,
+    setActiveItem,
+    overviewMap,
+    mainMap,
+    setNextOverviewMap,
+    setNextMainMap,
+  } = useAppState();
+
   const [activeMap, setActiveMap] = useState("leaf");
   const [overviewMapScale, setOverviewMapScale] = useState(8);
 
@@ -45,7 +53,6 @@ export default function MapPage() {
         lng: activeItem.GPSLongitude, // Map lon to standard Leaflet lng property
         source: "external", // Critical flag to command both maps to warp
       });
-      console.log("PAGE - ACTIVE ITEM changed:");
     }
   }, [photos, activeItem, loading]);
 
@@ -66,17 +73,26 @@ export default function MapPage() {
         {/* 'flex-1' allows it to stretch to the right browser wall dynamically */}
         <main className="flex-1 h-full w-full overflow-hidden bg-slate-950 relative grid grid-cols-[1fr_minmax(0px,400px)] p-2 gap-2">
           {/* Left Column (Takes up 100% height of the left side) */}
-          <div className=" rounded-lg  flex flex-col items-center justify-center ">
+          <div className=" relative rounded-lg  flex flex-col items-center justify-center ">
             {activeMap === "3D" ? (
               <Map3D mapTarget={activeItem} />
             ) : (
               <MapLeaf
                 isOverview={false}
                 activeItem={activeItem}
+                selectedMap={mainMap}
                 setMapBounds={setMapBounds}
                 setMapCenter={setMapCenter}
               />
             )}
+
+            {/* Bottom-left corner button */}
+            <button
+              onClick={setNextMainMap}
+              className="absolute rounded-sm  top-3 left-14 z-10 px-3 py-1 border-2 border-gray-500 bg-white text-gray-950 text-sm"
+            >
+              {mainMap?.name || "Next Map"}
+            </button>
           </div>
 
           {/* Right Column (Split into 2 equal rows) */}
@@ -94,13 +110,22 @@ export default function MapPage() {
             </div>
 
             {/* Right Column - Bottom Row */}
-            <div className=" flex flex-col items-center justify-center">
+            <div className="relative  flex flex-col items-center justify-center">
               <MapLeaf
                 activeItem={activeItem}
                 isOverview={true}
                 mapBounds={mapBounds}
                 mapCenter={mapCenter}
+                selectedMap={overviewMap}
               />
+
+              {/* Bottom-left corner button */}
+              <button
+                onClick={setNextOverviewMap}
+                className="absolute rounded-sm  top-3 left-14 z-10 px-3 py-1 border-2 border-gray-500 bg-white text-gray-950 text-sm"
+              >
+                {overviewMap?.name || "Next Map"}
+              </button>
             </div>
           </div>
         </main>

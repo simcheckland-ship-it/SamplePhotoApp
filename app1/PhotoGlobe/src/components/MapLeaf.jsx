@@ -77,9 +77,10 @@ export default function LeafletMap({
   mapBounds,
   setMapCenter,
   mapCenter,
+  selectedMap,
 }) {
-  const initMinZoom = isOverview ? 8 : 12;
-  const initMaxZoom = isOverview ? 12 : 18;
+  const initMinZoom = isOverview ? 8 : selectedMap?.minZoom || 12;
+  const initMaxZoom = isOverview ? 12 : selectedMap?.maxZoom || 18;
   const startZoom = isOverview ? 10 : 16;
 
   const [mapInstance, setMapInstance] = useState(null);
@@ -91,7 +92,7 @@ export default function LeafletMap({
 
   const angle = 45; // Angle in degrees clockwise from North (0 = North, 90 = East...)
   const lengthKm = () => {
-    console.log(">>>", isOverview, zoomLevel);
+    //console.log(">>>", isOverview, zoomLevel);
     if (zoomLevel === 18) return 0.05;
     if (zoomLevel === 17) return 0.07;
     if (zoomLevel === 16) return 0.1;
@@ -112,7 +113,7 @@ export default function LeafletMap({
 
   useEffect(() => {
     flyTo();
-  }, [activeItem, mapInstance]);
+  }, [activeItem, selectedMap, mapInstance]);
 
   // React calls this function when the element mounts or unmounts
   const mapRefCallback = useCallback((map) => {
@@ -122,7 +123,7 @@ export default function LeafletMap({
   }, []);
 
   const flyTo = () => {
-    //console.log("Selected item:", activeItem?.FileName);
+    console.log("Selected map:", selectedMap?.name);
     //console.log("Is Overview:", isOverview);
 
     if (!activeItem) return;
@@ -140,7 +141,7 @@ export default function LeafletMap({
 
     //console.log("FlyTo", coordinates);
     mapInstance.setView(coordinates, zoomLevel);
-    console.log("FlyTo - Zoom Level:", zoomLevel);
+    //console.log("FlyTo - Zoom Level:", zoomLevel);
   };
 
   const handleBoundsChange = (bounds, moved) => {
@@ -182,6 +183,16 @@ export default function LeafletMap({
   function ZoomLimiter({ min, max }) {
     const map = mapInstance;
 
+    if (!isOverview && selectedMap?.minZoom) {
+      console.log("min:", min, "max:", max);
+      console.log(
+        "selected min:",
+        selectedMap?.minZoom,
+        "selected max:",
+        selectedMap?.maxZoom,
+      );
+    }
+
     useEffect(() => {
       if (map) {
         map.setMinZoom(min);
@@ -197,9 +208,8 @@ export default function LeafletMap({
       zoomend: () => {
         // Get the precise zoom level when zooming stops
         const currentZoom = map.getZoom();
-
+        console.log("CURRENT:", currentZoom);
         onZoomChange(currentZoom);
-        console.log("Zoom Level:", zoomLevel);
       },
     });
 
@@ -288,17 +298,13 @@ export default function LeafletMap({
       <MapBoundsTracker onBoundsChange={handleBoundsChange} />
       <ZoomLimiter min={initMinZoom} max={initMaxZoom} />
       <ZoomListener onZoomChange={setZoomLevel} />
-      {/* OpenStreetMap provides the actual map image tiles */}
+
+      {/* OS API provides the actual map image tiles */}
       <TileLayer
-        attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution={selectedMap?.attribution || ""}
+        url={selectedMap?.url || ""}
       />
 
-      {/* <TileLayer
-                url="https://arcgisonline.com{z}/{y}/{x}"
-  attribution="&copy; Esri"
-            />
-             */}
       {/* Keeps limits synced */}
       {Array.isArray(mapBounds) && mapBounds.length > 0 && (
         <Rectangle

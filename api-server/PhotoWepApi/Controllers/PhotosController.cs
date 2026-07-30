@@ -13,7 +13,7 @@ using System.Text.Json;
 namespace PhotoWepApi.Controllers;
 
 [ApiController]     // Tells .NET this class handles API requests
-[Route("api/[controller]")] // Sets the base web path to: api/photos
+[Route("api/old/[controller]")] // Sets the base web path to: api/photos
 public class PhotosController : ControllerBase
 {
     private readonly string _jsonFilePath;
@@ -45,7 +45,7 @@ public class PhotosController : ControllerBase
     {
         string json = System.IO.File.ReadAllText(_jsonFilePath);
 
-        var allPhotos = JsonSerializer.Deserialize<List<PhotoItem>>(json, _jsonOptions);
+        var allPhotos = JsonSerializer.Deserialize<List<PhotoItemV1>>(json, _jsonOptions);
 
         if (allPhotos == null)
         {
@@ -107,8 +107,8 @@ public class PhotosController : ControllerBase
         {
             // 1. Define the save path for a Linux server
             // Use Path.Combine to handle path separators across different operating systems safely
-            //string uploadFolder = Path.Combine(_environment.ContentRootPath, "uploads");
-            string uploadFolder = "/var/www/photo-app/uploads";
+            string uploadFolder = Path.Combine(_environment.ContentRootPath, "uploads");
+            //string uploadFolder = "/var/www/photo-app/uploads";
 
             // 2. Ensure the directory exists (Linux creates it with standard permissions)
             if (!System.IO.Directory.Exists(uploadFolder))
@@ -128,14 +128,12 @@ public class PhotosController : ControllerBase
                 await image.CopyToAsync(fileStream);
             }
 
-         
-            // 2. Open a fresh read stream from the uploaded file for resizing
-            using var inputStream = image.OpenReadStream();
-            using var managedStream = new SKManagedStream(inputStream);
-            using var originalBitmap = SKBitmap.Decode(managedStream);
 
-            //  Clone, resize, and save the preview version
+            // 1. Open stream from IFormFile
+            using var uploadStream = image.OpenReadStream();
 
+            // 2. Process orientation
+            using var originalBitmap = ImageResizer.LoadAndFixOrientation(uploadStream);
             if (originalBitmap == null) return BadRequest("Invalid image format.");
 
 
@@ -162,7 +160,7 @@ public class PhotosController : ControllerBase
             var directories = ImageMetadataReader.ReadMetadata(stream);
 
             // Initialize a response object
-            var photoDetails = new PhotoItem();
+            var photoDetails = new PhotoItemV1();
 
             photoDetails.FileName = uniqueFileName;
             photoDetails.SourceFile = fullPath;
@@ -247,7 +245,7 @@ public class PhotosController : ControllerBase
 
             string json = System.IO.File.ReadAllText(_jsonFilePath);
 
-            var allPhotos = JsonSerializer.Deserialize<List<PhotoItem>>(json, _jsonOptions);
+            var allPhotos = JsonSerializer.Deserialize<List<PhotoItemV1>>(json, _jsonOptions);
 
             if (allPhotos == null)
             {

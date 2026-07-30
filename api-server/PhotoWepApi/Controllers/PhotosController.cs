@@ -13,7 +13,7 @@ using System.Text.Json;
 namespace PhotoWepApi.Controllers;
 
 [ApiController]     // Tells .NET this class handles API requests
-[Route("api/old/[controller]")] // Sets the base web path to: api/photos
+[Route("api/[controller]")] // Sets the base web path to: api/photos
 public class PhotosController : ControllerBase
 {
     private readonly string _jsonFilePath;

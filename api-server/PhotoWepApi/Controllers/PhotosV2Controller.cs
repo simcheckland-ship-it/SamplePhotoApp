@@ -17,7 +17,7 @@ namespace PhotoWepApi.Controllers
 {
     [ApiController]     // Tells .NET this class handles API requests
     [Route("api/v2/photos")] // Sets the base web path to: api/photos
-    public class PhotoController : Controller
+    public class PhotosV2Controller : Controller
     {
         private readonly IConfiguration _config;
         private readonly IWebHostEnvironment _environment;
@@ -39,7 +39,7 @@ namespace PhotoWepApi.Controllers
             
         }
 
-        public PhotoController(IConfiguration config, IWebHostEnvironment environment)
+        public PhotosV2Controller(IConfiguration config, IWebHostEnvironment environment)
         {
             _config = config;
             _environment = environment;

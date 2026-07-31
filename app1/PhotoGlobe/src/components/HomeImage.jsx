@@ -26,7 +26,7 @@ export default function Image({ chunk, imageNumber, activeImage }) {
 
     if (isActive && !wasActiveRef.current) {
       const currentFileName =
-        chunk[currentIndex]?.FileName?.toLowerCase() || "";
+        chunk[currentIndex]?.fileName?.toLowerCase() || "";
       if (currentFileName) {
         setPrevImageSrc(`${imgBaseUrl}/small/${currentFileName}`);
       }
@@ -42,12 +42,12 @@ export default function Image({ chunk, imageNumber, activeImage }) {
   if (loading) return <div>Loading assets...</div>;
 
   // Paths for current image
-  const fileName = chunk[currentIndex]?.FileName?.toLowerCase() || "";
+  const fileName = chunk[currentIndex]?.fileName?.toLowerCase() || "";
   const highResPath = `${imgBaseUrl}/small/${fileName}`;
 
   // Calculate and point to the NEXT image for preloading
   const nextIndex = (currentIndex + 1) % chunk.length;
-  const nextFileName = chunk[nextIndex]?.FileName?.toLowerCase() || "";
+  const nextFileName = chunk[nextIndex]?.fileName?.toLowerCase() || "";
   const nextImagePreloadPath = nextFileName
     ? `${imgBaseUrl}/small/${nextFileName}`
     : "";

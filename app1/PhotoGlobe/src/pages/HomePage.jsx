@@ -30,7 +30,7 @@ export default function HomePage() {
 
   // 1. Memoize filtered photos so it doesn't recalculate on every render
   const photosOfType = useMemo(() => {
-    return photos?.filter((x) => x.Type === "view") || [];
+    return photos?.filter((x) => x.type === "view") || [];
   }, [photos]);
 
   // 2. Separate Effect: Only handle photo shuffling when the API data actually changes

@@ -20,7 +20,7 @@ export default function HomePage() {
     return shuffled.slice(0, 6);
   };
 
-  const photosOfType = photos?.filter((x) => x.Type === "view") || [];
+  const photosOfType = photos?.filter((x) => x.type === "view") || [];
 
   useEffect(() => {
     if (photos) {
@@ -39,8 +39,8 @@ export default function HomePage() {
             /* The wrapper must explicitly dictate the cell boundaries */
             <div key={index} className="w-full h-full overflow-hidden relative">
               <HomeImage
-                fileName={item.FileName}
-                label={item.FileName}
+                fileName={item.fileName}
+                label={item.fileName}
                 className="absolute inset-0 min-h-full min-w-full h-full w-full object-cover object-center"
               />
             </div>

@@ -107,7 +107,7 @@ export default function LeafletMap({
     return 0;
   };
   const showViewDirection = () => {
-    if (!activeItem.GPSImgDirection || activeItem.Type !== "view") return false;
+    if (!activeItem.GPSImgDirection || activeItem.type !== "view") return false;
     return true;
   };
 
@@ -128,10 +128,10 @@ export default function LeafletMap({
 
     if (!activeItem) return;
 
-    const coordinates = [activeItem.GPSLatitude, activeItem.GPSLongitude];
+    const coordinates = [activeItem.gpsLatitude, activeItem.gpsLongitude];
     setMarkerPosition(coordinates);
-    if (activeItem.GPSImgDirection) {
-      setViewDirection(activeItem.GPSImgDirection);
+    if (activeItem.gpsImgDirection) {
+      setViewDirection(activeItem.gpsImgDirection);
     } else {
       setViewDirection(null);
     }
@@ -337,8 +337,8 @@ export default function LeafletMap({
             <div className="flex flex-col gap-2 p-1 font-sans">
               {activeItem ? (
                 <MapImage
-                  fileName={activeItem.FileName}
-                  label={activeItem.FileName}
+                  fileName={activeItem.fileName}
+                  label={activeItem.fileName}
                 />
               ) : (
                 ""

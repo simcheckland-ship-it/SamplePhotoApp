@@ -26,11 +26,11 @@ export default function ImageList({
         <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
           {appData.map((item) => {
             // 3. Safe optional chaining to prevent runtime crashes if activeItem is null
-            const isActive = activeItem?.FileName === item.FileName;
+            const isActive = activeItem?.id === item.id;
 
             return (
               <button
-                key={item.FileName}
+                key={item.id}
                 onClick={() => setActiveItem(item)}
                 className={`w-full text-left p-3.5 rounded-xl border transition-all block group ${
                   isActive
@@ -41,18 +41,18 @@ export default function ImageList({
                 <div className="flex items-center gap-3">
                   {/* Thumbnail Wrapper */}
                   <div className="w-14 h-14 shrink-0 rounded-md overflow-hidden bg-slate-800 border border-slate-700/50">
-                    <IconImage fileName={item.FileName} label={item.FileName} />
+                    <IconImage fileName={item.fileName} label={item.fileName} />
                   </div>
 
                   {/* 4. Text Content Container with layout safety wrapper */}
                   <div className="flex-1 min-w-0">
                     <span className="font-medium text-sm text-slate-200 group-hover:text-white block truncate">
-                      {item.FileName}
+                      {item.fileName}
                     </span>
 
                     <div className="text-xs text-slate-500 mt-2 flex items-center space-x-1 font-mono">
                       <span>Type:</span>
-                      <span className="text-slate-400">{item.Type}</span>
+                      <span className="text-slate-400">{item.type}</span>
                     </div>
                   </div>
                 </div>

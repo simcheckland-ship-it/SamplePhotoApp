@@ -56,7 +56,7 @@ export function AppStateProvider({ children }) {
         setImgBaseUrl(`/local-network/uploads`);
 
         // 2. Set the state AND instantly bind it to Axios
-        const localApi = `/local-network/api`;
+        const localApi = `/local-network/api/v2`;
         setApiBaseUrl(localApi);
         setupAxiosInterceptors(localApi);
         setLoading(false);

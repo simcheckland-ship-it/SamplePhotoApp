@@ -45,12 +45,12 @@ export default function MapPage() {
     // axriveItem changed
     if (
       activeItem &&
-      typeof activeItem.GPSLatitude === "number" &&
-      typeof activeItem.GPSLongitude === "number"
+      typeof activeItem.gpsLatitude === "number" &&
+      typeof activeItem.gpsLongitude === "number"
     ) {
       setMapCenter({
-        lat: activeItem.GPSLatitude,
-        lng: activeItem.GPSLongitude, // Map lon to standard Leaflet lng property
+        lat: activeItem.gpsLatitude,
+        lng: activeItem.gpsLongitude, // Map lon to standard Leaflet lng property
         source: "external", // Critical flag to command both maps to warp
       });
     }
@@ -101,8 +101,8 @@ export default function MapPage() {
             <div className="border border-emerald-500/50 rounded-xl flex flex-col items-center justify-center min-h-50 max-h-100 h-full overflow-hidden">
               {activeItem ? (
                 <MapImage
-                  fileName={activeItem.FileName}
-                  label={activeItem.FileName}
+                  fileName={activeItem.fileName}
+                  label={activeItem.fileName}
                 />
               ) : (
                 ""

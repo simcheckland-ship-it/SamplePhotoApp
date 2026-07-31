@@ -53,8 +53,8 @@ export default function ImagePage() {
           <div className="z-10 border border-emerald-500/50 rounded-xl flex flex-col items-center justify-center  h-full overflow-hidden">
             {activeItem ? (
               <Image
-                fileName={activeItem.FileName}
-                label={activeItem.FileName}
+                fileName={activeItem.fileName}
+                label={activeItem.fileName}
               />
             ) : (
               ""

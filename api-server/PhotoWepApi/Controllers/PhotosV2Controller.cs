@@ -146,7 +146,7 @@ namespace PhotoWepApi.Controllers
             return Ok(v);
         }
 
-        [HttpPost("UploadImage")]
+        [HttpPost("Upload")]
         [RequestSizeLimit(52_428_800)]
         public async Task<IActionResult> UploadImage([FromForm] IFormFile image, [FromForm] string type)
         {

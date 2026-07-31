@@ -78,7 +78,7 @@ export function AppStateProvider({ children }) {
           setImgBaseUrl(`${import.meta.env.VITE_BASE_URL_LOCAL}/uploads`);
 
           // 2. Set the state AND instantly bind it to Axios
-          const localApi = `${import.meta.env.VITE_BASE_URL_LOCAL}/api`;
+          const localApi = `${import.meta.env.VITE_BASE_URL_LOCAL}/api/v2`;
           setApiBaseUrl(localApi);
           setupAxiosInterceptors(localApi);
         } catch (error) {
@@ -88,7 +88,7 @@ export function AppStateProvider({ children }) {
           setImgBaseUrl(`${import.meta.env.VITE_BASE_URL_PUBLIC}/uploads`);
 
           // 3. Set the fallback string AND bind it to Axios
-          const publicApi = `${import.meta.env.VITE_BASE_URL_PUBLIC}/api`;
+          const publicApi = `${import.meta.env.VITE_BASE_URL_PUBLIC}/api/v2`;
           setApiBaseUrl(publicApi);
           setupAxiosInterceptors(publicApi);
         } finally {

@@ -1,5 +1,6 @@
 ﻿using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -22,21 +23,33 @@ namespace PhotoWepApi.Controllers
         private readonly IConfiguration _config;
         private readonly IWebHostEnvironment _environment;
 
-        private  string? _connectionString => _config["MongoDB:connection"];
+        private string? _connectionString => _config["MongoDB:connection"];
+
+
+        private IMongoClient? getClient()
+        {
+            var key = _config["MongoDB:ApiKey"];
+
+            string? connectionString = _connectionString;
+            if (string.IsNullOrEmpty(connectionString)) return null;
+
+            connectionString = connectionString.Replace("<password>", key);
+
+            var client = new MongoClient(connectionString);
+
+            return client;
+        }
 
         private IMongoDatabase? getDatabase()
         {
-          
-                string? connectionString = _connectionString; // "mongodb+srv://simcheckland_db_user:06LMH9byRpmpNBeO@cluster0.azypcxv.mongodb.net/?appName=Cluster0";
-                if (string.IsNullOrEmpty(connectionString))  return null;
-                
-                var client = new MongoClient(connectionString);
+            var client = getClient();
+            if (client == null) return null;
 
-                // 2. Get your database and collection
-                IMongoDatabase database = client.GetDatabase("PhotoData"); //your_database_name
+            // 2. Get your database and collection
+            IMongoDatabase database = client.GetDatabase("PhotoData"); //your_database_name
 
-                return database;
-            
+            return database;
+
         }
 
         public PhotosV2Controller(IConfiguration config, IWebHostEnvironment environment)
@@ -49,8 +62,14 @@ namespace PhotoWepApi.Controllers
         [HttpGet]
         public IActionResult Ping()
         {
-            const string connectionUri = "mongodb+srv://simcheckland_db_user:06LMH9byRpmpNBeO@cluster0.azypcxv.mongodb.net/?appName=Cluster0";
-            var settings = MongoClientSettings.FromConnectionString(connectionUri);
+            var key = _config["MongoDB:ApiKey"];
+
+            string? connectionString = _connectionString;
+            if (string.IsNullOrEmpty(connectionString)) return Ok("Bad connection string"); ;
+
+            connectionString = connectionString.Replace("<password>", key);
+
+            var settings = MongoClientSettings.FromConnectionString(connectionString);
             // Set the ServerApi field of the settings object to set the version of the Stable API on the client
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
             // Create a new client and connect to the server
@@ -67,7 +86,7 @@ namespace PhotoWepApi.Controllers
                 return Ok(ex.Message);
             }
 
-                     return Ok();
+            return Ok();
         }
 
         [HttpGet("dev/check-config")]
@@ -90,8 +109,8 @@ namespace PhotoWepApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPhotos()
         {
-           var db = getDatabase();
-            if (db == null ) return BadRequest("Database error");
+            var db = getDatabase();
+            if (db == null) return BadRequest("Database error");
             var collection = db.GetCollection<PhotoItem>("PhotoGlobe"); //your_collection_name
 
             var filter = Builders<PhotoItem>.Filter.Empty;
@@ -144,9 +163,9 @@ namespace PhotoWepApi.Controllers
                 // Use Path.Combine to handle path separators across different operating systems safely
                 //string uploadFolder = Path.Combine(_environment.ContentRootPath, "uploads");
                 string uploadFolder = "/var/www/photo-app/uploads";
-//#if DEBUG
-//                uploadFolder = Path.Combine(_environment.ContentRootPath, "uploads");
-//#endif
+                //#if DEBUG
+                //                uploadFolder = Path.Combine(_environment.ContentRootPath, "uploads");
+                //#endif
 
                 // 2. Ensure the directory exists (Linux creates it with standard permissions)
                 if (!System.IO.Directory.Exists(uploadFolder))

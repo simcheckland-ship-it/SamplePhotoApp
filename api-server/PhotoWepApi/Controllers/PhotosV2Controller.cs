@@ -9,6 +9,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
 using PhotoWepApi.Helpers;
 using PhotoWepApi.Models;
+using SharpCompress.Common;
 using SkiaSharp;
 using System.Globalization;
 using System.Text.Json;
@@ -155,6 +156,7 @@ namespace PhotoWepApi.Controllers
 
             string uniqueFileName = string.Empty;
             string fullPath = string.Empty;
+            string sourcePath = string.Empty;
 
             // Save File
             try
@@ -176,8 +178,14 @@ namespace PhotoWepApi.Controllers
                 // 3. Generate a secure, unique filename to avoid naming collisions
                 uniqueFileName = $"{Guid.NewGuid()}_{Path.GetFileName(image.FileName)}".ToLower();
                 fullPath = Path.Combine(uploadFolder, uniqueFileName);
-
+                sourcePath = fullPath;
                 //var type = image.
+
+                // Save the original file instantly using the built-in .NET shortcut
+                using (var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
 
                 // 1. Open stream from IFormFile
                 using var uploadStream = image.OpenReadStream();
@@ -213,7 +221,7 @@ namespace PhotoWepApi.Controllers
                 var photoItem = new PhotoItem();
 
                 photoItem.FileName = uniqueFileName;
-                photoItem.SourceFile = fullPath;
+                photoItem.SourceFile = sourcePath;
                 photoItem.Type = type;
 
                 //  Extract SubIFD directory (Contains Date, Exposure, Camera info)

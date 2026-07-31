@@ -13,6 +13,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - Logging__LogLevel__Default=Information
       - Logging__LogLevel__Microsoft.AspNetCore=Information
+      - ExternalServices__ApiKey=${MongoDB__ApiKey}
     restart: always
     
   nginx-proxy:

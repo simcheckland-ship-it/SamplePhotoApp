@@ -10,7 +10,7 @@ export function SampleDataProvider({ children }) {
 
    const findItem = (itemId) => {
         // Optional chaining (?.) ensures this returns undefined instead of crashing if data is null
-        return sampleData?.find((item) => item.FileName === itemId);
+        return sampleData?.find((item) => item.fileName === itemId);
     };
 
     const getDefaultItem = () => {

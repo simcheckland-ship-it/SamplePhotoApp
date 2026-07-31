@@ -31,11 +31,16 @@ jobs:
           scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/nginx.conf ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/nginx.conf
 
       - name: Remote Restart via SSH
+        env:
+          # 1. Map your GitHub secret to a temporary runner variable
+          API_SECRET: ${{ secrets.MONGODB_KEY }}
         run: |
-          # Remotely trigger Docker inside the target folder without checking out Git on the server
+          # 2. Pass the variable across the SSH boundary explicitly
           ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
             cd ~/react-photo-app/api-server && 
             docker compose down &&
-            docker compose up -d --build
+            
+            # 3. Prepend the variable right before the 'docker compose up' command
+            MongoDB__ApiKey='$API_SECRET' docker compose up -d --build
           "
          

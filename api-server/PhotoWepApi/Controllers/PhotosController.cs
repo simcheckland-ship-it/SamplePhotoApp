@@ -107,8 +107,8 @@ public class PhotosController : ControllerBase
         {
             // 1. Define the save path for a Linux server
             // Use Path.Combine to handle path separators across different operating systems safely
-            string uploadFolder = Path.Combine(_environment.ContentRootPath, "uploads");
-            //string uploadFolder = "/var/www/photo-app/uploads";
+            //string uploadFolder = Path.Combine(_environment.ContentRootPath, "uploads");
+            string uploadFolder = "/var/www/photo-app/uploads";
 
             // 2. Ensure the directory exists (Linux creates it with standard permissions)
             if (!System.IO.Directory.Exists(uploadFolder))

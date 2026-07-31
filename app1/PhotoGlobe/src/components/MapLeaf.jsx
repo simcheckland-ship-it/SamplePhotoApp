@@ -107,7 +107,7 @@ export default function LeafletMap({
     return 0;
   };
   const showViewDirection = () => {
-    if (!activeItem.GPSImgDirection || activeItem.type !== "view") return false;
+    if (!activeItem.gpsImgDirection || activeItem.type !== "view") return false;
     return true;
   };
 

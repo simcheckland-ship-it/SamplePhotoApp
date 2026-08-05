@@ -7,4 +7,8 @@ services:
     container_name: react_frontend
     ports:
       - "3000:3000"  # Maps local port 3000 to internal container port 80
+    enviroments:
+      - Google__ApiKey=${Google__ApiKey}
+      - OS__ApiKey=${OS__ApiKey}
+      - TT__ApiKey=${TT__ApiKey}
     restart: unless-stopped

@@ -53,11 +53,15 @@ jobs:
           scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no app1/docker-compose.yml ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:~/react-app/
 
       - name: Deploy Pre-built Container over SSH
+        env:
+          OS_SECRET: ${{ secrets.MONGODB_KEY }}
+          TT_SECTET: ${{ secrets.TT_KEY }}
+          GOOGLE_SECRET: ${{ secrets.MONGODB_KEY }}
         run: |
           # 3. Log vm0 into GHCR using your workflow token, pull down the fresh image, and run it
           ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "
             cd ~/react-app &&
             echo '${{ secrets.GITHUB_TOKEN }}' | docker login ghcr.io -u ${{ github.actor }} --password-stdin &&
             docker compose pull &&
-            docker compose up -d
+            OS__ApiKey='$OS_SECRET' TT__ApiKey='$TT_SECTET' Google__ApiKey='$GOOGLE_SECRET' docker compose up -d
           "

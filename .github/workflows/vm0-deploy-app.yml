@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "app1/**"
-      - ".github/workflows/deploy-app.yml"
+      - ".github/workflows/vm0-deploy-app.yml"
 
 jobs:
   build-and-push:

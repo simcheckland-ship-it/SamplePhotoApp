@@ -54,10 +54,10 @@ jobs:
 
       - name: Deploy Pre-built Container over SSH
         env:
-          OS_KEY: ${{ secrets.OS_KEY }}
-          TT_KEY: ${{ secrets.TT_KEY }}
-          GOOHEL_KEY: ${{ secrets.GOOGLE_KEY }}
-          CESIUM_KEY: ${{ secrets.CESIUM_KEY }}
+          VITE_OS_KEY: ${{ secrets.OS_KEY }}
+          VITE_TT_KEY: ${{ secrets.TT_KEY }}
+          VITE_GOOHEL_KEY: ${{ secrets.GOOGLE_KEY }}
+          VITE_CESIUM_KEY: ${{ secrets.CESIUM_KEY }}
         run: |
           # 3. Log vm0 into GHCR using your workflow token, pull down the fresh image, and run it
           ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "

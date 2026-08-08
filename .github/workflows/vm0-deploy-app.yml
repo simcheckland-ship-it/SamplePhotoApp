@@ -56,13 +56,19 @@ jobs:
         env:
           VITE_OS_KEY: ${{ secrets.OS_KEY }}
           VITE_TT_KEY: ${{ secrets.TT_KEY }}
-          VITE_GOOHEL_KEY: ${{ secrets.GOOGLE_KEY }}
+          VITE_GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
           VITE_CESIUM_KEY: ${{ secrets.CESIUM_KEY }}
         run: |
           # 3. Log vm0 into GHCR using your workflow token, pull down the fresh image, and run it
           ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "
             cd ~/react-app &&
             echo '${{ secrets.GITHUB_TOKEN }}' | docker login ghcr.io -u ${{ github.actor }} --password-stdin &&
+
+            export VITE_OS_KEY='${{ env.VITE_OS_KEY }}' &&
+            export VITE_TT_KEY='${{ env.VITE_TT_KEY }}' &&
+            export VITE_GOOGLE_KEY='${{ env.VITE_GOOGLE_KEY }}' &&
+            export VITE_CESIUM_KEY='${{ env.VITE_CESIUM_KEY }}' &&
+            
             docker compose pull &&
             docker compose up -d
           "

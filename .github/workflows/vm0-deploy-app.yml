@@ -54,14 +54,15 @@ jobs:
 
       - name: Deploy Pre-built Container over SSH
         env:
-          OS_SECRET: ${{ secrets.MONGODB_KEY }}
-          TT_SECTET: ${{ secrets.TT_KEY }}
-          GOOGLE_SECRET: ${{ secrets.MONGODB_KEY }}
+          OS_KEY: ${{ secrets.OS_KEY }}
+          TT_KEY: ${{ secrets.TT_KEY }}
+          MONGODB_KEY: ${{ secrets.MONGODB_KEY }}
+          CESIUM_KEY: ${{ secrets.CESIUM_KEY }}
         run: |
           # 3. Log vm0 into GHCR using your workflow token, pull down the fresh image, and run it
           ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "
             cd ~/react-app &&
             echo '${{ secrets.GITHUB_TOKEN }}' | docker login ghcr.io -u ${{ github.actor }} --password-stdin &&
             docker compose pull &&
-            OS__ApiKey='$OS_SECRET' TT__ApiKey='$TT_SECTET' Google__ApiKey='$GOOGLE_SECRET' docker compose up -d
+            docker compose up -d
           "

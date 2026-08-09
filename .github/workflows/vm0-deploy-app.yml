@@ -44,30 +44,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v5
 
-      # FIX: Create a local .env file securely on the runner.
-      # This prevents secrets from being exposed in the workflow execution logs.
-      - name: Create Production Environment File
+      - name: Copy Configuration to vm0 Home Directory
         run: |
-          echo "VITE_OS_KEY=${{ secrets.OS_KEY }}" > app1/.env
-          echo "VITE_TT_KEY=${{ secrets.TT_KEY }}" >> app1/.env
-          echo "VITE_GOOGLE_KEY=${{ secrets.GOOGLE_KEY }}" >> app1/.env
-          echo "VITE_CESIUM_KEY=${{ secrets.CESIUM_KEY }}" >> app1/.env
-
-      - name: Copy Configuration and Env to vm0 Home Directory
-        run: |
-          # 1. Create the clean directory on vm0
           ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "mkdir -p ~/react-app"
-
-          # 2. Copy BOTH the docker-compose.yml AND the secure .env file over
-          scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no app1/docker-compose.yml app1/.env ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:~/react-app/
+          scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no app1/docker-compose.yml ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:~/react-app/
 
       - name: Deploy Pre-built Container over SSH
         run: |
-          # Clean execution: Docker Compose automatically detects the .env file in the same folder.
-          # No manual 'export' strings required.
           ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "
             cd ~/react-app &&
             echo '${{ secrets.GITHUB_TOKEN }}' | docker login ghcr.io -u ${{ github.actor }} --password-stdin &&
             docker compose pull &&
             docker compose up -d
           "
+

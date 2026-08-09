@@ -2,11 +2,13 @@ import { useState } from "react";
 import MapPage from "./pages/MapPage.jsx";
 import ImagePage from "./pages/ImagePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import DataPage from "./pages/DataPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import "./index.css";
 import Toolbar from "./components/ToolBar.jsx";
 import { Routes, Route, Link } from "react-router-dom";
 import { AppStateProvider } from "./contextProviders/AppStateContext.jsx";
+import { APIProvider } from "@vis.gl/react-google-maps";
 
 function App() {
   // Simple Page Components
@@ -21,13 +23,16 @@ function App() {
       <Toolbar />
 
       <AppStateProvider>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/image" element={<ImagePage />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <APIProvider apiKey={import.meta.env.VITE_GOOGLE_KEY}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/image" element={<ImagePage />} />
+            <Route path="/map" element={<MapPage />} />
+            <Route path="/data" element={<DataPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </APIProvider>
       </AppStateProvider>
     </div>
   );

@@ -302,7 +302,12 @@ export default function LeafletMap({
       {/* OS API provides the actual map image tiles */}
       <TileLayer
         attribution={selectedMap?.attribution || ""}
-        url={selectedMap?.url || ""}
+        url={
+          selectedMap?.url.replace(
+            "<apiKey_OS>",
+            import.meta.env.VITE_OS_KEY,
+          ) || ""
+        }
       />
 
       {/* Keeps limits synced */}

@@ -4,6 +4,8 @@ import ImageList from "../components/ImageList.jsx";
 import MapImage from "../components/MapImage.jsx";
 import Map3D from "../components/Map3D.jsx";
 import MapLeaf from "../components/MapLeaf.jsx";
+import MapGoogle from "../components/MapGoogle.jsx";
+import StreetView from "../components/StreetView.jsx";
 import { usePhotos } from "../hooks/usePhotos.js";
 import { useAppState } from "../hooks/useAppState.js";
 import { Panel, Group, Separator } from "react-resizable-panels";
@@ -56,6 +58,36 @@ export default function MapPage() {
     }
   }, [photos, activeItem, loading]);
 
+  const renderMap = (map) => {
+    const mapNotValidForActiveItem = map.disableForType.includes(
+      activeItem?.type || "",
+    ); // Default to empty string if activeItem is null or undefined
+    if (mapNotValidForActiveItem) {
+      return <p>{map.name} not supported for this image type.</p>;
+    }
+
+    switch (map.viewer) {
+      case "mapLeaf":
+        return (
+          <MapLeaf
+            isOverview={false}
+            activeItem={activeItem}
+            selectedMap={map}
+            setMapBounds={setMapBounds}
+            setMapCenter={setMapCenter}
+          />
+        );
+      case "mapCesium":
+        return <Map3D activeItem={activeItem} />;
+      case "streeetView":
+        return <StreetView activeItem={activeItem} />;
+      case "mapGoogle":
+        return <MapGoogle activeItem={activeItem} />;
+      default:
+        return <p>Map viewer not supported.</p>;
+    }
+  };
+
   return (
     <>
       <div className="flex flex-1 overflow-hidden">
@@ -74,22 +106,11 @@ export default function MapPage() {
         <main className="flex-1 h-full w-full overflow-hidden bg-slate-950 relative grid grid-cols-[1fr_minmax(0px,400px)] p-2 gap-2">
           {/* Left Column (Takes up 100% height of the left side) */}
           <div className=" relative rounded-lg  flex flex-col items-center justify-center ">
-            {activeMap === "3D" ? (
-              <Map3D mapTarget={activeItem} />
-            ) : (
-              <MapLeaf
-                isOverview={false}
-                activeItem={activeItem}
-                selectedMap={mainMap}
-                setMapBounds={setMapBounds}
-                setMapCenter={setMapCenter}
-              />
-            )}
+            {renderMap(mainMap)}
 
-            {/* Bottom-left corner button */}
             <button
               onClick={setNextMainMap}
-              className="absolute rounded-sm  top-3 left-14 z-10 px-3 py-1 border-2 border-gray-500 bg-white text-gray-950 text-sm"
+              className="absolute rounded-sm  top-3 right-3 z-10 px-3 py-1 border-2 border-gray-500 bg-white text-gray-950 text-sm"
             >
               {mainMap?.name || "Next Map"}
             </button>
@@ -122,7 +143,7 @@ export default function MapPage() {
               {/* Bottom-left corner button */}
               <button
                 onClick={setNextOverviewMap}
-                className="absolute rounded-sm  top-3 left-14 z-10 px-3 py-1 border-2 border-gray-500 bg-white text-gray-950 text-sm"
+                className="absolute rounded-sm  top-3 right-3 z-10 px-3 py-1 border-2 border-gray-500 bg-white text-gray-950 text-sm"
               >
                 {overviewMap?.name || "Next Map"}
               </button>

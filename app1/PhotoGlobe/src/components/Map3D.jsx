@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { Viewer, Terrain, Ion, Cartesian3, Math as CesiumMath } from "cesium";
 
-Ion.defaultAccessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3NmE0NWJhNy02M2ZkLTQ4NDctOGZkYS04MWVlMDljMmRjZWYiLCJpZCI6Mzc4MDAyLCJpYXQiOjE3NjgzMTgwNTZ9.nAn44GDjr2MZWChbmCBeRy8Cr413EYkITnET6tbi984";
+Ion.defaultAccessToken = import.meta.env.VITE_CESIUM_KEY;
 
-export default function Map3D({ mapTarget }) {
+export default function Map3D({ activeItem }) {
   const containerRef = useRef(null);
   const viewerRef = useRef(null);
 
@@ -21,6 +20,10 @@ export default function Map3D({ mapTarget }) {
       geocoder: false, // Search bar
       homeButton: false, // Home view button
       fullscreenButton: false, // Fullscreen toggle
+      geocoder: false, // Removes search bar (top right)
+      navigationHelpButton: false, // Removes "?" help button (top right)
+      sceneModePicker: false, // Removes 2D/3D toggle button (top right)//baseLayerPicker: false  // Removes
+      baseLayerPicker: false, // Removes map background switcher (top right)
     });
 
     return () => {
@@ -30,20 +33,23 @@ export default function Map3D({ mapTarget }) {
   }, []);
 
   useEffect(() => {
-    if (!viewerRef.current || !mapTarget) return;
+    if (!viewerRef.current || !activeItem) return;
 
+    console.log(">>> CESIUM:", activeItem);
     viewerRef.current.camera.flyTo({
       destination: Cartesian3.fromDegrees(
-        mapTarget.gpsLongitude,
-        mapTarget.gpsLatitude,
-        1000,
+        activeItem.gpsLongitude,
+        activeItem.gpsLatitude,
+        activeItem.gpsAltitude || 1000,
       ),
       orientation: {
-        pitch: CesiumMath.toRadians(-35.0), // Look downward at an angle
+        pitch: CesiumMath.toRadians(0), // Look downward at an angle
+        heading: CesiumMath.toRadians(activeItem.gpsImgDirection), // Adjust pitch based on
+        roll: 0, // No roll
       },
-      duration: 3.0, // 3-second travel animation
+      duration: 2.0, // 3-second travel animation
     });
-  }, [mapTarget]);
+  }, [activeItem]);
 
-  return <div ref={containerRef} style={{ width: "100vw", height: "100vh" }} />;
+  return <div ref={containerRef} className="w-full h-full rounded-lg" />;
 }

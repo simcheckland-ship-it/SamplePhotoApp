@@ -34,6 +34,12 @@ export default function Toolbar() {
           </Link>
           <Link
             className="px-3 py-1.5 rounded-md hover:bg-slate-800 transition"
+            to="/data"
+          >
+            Data
+          </Link>
+          <Link
+            className="px-3 py-1.5 rounded-md hover:bg-slate-800 transition"
             to="/about"
           >
             About

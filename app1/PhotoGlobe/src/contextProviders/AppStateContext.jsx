@@ -35,7 +35,9 @@ export function AppStateProvider({ children }) {
       if (!current) return maps[0]; // Fallback if current state is empty
 
       // Find where the current map is in the JSON array
-      const currentIndex = maps.findIndex((m) => m.id === current.id);
+      const currentIndex = maps.findIndex(
+        (m) => m.id === current.id && m. useForOverview === true,
+      );
 
       // Calculate the next index. The % operator handles wrapping back to 0 at the end.
       const nextIndex = (currentIndex + 1) % maps.length;

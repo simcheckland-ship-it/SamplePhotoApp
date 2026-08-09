@@ -2,15 +2,8 @@ version: '3.8'
 
 services:
   react-app:
-    # Docker pulls the pre-built image directly from GitHub's servers
     image: ghcr.io/simcheckland-ship-it/react-app:latest
     container_name: react_frontend
     ports:
-      - "3000:3000"  # Maps local port 3000 to internal container port 80
+      - "3000:3000"  # Maps VM port 3000 to internal container port 3000 (per your Nginx config)
     restart: unless-stopped
-    # FIX: Explicitly pass the env variables from the .env file into the container
-    environment:
-      - VITE_OS_KEY=${VITE_OS_KEY}
-      - VITE_TT_KEY=${VITE_TT_KEY}
-      - VITE_GOOGLE_KEY=${VITE_GOOGLE_KEY}
-      - VITE_CESIUM_KEY=${VITE_CESIUM_KEY}

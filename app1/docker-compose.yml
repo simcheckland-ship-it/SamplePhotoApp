@@ -8,3 +8,9 @@ services:
     ports:
       - "3000:3000"  # Maps local port 3000 to internal container port 80
     restart: unless-stopped
+    # FIX: Explicitly pass the env variables from the .env file into the container
+    environment:
+      - VITE_OS_KEY=${VITE_OS_KEY}
+      - VITE_TT_KEY=${VITE_TT_KEY}
+      - VITE_GOOGLE_KEY=${VITE_GOOGLE_KEY}
+      - VITE_CESIUM_KEY=${VITE_CESIUM_KEY}

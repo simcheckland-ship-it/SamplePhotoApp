@@ -1,5 +1,3 @@
-name: Deploy API Server Changes
-
 on:
   push:
     branches:
@@ -19,15 +17,11 @@ jobs:
       - name: Copy API Deployment and Code to Proxmox
         run: |
           ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/api-server"
-          
-          # Added quotes around the destination to fix the YAML parser error
           scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no -r api-server/ "${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server"
 
       - name: Copy Nginx to Proxmox
         run: |
           ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/nginx.conf"
-          
-          # Added quotes around the destination and removed incorrect -r for a single file
           scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no api-server/nginx.conf "${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/nginx.conf"
 
       - name: Remote Restart via SSH

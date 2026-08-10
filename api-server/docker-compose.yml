@@ -13,7 +13,3 @@ services:
     restart: always
 
 
-
- mkdir -p /opt/nginx-proxy/
-
-sudo chown -R sim:sim /opt/nginx-proxy/

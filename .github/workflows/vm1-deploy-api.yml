@@ -18,14 +18,14 @@ jobs:
 
       - name: Copy API Deployment and Code to Proxmox
         run: |
-          ssh -i /root/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no ${{ secrets.VM1_USER }}@${{ secrets.VM1_HOST }} "rm -rf ~/react-photo-app/api-server"
+          ssh -i /root/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM1_USER }}@${{ secrets.VM1_HOST }}" "rm -rf ~/react-photo-app/api-server"
           
           # This copies the parent folder, the docker files, and the code all at once
           scp -i /root/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/ ${{ secrets.VM1_USER }}@${{ secrets.VM1_HOST }}:~/react-photo-app/api-server
 
       - name: Copy Nginx to Proxmox
         run: |
-          ssh -i /root/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no ${{ secrets.VM1_USER }}@${{ secrets.VM1_HOST }} "rm -rf ~/react-photo-app/nginx.conf"
+          ssh -i /root/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM1_USER }}@${{ secrets.VM1_HOST }}" "rm -rf ~/react-photo-app/nginx.conf"
           
           # This copies the parent folder, the docker files, and the code all at once
           scp -i /root/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/nginx.conf ${{ secrets.VM1_USER }}@${{ secrets.VM1_HOST }}:~/react-photo-app/nginx.conf

@@ -1,4 +1,4 @@
-name: Deploy API Server Changes
+name: Deploy API Server Changes v2
 
 on:
   push:

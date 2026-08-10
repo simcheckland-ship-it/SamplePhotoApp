@@ -9,6 +9,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_HTTP_PORTS=8080
+      - MongoDB__ApiKey=${MONGODB_KEY}
     restart: always
 
 

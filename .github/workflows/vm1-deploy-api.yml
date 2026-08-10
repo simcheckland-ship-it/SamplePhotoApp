@@ -1,3 +1,5 @@
+name: Deploy API Server Changes
+
 on:
   push:
     branches:
@@ -12,21 +14,33 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v5 
+        uses: actions/checkout@v5 # Automatically cleans and checks out the exact commit
 
       - name: Copy API Deployment and Code to Proxmox
-        run: 'ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/api-server" && scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no -r api-server/ "${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server"'
+        run: |
+          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/api-server"
+          
+          # This copies the parent folder, the docker files, and the code all at once
+          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/ ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server
 
       - name: Copy Nginx to Proxmox
-        run: 'ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/nginx.conf" && scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no api-server/nginx.conf "${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/nginx.conf"'
-
-      - name: Generate Environmental Payload
-        env:
-          API_SECRET: ${{ secrets.MONGODB_KEY }}
-        run: echo "MONGODB_KEY=$API_SECRET" > remote.env
-
-      - name: Inject Configuration Environment
-        run: 'scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no remote.env "${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server/.env"'
+        run: |
+          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/nginx.conf"
+          
+          # This copies the parent folder, the docker files, and the code all at once
+          scp -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no -r api-server/nginx.conf ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/nginx.conf
 
       - name: Remote Restart via SSH
-        run: 'ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "cd ~/react-photo-app/api-server && docker compose down && docker compose up -d --build"'
+        env:
+          # 1. Map your GitHub secret to a temporary runner variable
+          API_SECRET: ${{ secrets.MONGODB_KEY }}
+        run: |
+          # 2. Pass the variable across the SSH boundary explicitly
+          ssh -i /home/github-runner/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "
+            cd ~/react-photo-app/api-server && 
+            docker compose down &&
+            
+            # 3. Prepend the variable right before the 'docker compose up' command
+            MongoDB__ApiKey='$API_SECRET' docker compose up -d --build
+          "
+         

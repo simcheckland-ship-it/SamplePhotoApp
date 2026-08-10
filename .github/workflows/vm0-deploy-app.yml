@@ -1,4 +1,4 @@
-name: Deploy React App
+name: Deploy React Photo App
 
 on:
   push:

@@ -34,10 +34,11 @@ jobs:
         env:
           API_SECRET: ${{ secrets.MONGODB_KEY }}
         run: |
-          # 1. Write the secret directly to a remote .env file safely
-          ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "echo 'MONGODB_KEY=$API_SECRET' > ~/react-photo-app/api-server/.env"
+          # 1. Escaped double quotes allow the local runner to inject the real secret value
+          ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "echo \"MONGODB_KEY=$API_SECRET\" > ~/react-photo-app/api-server/.env"
           
           # 2. Restart docker compose which will automatically pick up the .env file
           ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "cd ~/react-photo-app/api-server && docker compose down && docker compose up -d --build"
+
 
          

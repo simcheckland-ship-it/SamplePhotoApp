@@ -18,7 +18,7 @@ jobs:
 
       - name: Copy API Deployment and Code to Proxmox
         run: |
-          ssh -i /root/.ssh/runner-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/api-server"
+          ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.VM2_USER }}@192.168.0.201" "rm -rf ~/react-photo-app/api-server"
           
           # This copies the parent folder, the docker files, and the code all at once
           scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no -r api-server/ ${{ secrets.VM2_USER }}@192.168.0.201:~/react-photo-app/api-server

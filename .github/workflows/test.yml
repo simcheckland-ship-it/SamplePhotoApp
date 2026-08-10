@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "api-server/**"
-      - ".github/workflows/vm1-deploy-api.yml"
+      - ".github/workflows/test.yml"
 
 jobs:
   deploy:

@@ -36,4 +36,11 @@ jobs:
         run: |
           scp -i /root/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no local.env "${{ secrets.VM1_USER }}@${{ secrets.VM1_HOST }}":~/react-photo-app/api-server/.env
 
+      - name: Remote Restart via SSH
+        run: |
+          ssh -i /root/.ssh/runner-to-vm1 -o StrictHostKeyChecking=no "${{ secrets.VM1_USER }}@${{ secrets.VM1_HOST }}" 'bash -s' << 'EOF'
+            cd ~/react-photo-app/api-server
+            docker compose down
+            docker compose up -d --build
+          EOF
 

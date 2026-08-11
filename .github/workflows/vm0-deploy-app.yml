@@ -36,6 +36,9 @@ jobs:
           docker build \
             -f ${{ github.workspace }}/app1/DockerFile \
             -t ghcr.io/${{ github.repository_owner }}/react-app:latest \
+            --build-arg VITE_BASE_URL_LOCAL="$VITE_BASE_URL_LOCAL" \
+            --build-arg VITE_BASE_URL_PUBLIC="$VITE_BASE_URL_PUBLIC" \
+            --build-arg VITE_APP_ENV="$VITE_APP_ENV" \
             ${{ github.workspace }}/app1
 
           docker push ghcr.io/${{ github.repository_owner }}/react-app:latest

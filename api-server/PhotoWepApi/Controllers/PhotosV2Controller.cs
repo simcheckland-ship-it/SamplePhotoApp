@@ -80,6 +80,7 @@ namespace PhotoWepApi.Controllers
             {
                 var result = client.GetDatabase("admin").RunCommand<BsonDocument>(new BsonDocument("ping", 1));
                 Console.WriteLine("Pinged your deployment. You successfully connected to MongoDB!");
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -87,7 +88,7 @@ namespace PhotoWepApi.Controllers
                 return Ok(ex.Message);
             }
 
-            return Ok();
+
         }
 
         [HttpGet("dev/check-config")]

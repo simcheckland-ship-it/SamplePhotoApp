@@ -79,8 +79,9 @@ namespace PhotoWepApi.Controllers
             try
             {
                 var result = client.GetDatabase("admin").RunCommand<BsonDocument>(new BsonDocument("ping", 1));
-                Console.WriteLine("Pinged your deployment. You successfully connected to MongoDB!");
-                return Ok(result);
+                var retVal = "Pinged your deployment. You successfully connected to MongoDB!";
+                Console.WriteLine(retVal);
+                return Ok(retVal);
             }
             catch (Exception ex)
             {

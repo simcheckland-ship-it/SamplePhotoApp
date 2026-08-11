@@ -30,6 +30,12 @@ jobs:
         env:
           VITE_BASE_URL_LOCAL: ${{ secrets.BASE_URL_LOCAL }}
           VITE_BASE_URL_PUBLIC: ${{ secrets.BASE_URL_PUBLIC }}
+          
+          VITE_CESIUM_KEY: ${{ secrets.CESIUM_KEY }}
+          VITE_GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
+          VITE_OS_KEY: ${{ secrets.OS_KEY }}
+          VITE_TT_KEY: ${{ secrets.TT_KEY }}
+          
           VITE_APP_ENV: production
         run: |
           # Using ${{ github.workspace }} replaces the fragile hardcoded path
@@ -38,6 +44,12 @@ jobs:
             -t ghcr.io/${{ github.repository_owner }}/react-app:latest \
             --build-arg VITE_BASE_URL_LOCAL="$VITE_BASE_URL_LOCAL" \
             --build-arg VITE_BASE_URL_PUBLIC="$VITE_BASE_URL_PUBLIC" \
+            
+            --build-arg VITE_CESIUM_KEY="$VITE_CESIUM_KEY" \
+            --build-arg VITE_GOOGLE_KEY="$VITE_GOOGLE_KEY" \
+            --build-arg VITE_OS_KEY="$VITE_OS_KEY" \
+            --build-arg VITE_TT_KEY="$VITE_TT_KEY" \
+
             --build-arg VITE_APP_ENV="$VITE_APP_ENV" \
             ${{ github.workspace }}/app1
 

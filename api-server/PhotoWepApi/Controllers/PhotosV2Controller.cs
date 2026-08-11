@@ -101,15 +101,34 @@ namespace PhotoWepApi.Controllers
             // NEVER return the full secret in an API response. 
             // Mask it to confirm it exists and starts with the correct characters.
             var maskedKey = $"{key.Substring(0, 3)}...{key.Substring(key.Length - 3)}";
-            return Ok(new { status = "Loaded", preview = maskedKey, length = key.Length });
+            var retVal = new { status = "Loaded", preview = maskedKey, length = key.Length };
+
+            Console.WriteLine(retVal);
+
+            return Ok(retVal);
         }
 
+        [Route("dev/FolderTest/{testID}")]
+        [HttpGet]
+        public IActionResult FolderTest(int testID)
+        {
+            string uploadFolder = Path.Combine(_environment.ContentRootPath, "uploads");
+            if (testID == 1)
+            {
+                uploadFolder = "/var/www/photo-app/uploads";
+            }
+            string v = $"FolderExists {uploadFolder} {System.IO.Directory.Exists(uploadFolder)}";
+            Console.WriteLine(v);
+            return Ok(v);
+        }
 
         [Route("")]
         [Route("GetPhotos")]
         [HttpGet]
         public async Task<IActionResult> GetPhotos()
         {
+            Console.WriteLine("GetPhotos()");
+
             var db = getDatabase();
             if (db == null) return BadRequest("Database error");
             var collection = db.GetCollection<PhotoItem>("PhotoGlobe"); //your_collection_name
@@ -124,6 +143,8 @@ namespace PhotoWepApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPhotosByType(string type)
         {
+            Console.WriteLine($"GetPhotos(\"{type}\")");
+
             var db = getDatabase();
             if (db == null) return BadRequest("Database error");
             var collection = db.GetCollection<PhotoItem>("PhotoGlobe"); //your_collection_name
@@ -134,23 +155,14 @@ namespace PhotoWepApi.Controllers
             return Ok(results);
         }
 
-        [Route("FolderTest/{testID}")]
-        [HttpGet]
-        public IActionResult FolderTest(int testID)
-        {
-            string uploadFolder = Path.Combine(_environment.ContentRootPath, "uploads");
-            if (testID == 1)
-            {
-                uploadFolder = "/var/www/photo-app/uploads";
-            }
-            string v = $"FolderExists {uploadFolder} {System.IO.Directory.Exists(uploadFolder)}";
-            return Ok(v);
-        }
+
 
         [HttpPost("Upload")]
         [RequestSizeLimit(52_428_800)]
         public async Task<IActionResult> UploadImage([FromForm] IFormFile image, [FromForm] string type)
         {
+            Console.WriteLine($"UploadImage([FromForm])");
+
             if (image == null || image.Length == 0)
                 return BadRequest("No image file uploaded.");
 

@@ -47,6 +47,10 @@ export function AppStateProvider({ children }) {
 
   useEffect(() => {
     fetchPhotos();
+    if (photos && photos.length > 0) {
+      setActiveItem(photos[0]); 
+    }
+
   }, []);
 
   const fetchPhotos = async () => {

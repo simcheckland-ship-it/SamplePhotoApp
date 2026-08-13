@@ -1,21 +1,21 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { setupAxiosInterceptors } from "../api/client";
+import { getPhotos } from "../api/photoService"; // Adjust this path to your service file
 import maps from "../mapsData.json";
 
 export const AppStateContext = createContext(null);
 
 export function AppStateProvider({ children }) {
   const [activeItem, setActiveItem] = useState(null);
-  const [imgBaseUrl, setImgBaseUrl] = useState(null);
-  const [apiBaseUrl, setApiBaseUrl] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const [overviewMap, setOverviewMap] = useState(() =>
     maps.find((map) => map.id === 1),
   );
   const [mainMap, setMainMap] = useState(() =>
     maps.find((map) => map.id === 2),
   );
-
   const setNextMainMap = () => {
     setMainMap((current) => {
       if (!current) return maps[0]; // Fallback if current state is empty
@@ -29,14 +29,13 @@ export function AppStateProvider({ children }) {
       return maps[nextIndex];
     });
   };
-
   const setNextOverviewMap = () => {
     setOverviewMap((current) => {
       if (!current) return maps[0]; // Fallback if current state is empty
 
       // Find where the current map is in the JSON array
       const currentIndex = maps.findIndex(
-        (m) => m.id === current.id && m. useForOverview === true,
+        (m) => m.id === current.id && m.useForOverview === true,
       );
 
       // Calculate the next index. The % operator handles wrapping back to 0 at the end.
@@ -47,69 +46,33 @@ export function AppStateProvider({ children }) {
   };
 
   useEffect(() => {
-    const testConnection = async () => {
-      const controller = new AbortController();
-      // 1.5-second timeout so your app loads quickly even if local fails
-      const timeoutId = setTimeout(() => controller.abort(), 1500);
-
-      if (import.meta.env.DEV) {
-        console.log("The application is running in development mode.");
-        // 1. Set image base state
-        setImgBaseUrl(`/local-network/uploads`);
-
-        // 2. Set the state AND instantly bind it to Axios
-        const localApi = `/local-network/api/v2`;
-        setApiBaseUrl(localApi);
-        setupAxiosInterceptors(localApi);
-        setLoading(false);
-      } else {
-        console.log("The application is running in PRODUCTION mode.");
-
-        try {
-          // Try hitting a small asset or health endpoint on your local server
-          await fetch(`${import.meta.env.VITE_BASE_URL_LOCAL}/uploads/hello`, {
-            method: "GET",
-            signal: controller.signal,
-          });
-
-          console.log(
-            "Local image server detected. Setting global path to Local.",
-          );
-
-          // 1. Set image base state
-          setImgBaseUrl(`${import.meta.env.VITE_BASE_URL_LOCAL}/uploads`);
-
-          // 2. Set the state AND instantly bind it to Axios
-          const localApi = `${import.meta.env.VITE_BASE_URL_LOCAL}/api/v2`;
-          setApiBaseUrl(localApi);
-          setupAxiosInterceptors(localApi);
-        } catch (error) {
-          console.warn(
-            "Local image server unreachable. Setting global path to Public WAN.",
-          );
-          setImgBaseUrl(`${import.meta.env.VITE_BASE_URL_PUBLIC}/uploads`);
-
-          // 3. Set the fallback string AND bind it to Axios
-          const publicApi = `${import.meta.env.VITE_BASE_URL_PUBLIC}/api/v2`;
-          setApiBaseUrl(publicApi);
-          setupAxiosInterceptors(publicApi);
-        } finally {
-          clearTimeout(timeoutId);
-          setLoading(false);
-        }
-      }
-    };
-
-    testConnection();
+    fetchPhotos();
   }, []);
+
+  const fetchPhotos = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+
+      const response = await getPhotos();
+      // Axios stores the payload inside the .data property
+      setPhotos(response.data);
+    } catch (err) {
+      console.log("ERROR:", err);
+      setError(err.message || "Failed to fetch photos");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <AppStateContext.Provider
       value={{
         activeItem,
         setActiveItem,
-        imgBaseUrl,
-        apiBaseUrl,
+        photos,
+        fetchPhotos,
         loading,
         mainMap,
         overviewMap,

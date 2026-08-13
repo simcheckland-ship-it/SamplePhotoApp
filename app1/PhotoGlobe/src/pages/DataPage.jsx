@@ -3,7 +3,6 @@ import axios from "axios";
 import MapImage from "../components/MapImage.jsx";
 import ImageList from "../components/ImageList.jsx";
 import StreetView from "../components/StreetView.jsx";
-import { usePhotos } from "../hooks/usePhotos.js";
 import { useAppState } from "../hooks/useAppState.js";
 
 const renderStatus = (status) => {
@@ -13,9 +12,8 @@ const renderStatus = (status) => {
 };
 
 export default function DataPage() {
-  const { data: photos, isLoading, isError, error, isFetching } = usePhotos();
   const [data, setData] = useState([]);
-  const { activeItem, setActiveItem } = useAppState();
+  const { activeItem, setActiveItem, photos, fetchPhotos } = useAppState();
   const { loading } = useAppState();
   const [ttLoading, setTtLoading] = useState(true);
   const [ttError, setTtError] = useState(null);

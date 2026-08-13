@@ -15,21 +15,21 @@ export default defineConfig({
   //   port: 5173,
   // },
   server: {
+    host: '0.0.0.0', 
+    port: 5173,
+    allowedHosts: ['sw-jar.co.uk', 'www.sw-jar.co.uk'],
+    // Vite intercepts these paths locally and forwards them to the real backend
     proxy: {
-      "/local-network": {
-        target: "https://192.168.0.200", // Your local IP backend base
+      '/api/v2': {
+        target: 'https://sw-jar.co.uk:443', // Points to your domain/local DNS
         changeOrigin: true,
-        secure: false, // Bypasses the self-signed HTTPS certificate block
-        rewrite: (path) => path.replace(/^\/local-network/, ""),
+        secure: false, // Bypasses the self-signed certificate on NGINX
       },
-    },
-    /*    proxy: {
-      "/local-network": {
-        target: "https://localhost:7154", // Your local IP backend base
+      '/uploads': {
+        target: 'https://sw-jar.co.uk:443', // Points to your domain/local DNS
         changeOrigin: true,
-        secure: false, // Bypasses the self-signed HTTPS certificate block
-        rewrite: (path) => path.replace(/^\/local-network/, ""),
-      },
-    }, */
-  },
+        secure: false,
+      }
+    }
+  }
 });

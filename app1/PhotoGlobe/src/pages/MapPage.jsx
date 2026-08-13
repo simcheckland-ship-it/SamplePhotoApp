@@ -6,17 +6,15 @@ import Map3D from "../components/Map3D.jsx";
 import MapLeaf from "../components/MapLeaf.jsx";
 import MapGoogle from "../components/MapGoogle.jsx";
 import StreetView from "../components/StreetView.jsx";
-import { usePhotos } from "../hooks/usePhotos.js";
 import { useAppState } from "../hooks/useAppState.js";
 import { Panel, Group, Separator } from "react-resizable-panels";
 
 export default function MapPage() {
-  const { data: photos, isLoading, isError, error } = usePhotos();
-
   const {
     activeItem,
     setActiveItem,
     overviewMap,
+    photos,
     mainMap,
     setNextOverviewMap,
     setNextMainMap,

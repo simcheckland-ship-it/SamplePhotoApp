@@ -2,13 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ImageList from "../components/ImageList.jsx";
 import Image from "../components/Image.jsx";
-import { usePhotos } from "../hooks/usePhotos.js";
 import { useAppState } from "../hooks/useAppState.js";
 
 export default function ImagePage() {
-  const { data: photos, isLoading, isError, error, isFetching } = usePhotos();
-  const { activeItem, setActiveItem } = useAppState();
-  const { loading } = useAppState();
+  const { activeItem, setActiveItem, photos, loading, error } = useAppState();
 
   //const [ activeItem, setActiveItem ] = useState(() => getDefaultItem());
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { usePhotos } from "../hooks/usePhotos.js";
+import { useAppState } from "../hooks/useAppState.js";
 import HomeImage from "../components/HomeImage.jsx";
 
 // Helper functions placed outside the component to prevent re-creation
@@ -23,13 +23,14 @@ const chunkIntoSix = (arr) => {
 };
 
 export default function HomePage() {
-  const { data: photos, isLoading, isError, error, isFetching } = usePhotos();
+  const { photos, loading, error } = useAppState();
   const [chunks, setChunks] = useState([]);
   const [activeImage, setActiveImage] = useState(0);
   const [isPageActive, setIsPageActive] = useState(true);
 
   // 1. Memoize filtered photos so it doesn't recalculate on every render
   const photosOfType = useMemo(() => {
+    console.log(">>", photos);
     return photos?.filter((x) => x.type === "view") || [];
   }, [photos]);
 
@@ -67,11 +68,17 @@ export default function HomePage() {
     return () => clearInterval(intervalId);
   }, [isPageActive, chunks.length]);
 
-  if (isLoading) return <div>Loading...</div>; // Optional: Handle loading state gracefully
-  if (isError) return <div>Error loading photos.</div>;
+  if (loading) return <div>Loading...</div>; // Optional: Handle loading state gracefully
+  if (error) return <div>Error loading photos.</div>;
 
   return (
     <div className="grid h-screen w-screen grid-cols-3 grid-rows-2 gap-2 p-2 overflow-hidden">
+      {console.log(
+        "Rendering HomePage with chunks:",
+        chunks,
+        "and activeImage:",
+        activeImage,
+      )}
       {chunks.map((item, index) => (
         <div
           key={index}

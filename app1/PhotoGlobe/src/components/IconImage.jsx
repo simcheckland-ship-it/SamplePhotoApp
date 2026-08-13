@@ -4,7 +4,7 @@ import { useAppState } from "../hooks/useAppState.js";
 export default function IconImage({ fileName, label }) {
   const { imgBaseUrl, loading } = useAppState();
 
-  const iconPath = `${imgBaseUrl}/thumbs/${fileName.toLowerCase()}`;
+  const iconPath = `/uploads/thumbs/${fileName.toLowerCase()}`;
 
   if (loading) {
     return <div>Loading assets...</div>;

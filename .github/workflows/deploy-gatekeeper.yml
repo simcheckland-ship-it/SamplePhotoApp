@@ -9,18 +9,23 @@ on:
       
 jobs:
   deploy:
-    runs-on: self-hosted # <-- Directs the job to your local runner machine
+    runs-on: [self-hosted, linux]
     
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Gatekeeper Image Locally
+      - name: Copy Proxy Config Files to vm0
         run: |
-          # Build a local image tagged as 'gatekeeper:local' using the subfolder context
-          docker build -t gatekeeper:local ./gatekeeper
+         # 1. Copy files into /opt/nginx-proxy/
+         scp -i /home/github-runner/.ssh/runner-vm -o StrictHostKeyChecking=no proxy/* ${{ secrets.GATEKEEPER_USER }}@${{ secrets.GATEKEEPER_HOST }}:/opt/nginx-proxy/
+  
 
-      - name: Deploy Stack using Docker Compose
+      - name: Start Nginx Proxy Container on vm0 -
         run: |
-          # Boot up or update the service using your local build
-          docker compose up -d
+        
+          ssh -i /home/github-runner/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.GATEKEEPER_USER }}@${{ secrets.GATEKEEPER_HOST }}" "
+            cd /opt/nginx-proxy && 
+            docker compose down && 
+            docker compose up -d --force-recreate
+          "

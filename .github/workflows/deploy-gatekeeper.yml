@@ -1,0 +1,25 @@
+name: Deploy Gatekeeper Locally
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'gatekeeper/**'
+
+jobs:
+  deploy:
+    runs-on: self-hosted # <-- Directs the job to your local runner machine
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Gatekeeper Image Locally
+        run: |
+          # Build a local image tagged as 'gatekeeper:local' using the subfolder context
+          docker build -t gatekeeper:local ./gatekeeper
+
+      - name: Deploy Stack using Docker Compose
+        run: |
+          # Boot up or update the service using your local build
+          docker compose up -d

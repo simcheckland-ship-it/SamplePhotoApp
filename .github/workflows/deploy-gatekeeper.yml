@@ -1,4 +1,4 @@
-name: Deploy Gatekeeper Locally
+name: Deploy gatekeeper
 
 on:
   push:
@@ -15,13 +15,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Copy Proxy Config Files to vm0
+      - name: Copy Proxy Config Files to edge-proxy
         run: |
          # 1. Copy files into /opt/nginx-proxy/
          scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no gatekeeper/* ${{ secrets.GATEKEEPER_USER }}@${{ secrets.GATEKEEPER_HOST }}:/opt/nginx-proxy/
   
 
-      - name: Start Nginx Proxy Container on vm0 -
+      - name: Start Nginx Proxy Container edge-proxy
         run: |
         
           ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.GATEKEEPER_USER }}@${{ secrets.GATEKEEPER_HOST }}" "

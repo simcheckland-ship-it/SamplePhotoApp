@@ -18,13 +18,13 @@ jobs:
       - name: Copy Proxy Config Files to vm0
         run: |
          # 1. Copy files into /opt/nginx-proxy/
-         scp -i /home/github-runner/.ssh/runner-vm -o StrictHostKeyChecking=no proxy/* ${{ secrets.GATEKEEPER_USER }}@${{ secrets.GATEKEEPER_HOST }}:/opt/nginx-proxy/
+         scp -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no proxy/* ${{ secrets.GATEKEEPER_USER }}@${{ secrets.GATEKEEPER_HOST }}:/opt/nginx-proxy/
   
 
       - name: Start Nginx Proxy Container on vm0 -
         run: |
         
-          ssh -i /home/github-runner/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.GATEKEEPER_USER }}@${{ secrets.GATEKEEPER_HOST }}" "
+          ssh -i /root/.ssh/runner-vm -o StrictHostKeyChecking=no "${{ secrets.GATEKEEPER_USER }}@${{ secrets.GATEKEEPER_HOST }}" "
             cd /opt/nginx-proxy && 
             docker compose down && 
             docker compose up -d --force-recreate

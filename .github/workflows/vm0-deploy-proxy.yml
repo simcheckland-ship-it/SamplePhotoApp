@@ -1,4 +1,4 @@
-name: Deploy Nginx Reverse Proxy to vm0 - update
+name: Deploy Nginx Reverse Proxy to vm0
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
     paths:
      - "proxy/**"
-     - ".github/workflows/deploy-proxy.yml"
+     - ".github/workflows/vm0-deploy-proxy.yml"
 
 jobs:
   deploy:

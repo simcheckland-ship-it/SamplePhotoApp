@@ -1,4 +1,4 @@
-name: Deploy Nginx Reverse Proxy to vm0
+name: Deploy Nginx Reverse Proxy to vm0 - update
 
 on:
   push:

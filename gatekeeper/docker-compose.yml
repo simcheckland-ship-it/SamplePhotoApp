@@ -7,4 +7,11 @@ services:
     volumes:
       #  Mounts into conf.d so Nginx automatically wraps it inside 'http'
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+      #  Master dynamic switch string file (Read/Write for the script)
+      - ./live_environment.conf:/etc/nginx/live_environment.conf
+      
+      #  Environment matrix mappings file
+      - ./switchable_environments.conf:/etc/nginx/conf.d/switchable_environments
+      
     restart: unless-stopped

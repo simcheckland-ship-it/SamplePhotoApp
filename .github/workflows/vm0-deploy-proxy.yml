@@ -1,4 +1,4 @@
-name: Deploy Nginx Reverse Proxy to vm0
+name: Deploy Nginx Reverse Proxy to First Downstream Proxy
 
 on:
   push:
@@ -17,16 +17,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Copy Proxy Config Files to vm0
+      - name: Copy Proxy Config Files to Downstream Proxy
         run: |
-          # 1. Copy files into /opt/nginx-proxy/
-          scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no proxy/* ${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}:/opt/nginx-proxy/
+          # 1. Copies files into /opt/nginx-proxy/ over the private vmbr1 network
+          # Uses your runner's internal access to hit the isolated downstream IP directly
+          scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no proxy/* root@10.10.10.200:/opt/nginx-proxy/
 
-
-      - name: Start Nginx Proxy Container on vm0 -
+      - name: Start Nginx Proxy Container on Downstream Proxy
         run: |
-        
-          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no "${{ secrets.VM0_USER }}@${{ secrets.VM0_HOST }}" "
+          # 2. Connects to the downstream proxy over the 10.10.10.* bridge, 
+          #    rebuilds its local Docker stack, and applies your rules on port 80
+          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no root@10.10.10.200 "
             cd /opt/nginx-proxy && 
             docker compose down && 
             docker compose up -d --force-recreate

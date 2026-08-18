@@ -21,13 +21,13 @@ jobs:
         run: |
           # 1. Copies files into /opt/nginx-proxy/ over the private vmbr1 network
           # Uses your runner's internal access to hit the isolated downstream IP directly
-          scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no proxy/* root@10.10.10.200:/opt/nginx-proxy/
+          scp -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no proxy/* root@10.10.10.100:/opt/nginx-proxy/
 
       - name: Start Nginx Proxy Container on Downstream Proxy
         run: |
           # 2. Connects to the downstream proxy over the 10.10.10.* bridge, 
           #    rebuilds its local Docker stack, and applies your rules on port 80
-          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no root@10.10.10.200 "
+          ssh -i /home/github-runner/.ssh/runner-to-vm0 -o StrictHostKeyChecking=no root@10.10.10.100 "
             cd /opt/nginx-proxy && 
             docker compose down && 
             docker compose up -d --force-recreate

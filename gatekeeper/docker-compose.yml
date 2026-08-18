@@ -10,5 +10,7 @@ services:
 
       #  Master dynamic switch string file (Read/Write for the script)
       - ./live_environment.conf:/etc/nginx/live_environment.conf
-      
+
+      # Mount the official live Let's Encrypt path directly into the container
+      - /etc/letsencrypt/live/sw-jar.co.uk:/etc/nginx/certs:ro
     restart: unless-stopped

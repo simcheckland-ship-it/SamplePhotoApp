@@ -46,7 +46,7 @@ resource "proxmox_virtual_environment_vm" "docker_hosts" {
 
   cpu { cores = each.value.cores }
   memory { dedicated = each.value.ram }
-  network_device { bridge = "vmbr0" }
+  network_device { bridge = "vmbr1" }
 
   initialization {
     user_account {

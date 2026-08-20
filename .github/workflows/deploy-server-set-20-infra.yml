@@ -39,30 +39,20 @@ jobs:
         
       - name: Run Ansible Configuration Playbook
         run: |
-          mkdir -p ~/.ssh
-          touch ~/.ssh/known_hosts
+              # 1. Ensure basic SSH configuration directory exists
+              mkdir -p ~/.ssh
           
-          # 1. Prepare directory structure
-          mkdir -p ~/.ssh
-          touch ~/.ssh/known_hosts
-      
-          # 2. Hard clear old entries for BOTH hostnames and IPs to clear the warning cache
-          ssh-keygen -R "10.10.10.110" || true
-          ssh-keygen -R "10.10.10.200" || true
-          ssh-keygen -R "10.10.10.201" || true
-          ssh-keygen -R "app-proxy-server" || true
-          ssh-keygen -R "api-server" || true
-      
-          # 3. Apply standard Ansible variable overrides
-          export ANSIBLE_HOST_KEY_CHECKING=False
-          export ANSIBLE_FORCE_COLOR=True
-          export ANSIBLE_PYTHON_INTERPRETER=auto_silent
-      
-          # 4. Force OpenSSH to bypass strict verification dynamically on the wire
-          ansible-playbook -i inventory.ini site.yml \
-            --private-key=~/.ssh/runner-vm \
-            --ssh-common-args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-        working-directory: ./ansible
+              # 2. Configure Ansible flags globally
+              export ANSIBLE_HOST_KEY_CHECKING=False
+              export ANSIBLE_FORCE_COLOR=True
+              export ANSIBLE_PYTHON_INTERPRETER=auto_silent
+          
+              # 3. Dynamically handle any server combination in inventory.ini
+              ansible-playbook -i inventory.ini site.yml \
+                --private-key=~/.ssh/runner-vm \
+                --ssh-common-args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes'
+              shell: /usr/bin/bash -e {0}
+              working-directory: ./ansible
 
 
   #call-child:

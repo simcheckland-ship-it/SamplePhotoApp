@@ -38,6 +38,7 @@ jobs:
         run: terraform apply -auto-approve tfplan
         
       - name: Run Ansible Configuration Playbook
+        working-directory: ./ansible  
         run: |
           # 1. Ensure basic SSH configuration directory exists
           mkdir -p ~/.ssh

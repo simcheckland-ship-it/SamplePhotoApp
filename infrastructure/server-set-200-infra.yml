@@ -1,6 +1,6 @@
 server_inventory:
   app_proxy_server:
-    vm_id: 220
+    vm_id: 200
     cores: 2
     ram: 2048
     ip_address: "10.10.10.200/24"
@@ -11,10 +11,10 @@ server_inventory:
     username: "svc"
 
   api_server:
-    vm_id: 221
+    vm_id: 201
     cores: 2
     ram: 2048
-    ip_address: "10.10.10.200/24"
+    ip_address: "10.10.10.201/24"
     gateway: "10.10.10.1"
     ssh_keys:
       - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGIKOXhR4eQgQgUqcRkY1g6xyjQbnM7++K/5PgOluZPj developer@DESKTOP-IUTPP9P My key"

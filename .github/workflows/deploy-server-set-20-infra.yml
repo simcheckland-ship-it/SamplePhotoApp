@@ -25,9 +25,9 @@ jobs:
           proxmox_endpoint = "${{ secrets.PROXMOX_ENDPOINT }}"
           proxmox_token    = "${{ secrets.PROXMOX_TOKEN }}"
           server_passwords = {
-            "app_proxy_server" = "${{ secrets.VM200_PASS }}",
-            "api_server"       = "${{ secrets.VM201_PASS }}",
-            "image_server"     = "${{ secrets.VM202_PASS }}"
+              "VM200" = "${{ secrets.VM0_PASS }}",
+              "VM201" = "${{ secrets.VM1_PASS }}",
+              "VM201" = "${{ secrets.VM2_PASS }}",
           }
           EOF
 

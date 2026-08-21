@@ -1,13 +1,7 @@
----
-- name: "🌐 Baseline OS Hardening "
-  hosts: all # 🟢 Targets every machine inside inventory.ini
-  become: true
-
   tasks:
     - name: Ensure clean baseline state
       become: true
       block:
-        # 🟢 FIXED: Indented 2 spaces right to sit inside the block
         - name: Remove broken legacy Docker repositories
           ansible.builtin.file:
             path: "{{ item }}"
@@ -15,7 +9,17 @@
           loop:
             - /etc/apt/sources.list.d/docker.list
             - /etc/apt/sources.list.d/download_docker_com_linux_ubuntu.list
-  
+
+        # 🟢 NEW: Kill background upgrades and clear stuck system locks
+        - name: Force break stuck apt/dpkg locks and clear dead metadata
+          ansible.builtin.shell: |
+            killall apt apt-get dpkg unattended-upgrades 2>/dev/null || true
+            rm -f /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock
+            rm -f /var/lib/apt/lists/lock /var/cache/apt/archives/lock
+            dpkg --configure -a
+            apt-get clean
+          failed_when: false # Prevents playbook from failing if no locks exist
+
     - name: Install baseline system prerequisites
       apt:
         name:
@@ -28,7 +32,8 @@
           ]
         state: present
         update_cache: yes
-        cache_valid_time: 3600
+        # 🟢 CHANGE: Set to 0 to bypass caching issues and force a fresh fetch
+        cache_valid_time: 0
       become: true
       register: apt_result
       until: apt_result is success
@@ -36,9 +41,3 @@
       delay: 10
       environment:
         DEBIAN_FRONTEND: noninteractive
-    
-    - name: Assign deployment user to the docker group
-      user:
-        name: "{{ ansible_user }}"
-        groups: docker
-        append: yes

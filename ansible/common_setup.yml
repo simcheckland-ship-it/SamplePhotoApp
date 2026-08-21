@@ -7,6 +7,12 @@
     - name: Ensure clean baseline state
       become: true
       block:
+        # 🟢 NEW: Safely block Ansible until Cloud-Init completely releases the system
+        - name: Wait for Cloud-Init first-boot processes to finish on hypervisor
+          ansible.builtin.command: cloud-init status --wait
+          changed_when: false
+          failed_when: false # Moves on cleanly if the VM image doesn't use cloud-init
+
         - name: Remove broken legacy Docker repositories
           ansible.builtin.file:
             path: "{{ item }}"
@@ -52,14 +58,12 @@
           ]
         state: present
         update_cache: no
-        # 🟢 NEW: Forces dpkg to accept old/default configs without popping up menus
         dpkg_options: 'force-confold,force-confdef'
       become: true
       register: apt_result
       until: apt_result is success
       retries: 5
       delay: 10
-      # 🟢 NEW: Added extra variables to suppress service restart prompts
       environment:
         DEBIAN_FRONTEND: noninteractive
         DEBCONF_NONINTERACTIVE_SEEN: "true"

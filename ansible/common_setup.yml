@@ -24,6 +24,24 @@
             apt-get clean
           failed_when: false
 
+        # 🟢 NEW: Force an aggressive 10-second timeout on network mirrors
+        - name: Force short connection timeouts for APT configuration
+          ansible.builtin.copy:
+            dest: /etc/apt/apt.conf.d/99timeout
+            content: |
+              Acquire::http::Timeout "10";
+              Acquire::https::Timeout "10";
+              Acquire::ftp::Timeout "10";
+              Acquire::Retries "2";
+
+        # 🟢 NEW: Separate the update step to see if the network itself is hanging
+        - name: Try to update package cache independently
+          ansible.builtin.apt:
+            update_cache: yes
+          environment:
+            DEBIAN_FRONTEND: noninteractive
+          failed_when: false # Keeps the playbook moving even if a mirror drops
+
     - name: Install baseline system prerequisites
       apt:
         name:
@@ -35,8 +53,8 @@
             software-properties-common,
           ]
         state: present
-        update_cache: yes
-        cache_valid_time: 0
+        # 🟢 CHANGE: Turned OFF cache updates here to stop the network hang
+        update_cache: no
       become: true
       register: apt_result
       until: apt_result is success

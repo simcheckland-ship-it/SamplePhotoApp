@@ -43,16 +43,21 @@ jobs:
           # 1. Ensure basic SSH configuration directory exists
           mkdir -p ~/.ssh
       
-          # 2. Configure Ansible flags globally to silence warnings and force color
+          # 2. Write the private key from GitHub Secrets and secure it
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/runner-vm
+          chmod 600 ~/.ssh/runner-vm
+      
+          # 3. Configure Ansible flags globally to silence warnings and force color
           export ANSIBLE_HOST_KEY_CHECKING=False
           export ANSIBLE_FORCE_COLOR=True
           export ANSIBLE_PYTHON_INTERPRETER=auto_silent
       
-          # 3. Force OpenSSH to ignore known_hosts entirely for this run
+          # 4. Run playbook forcing OpenSSH to ignore known_hosts entirely
           ansible-playbook -i inventory.ini site.yml \
             --private-key=~/.ssh/runner-vm \
             --ssh-common-args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes'
         shell: /usr/bin/bash -e {0}
+
 
   #call-child:
 #    # Calls another YAML file in the same repository

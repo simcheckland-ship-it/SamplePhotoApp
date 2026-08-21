@@ -7,7 +7,7 @@
     - name: Ensure clean baseline state
       become: true
       block:
-        # 1. Purge legacy, broken source definitions that crash 'apt update'
+        # 🟢 FIXED: Indented 2 spaces right to sit inside the block
         - name: Remove broken legacy Docker repositories
           ansible.builtin.file:
             path: "{{ item }}"

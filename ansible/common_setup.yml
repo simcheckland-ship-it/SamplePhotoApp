@@ -1,17 +1,15 @@
 ---
 - name: "🌐 Baseline OS Hardening"
   hosts: all
-  gather_facts: false # 🟢 CHANGED: Stop Ansible from gathering facts before checking SSH connection
+  gather_facts: false
   become: true
 
   tasks:
-    # 🟢 NEW: Ensure the VMs are fully awake and accepting SSH before doing anything else
     - name: Wait for VMs to become fully reachable via SSH
       ansible.builtin.wait_for_connection:
         timeout: 90
         delay: 5
 
-    # 🟢 NEW: Safely gather facts now that we know the connection is stable
     - name: Gather facts after connection confirmation
       ansible.builtin.setup:
 
@@ -47,21 +45,18 @@
             apt-get clean
           failed_when: false
 
-        - name: Force short connection timeouts for APT configuration
+        # 🟢 FIXED: Combined timeouts and forced IPv4-only to stop network hanging
+        - name: Force short connection timeouts and IPv4-only for APT configuration
           ansible.builtin.copy:
             dest: /etc/apt/apt.conf.d/99timeout
             content: |
+              Acquire::ForceIPv4 "true";
               Acquire::http::Timeout "10";
               Acquire::https::Timeout "10";
               Acquire::ftp::Timeout "10";
               Acquire::Retries "2";
 
-        - name: Update package cache with fixed DNS
-          ansible.builtin.apt:
-            update_cache: yes
-          environment:
-            DEBIAN_FRONTEND: noninteractive
-
+    # 🟢 FIXED: Removed the standalone update task and handle it safely inside the installation
     - name: Install baseline system prerequisites
       apt:
         name:
@@ -73,7 +68,7 @@
             software-properties-common,
           ]
         state: present
-        update_cache: yes
+        update_cache: yes  # Runs the update over IPv4 only with explicit 10s timeouts
         dpkg_options: 'force-confold,force-confdef'
       become: true
       register: apt_result

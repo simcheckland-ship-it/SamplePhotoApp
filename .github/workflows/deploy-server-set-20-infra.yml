@@ -40,14 +40,8 @@ jobs:
       - name: Run Ansible Configuration Playbook
         working-directory: ./ansible  
         run: |
-          # 1. Ensure basic SSH configuration directory exists
-          mkdir -p ~/.ssh
       
-          # 2. Write the private key from GitHub Secrets and secure it
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/runner-vm
-          chmod 600 ~/.ssh/runner-vm
-      
-          # 3. Configure Ansible flags globally to silence warnings and force color
+          # Configure Ansible flags globally to silence warnings and force color
           export ANSIBLE_HOST_KEY_CHECKING=False
           export ANSIBLE_FORCE_COLOR=True
           export ANSIBLE_PYTHON_INTERPRETER=auto_silent

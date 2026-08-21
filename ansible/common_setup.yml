@@ -1,12 +1,35 @@
 ---
 - name: "🌐 Baseline OS Hardening"
   hosts: all
+  gather_facts: false # 🟢 CHANGED: Stop Ansible from gathering facts before checking SSH connection
   become: true
 
   tasks:
+    # 🟢 NEW: Ensure the VMs are fully awake and accepting SSH before doing anything else
+    - name: Wait for VMs to become fully reachable via SSH
+      ansible.builtin.wait_for_connection:
+        timeout: 90
+        delay: 5
+
+    # 🟢 NEW: Safely gather facts now that we know the connection is stable
+    - name: Gather facts after connection confirmation
+      ansible.builtin.setup:
+
     - name: Ensure clean baseline state
       become: true
       block:
+        - name: Wait for Cloud-Init first-boot processes to finish on hypervisor
+          ansible.builtin.command: cloud-init status --wait
+          changed_when: false
+          failed_when: false
+
+        - name: Force functional upstream DNS nameservers
+          ansible.builtin.copy:
+            dest: /etc/resolv.conf
+            content: |
+              nameserver 8.8.8.8
+              nameserver 1.1.1.1
+
         - name: Remove broken legacy Docker repositories
           ansible.builtin.file:
             path: "{{ item }}"
@@ -24,7 +47,6 @@
             apt-get clean
           failed_when: false
 
-        # 🟢 NEW: Force an aggressive 10-second timeout on network mirrors
         - name: Force short connection timeouts for APT configuration
           ansible.builtin.copy:
             dest: /etc/apt/apt.conf.d/99timeout
@@ -34,13 +56,11 @@
               Acquire::ftp::Timeout "10";
               Acquire::Retries "2";
 
-        # 🟢 NEW: Separate the update step to see if the network itself is hanging
-        - name: Try to update package cache independently
+        - name: Update package cache with fixed DNS
           ansible.builtin.apt:
             update_cache: yes
           environment:
             DEBIAN_FRONTEND: noninteractive
-          failed_when: false # Keeps the playbook moving even if a mirror drops
 
     - name: Install baseline system prerequisites
       apt:
@@ -53,8 +73,8 @@
             software-properties-common,
           ]
         state: present
-        # 🟢 CHANGE: Turned OFF cache updates here to stop the network hang
-        update_cache: no
+        update_cache: yes
+        dpkg_options: 'force-confold,force-confdef'
       become: true
       register: apt_result
       until: apt_result is success
@@ -62,6 +82,8 @@
       delay: 10
       environment:
         DEBIAN_FRONTEND: noninteractive
+        DEBCONF_NONINTERACTIVE_SEEN: "true"
+        NEEDRESTART_MODE: "a"
     
     - name: Assign deployment user to the docker group
       user:

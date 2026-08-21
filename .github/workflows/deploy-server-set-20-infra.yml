@@ -25,9 +25,9 @@ jobs:
           proxmox_endpoint = "${{ secrets.PROXMOX_ENDPOINT }}"
           proxmox_token    = "${{ secrets.PROXMOX_TOKEN }}"
           server_passwords = {
-              "VM200" = "${{ secrets.VM0_PASS }}",
-              "VM201" = "${{ secrets.VM1_PASS }}",
-              "VM202" = "${{ secrets.VM2_PASS }}",
+              "VM200" = "${{ secrets.VM200_PASS }}",
+              "VM201" = "${{ secrets.VM201_PASS }}",
+              "VM202" = "${{ secrets.VM202_PASS }}",
           }
           EOF
 

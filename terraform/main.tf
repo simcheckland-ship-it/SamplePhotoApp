@@ -63,6 +63,12 @@ resource "proxmox_virtual_environment_vm" "docker_hosts" {
       }
     }
   }
+  
+  # Wipe stale host keys automatically during VM deletion/replacement
+  provisioner "local-exec" {
+    when    = destroy
+    command = "ssh-keygen -R ${split("/", self.initialization[0].ip_config[0].ipv4[0].address)[0]} 2>/dev/null || true"
+  }
 }
 
 

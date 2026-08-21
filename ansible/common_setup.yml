@@ -35,7 +35,7 @@
       retries: 5
       delay: 10
       environment:
-      DEBIAN_FRONTEND: noninteractive
+        DEBIAN_FRONTEND: noninteractive
     
     - name: Assign deployment user to the docker group
       user:

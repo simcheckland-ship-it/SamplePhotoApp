@@ -7,7 +7,7 @@ server_inventory:
     gateway: "10.10.10.1"
     ssh_keys:
       - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGIKOXhR4eQgQgUqcRkY1g6xyjQbnM7++K/5PgOluZPj developer@DESKTOP-IUTPP9P My key"
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIO/IGg0ZPYHEuR3qKmmoZwJyONPMO4upCd9/wnjCqVT root@Runner runner to vm"
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOjc5UK2U+JOYkhyeYLSOzv6roJYs0QkgDHMn6WDtoex root@Runner runner to vm"
     username: "svc"
 
   VM201:
@@ -18,5 +18,5 @@ server_inventory:
     gateway: "10.10.10.1"
     ssh_keys:
       - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGIKOXhR4eQgQgUqcRkY1g6xyjQbnM7++K/5PgOluZPj developer@DESKTOP-IUTPP9P My key"
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIO/IGg0ZPYHEuR3qKmmoZwJyONPMO4upCd9/wnjCqVT root@Runner runner to vm"
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOjc5UK2U+JOYkhyeYLSOzv6roJYs0QkgDHMn6WDtoex root@Runner runner to vm"
     username: "svc"

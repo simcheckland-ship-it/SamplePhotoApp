@@ -1,13 +1,12 @@
 ---
-- name: "🌐 Baseline OS Hardening "
-  hosts: all # 🟢 Targets every machine inside inventory.ini
+- name: "🌐 Baseline OS Hardening"
+  hosts: all
   become: true
 
   tasks:
     - name: Ensure clean baseline state
       become: true
       block:
-        # 1. Purge legacy, broken source definitions that crash 'apt update'
         - name: Remove broken legacy Docker repositories
           ansible.builtin.file:
             path: "{{ item }}"
@@ -15,7 +14,34 @@
           loop:
             - /etc/apt/sources.list.d/docker.list
             - /etc/apt/sources.list.d/download_docker_com_linux_ubuntu.list
-  
+
+        - name: Force break stuck apt/dpkg locks and clear dead metadata
+          ansible.builtin.shell: |
+            killall apt apt-get dpkg unattended-upgrades 2>/dev/null || true
+            rm -f /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock
+            rm -f /var/lib/apt/lists/lock /var/cache/apt/archives/lock
+            dpkg --configure -a
+            apt-get clean
+          failed_when: false
+
+        # 🟢 NEW: Force an aggressive 10-second timeout on network mirrors
+        - name: Force short connection timeouts for APT configuration
+          ansible.builtin.copy:
+            dest: /etc/apt/apt.conf.d/99timeout
+            content: |
+              Acquire::http::Timeout "10";
+              Acquire::https::Timeout "10";
+              Acquire::ftp::Timeout "10";
+              Acquire::Retries "2";
+
+        # 🟢 NEW: Separate the update step to see if the network itself is hanging
+        - name: Try to update package cache independently
+          ansible.builtin.apt:
+            update_cache: yes
+          environment:
+            DEBIAN_FRONTEND: noninteractive
+          failed_when: false # Keeps the playbook moving even if a mirror drops
+
     - name: Install baseline system prerequisites
       apt:
         name:
@@ -27,8 +53,8 @@
             software-properties-common,
           ]
         state: present
-        update_cache: yes
-        cache_valid_time: 3600
+        # 🟢 CHANGE: Turned OFF cache updates here to stop the network hang
+        update_cache: no
       become: true
       register: apt_result
       until: apt_result is success

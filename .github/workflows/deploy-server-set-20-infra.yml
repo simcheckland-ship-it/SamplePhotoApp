@@ -27,7 +27,7 @@ jobs:
           server_passwords = {
               "VM200" = "${{ secrets.VM0_PASS }}",
               "VM201" = "${{ secrets.VM1_PASS }}",
-              "VM201" = "${{ secrets.VM2_PASS }}",
+              "VM202" = "${{ secrets.VM2_PASS }}",
           }
           EOF
 
